@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Étienne Laurent — Independent creative technologist, product designer & developer crafting digital experiences for the world's most ambitious brands." />
-<title>Étienne Laurent — Independent Creative Technologist</title>
+<meta name="description" content="Arsen Sukiasyan — Shopify Specialist, Frontend Developer & UI/UX Designer based in Yerevan, Armenia. Crafting unique, high-converting digital experiences." />
+<title>Arsen Sukiasyan — Shopify Specialist & Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -145,7 +145,7 @@
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: 100px;
-    display: flex; align-items: center; gap: 2rem;
+    display: flex; align-items: center; gap: 1.5rem;
     transition: all 0.5s var(--ease);
   }
   .nav.scrolled { background: rgba(20, 19, 16, 0.8); }
@@ -159,7 +159,7 @@
     animation: pulse 2s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
   .nav-links a {
     font-size: 0.82rem; font-weight: 400; letter-spacing: 0.02em;
     color: var(--ink-dim); position: relative; padding: 0.25rem 0;
@@ -173,6 +173,20 @@
   }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+  
+  .lang-switcher {
+    display: flex; gap: 0.25rem; padding: 0.25rem;
+    background: rgba(244, 237, 228, 0.03); border-radius: 100px;
+    border: 1px solid var(--glass-border);
+  }
+  .lang-btn {
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+    padding: 0.35rem 0.6rem; border-radius: 100px; color: var(--ink-mute);
+    transition: all 0.3s var(--ease);
+  }
+  .lang-btn.active { background: var(--ink); color: var(--bg); }
+  .lang-btn:hover:not(.active) { color: var(--ink); }
+
   .nav-cta {
     font-size: 0.8rem; padding: 0.55rem 1.1rem;
     border: 1px solid var(--glass-border); border-radius: 100px;
@@ -182,14 +196,15 @@
   .nav-cta:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .nav-toggle { display: none; }
   @media (max-width: 900px) {
-    .nav { padding: 0.5rem 1rem; gap: 1rem; }
-    .nav-links { display: none; }
+    .nav { padding: 0.5rem 1rem; gap: 1rem; width: calc(100% - 2rem); justify-content: space-between; }
+    .nav-links, .lang-switcher { display: none; }
+    .nav.open .lang-switcher { display: flex; width: 100%; justify-content: center; margin-top: 0.5rem; }
     .nav-toggle { display: flex; width: 28px; height: 28px; flex-direction: column; justify-content: center; gap: 5px; }
     .nav-toggle span { width: 100%; height: 1px; background: var(--ink); transition: all 0.3s var(--ease); }
     .nav.open .nav-toggle span:nth-child(1) { transform: translateY(3px) rotate(45deg); }
     .nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
-    .nav.open { flex-direction: column; align-items: flex-start; border-radius: 24px; padding: 1.25rem; width: calc(100% - 2rem); }
-    .nav.open .nav-links { display: flex; flex-direction: column; width: 100%; gap: 0.75rem; }
+    .nav.open { flex-direction: column; align-items: flex-start; border-radius: 24px; padding: 1.25rem; }
+    .nav.open .nav-links { display: flex; flex-direction: column; width: 100%; gap: 0.75rem; margin-top: 1rem; }
   }
 
   /* ============================================
@@ -296,7 +311,6 @@
   }
   @keyframes scrollLine { 0% { transform: translateY(-100%); } 100% { transform: translateY(400%); } }
 
-  /* Floating 3D shape */
   .hero-shape {
     position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
     width: clamp(320px, 42vw, 640px); height: clamp(320px, 42vw, 640px);
@@ -340,7 +354,6 @@
   .marquee {
     padding: 3rem 0; border-top: 1px solid var(--glass-border);
     border-bottom: 1px solid var(--glass-border); overflow: hidden;
-    position: relative;
   }
   .marquee-track {
     display: flex; gap: 4rem; white-space: nowrap;
@@ -349,9 +362,7 @@
     font-weight: 300; letter-spacing: -0.02em;
   }
   .marquee-track span { display: inline-flex; align-items: center; gap: 4rem; color: var(--ink-dim); }
-  .marquee-track span::after {
-    content: '✦'; color: var(--gold); font-size: 0.6em;
-  }
+  .marquee-track span::after { content: '✦'; color: var(--gold); font-size: 0.6em; }
   .marquee-track em { font-style: italic; color: var(--ink); }
   @keyframes marquee { to { transform: translateX(-50%); } }
 
@@ -424,30 +435,6 @@
     text-transform: uppercase; color: var(--ink-mute);
   }
 
-  .about-cards {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
-    margin-top: 3rem;
-  }
-  .exp-card {
-    padding: 1.5rem; border-radius: 20px;
-    background: var(--glass); border: 1px solid var(--glass-border);
-    transition: all 0.5s var(--ease);
-    position: relative; overflow: hidden;
-  }
-  .exp-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(201,168,118,0.1), transparent 50%);
-    opacity: 0; transition: opacity 0.5s;
-  }
-  .exp-card:hover { transform: translateY(-4px); border-color: rgba(201,168,118,0.3); }
-  .exp-card:hover::before { opacity: 1; }
-  .exp-card-year {
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
-    color: var(--gold); margin-bottom: 0.75rem;
-  }
-  .exp-card-role { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.25rem; }
-  .exp-card-co { font-size: 0.85rem; color: var(--ink-mute); }
-
   /* ============================================
      SKILLS
      ============================================ */
@@ -471,14 +458,8 @@
     background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow, rgba(201,168,118,0.15)), transparent 60%);
     opacity: 0; transition: opacity 0.5s;
   }
-  .skill-card::after {
-    content: ''; position: absolute; inset: 0; border-radius: 24px;
-    background: linear-gradient(135deg, transparent, rgba(244,237,228,0.04));
-    opacity: 0; transition: opacity 0.5s;
-  }
   .skill-card:hover { transform: translateY(-6px); border-color: rgba(244,237,228,0.15); }
   .skill-card:hover::before { opacity: 1; }
-  .skill-card:hover::after { opacity: 1; }
   .skill-card:hover .skill-icon { transform: scale(1.1) rotate(-5deg); }
 
   .skill-icon {
@@ -492,19 +473,6 @@
   .skill-card:nth-child(2) .skill-icon svg { stroke: var(--violet); }
   .skill-card:nth-child(3) .skill-icon svg { stroke: var(--teal); }
   .skill-card:nth-child(4) .skill-icon svg { stroke: var(--rose); }
-  .skill-card:nth-child(5) .skill-icon svg { stroke: var(--gold); }
-  .skill-card:nth-child(6) .skill-icon svg { stroke: var(--violet); }
-  .skill-card:nth-child(7) .skill-icon svg { stroke: var(--teal); }
-  .skill-card:nth-child(8) .skill-icon svg { stroke: var(--rose); }
-
-  .skill-card:nth-child(1) { --glow: rgba(201,168,118,0.2); }
-  .skill-card:nth-child(2) { --glow: rgba(139,127,212,0.2); }
-  .skill-card:nth-child(3) { --glow: rgba(95,184,168,0.2); }
-  .skill-card:nth-child(4) { --glow: rgba(212,127,139,0.2); }
-  .skill-card:nth-child(5) { --glow: rgba(201,168,118,0.2); }
-  .skill-card:nth-child(6) { --glow: rgba(139,127,212,0.2); }
-  .skill-card:nth-child(7) { --glow: rgba(95,184,168,0.2); }
-  .skill-card:nth-child(8) { --glow: rgba(212,127,139,0.2); }
 
   .skill-title {
     font-family: var(--serif); font-size: 1.35rem; font-weight: 400;
@@ -529,20 +497,9 @@
   /* ============================================
      PROJECTS
      ============================================ */
-  .projects-filter {
-    display: flex; gap: 0.5rem; margin: 3rem 0 2.5rem; flex-wrap: wrap;
-  }
-  .filter-btn {
-    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.15em;
-    text-transform: uppercase; padding: 0.6rem 1.1rem;
-    border: 1px solid var(--glass-border); border-radius: 100px;
-    color: var(--ink-mute); transition: all 0.4s var(--ease);
-  }
-  .filter-btn:hover { color: var(--ink); border-color: var(--ink-mute); }
-  .filter-btn.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
   .projects-grid {
     display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem;
+    margin-top: 4rem;
   }
   .project {
     position: relative; border-radius: 28px; overflow: hidden;
@@ -550,13 +507,11 @@
     transition: all 0.6s var(--ease);
     transform-style: preserve-3d;
   }
-  .project.hidden { display: none; }
   .project.span-7 { grid-column: span 7; }
   .project.span-5 { grid-column: span 5; }
-  .project.span-6 { grid-column: span 6; }
   .project.span-12 { grid-column: span 12; }
   @media (max-width: 900px) {
-    .project.span-7, .project.span-5, .project.span-6, .project.span-12 { grid-column: span 12; }
+    .project.span-7, .project.span-5, .project.span-12 { grid-column: span 12; }
   }
 
   .project-visual {
@@ -678,7 +633,7 @@
     border: 1px solid var(--glass-border);
     position: relative; overflow: hidden;
     transition: all 0.5s var(--ease);
-    min-height: 360px; display: flex; flex-direction: column;
+    min-height: 340px; display: flex; flex-direction: column;
   }
   .service-card::before {
     content: ''; position: absolute; inset: 0;
@@ -706,9 +661,6 @@
   .service-icon svg { width: 26px; height: 26px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
   .service-card:nth-child(2) .service-icon svg { stroke: var(--violet); }
   .service-card:nth-child(3) .service-icon svg { stroke: var(--teal); }
-  .service-card:nth-child(4) .service-icon svg { stroke: var(--rose); }
-  .service-card:nth-child(5) .service-icon svg { stroke: var(--gold); }
-  .service-card:nth-child(6) .service-icon svg { stroke: var(--violet); }
 
   .service-title {
     font-family: var(--serif); font-size: 1.6rem; font-weight: 400;
@@ -734,65 +686,22 @@
   }
 
   /* ============================================
-     TESTIMONIALS
+     QUOTE SECTION
      ============================================ */
-  .testimonials-wrap {
-    margin-top: 4rem; position: relative;
+  .quote-section {
+    padding: 6rem 0; text-align: center;
+    border-top: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
   }
-  .testimonials-track {
-    display: flex; gap: 1.5rem; overflow-x: auto;
-    scroll-snap-type: x mandatory; padding: 1rem 0 2rem;
-    scrollbar-width: none;
+  .quote-text {
+    font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 300; font-style: italic; line-height: 1.4;
+    max-width: 800px; margin: 0 auto; color: var(--ink);
   }
-  .testimonials-track::-webkit-scrollbar { display: none; }
-  .testimonial {
-    flex: 0 0 min(520px, 85vw); scroll-snap-align: start;
-    padding: 2.5rem; border-radius: 28px;
-    background: linear-gradient(145deg, rgba(244,237,228,0.04), rgba(244,237,228,0.01));
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(20px);
-    position: relative; overflow: hidden;
-    transition: all 0.5s var(--ease);
+  .quote-author {
+    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.2em;
+    color: var(--gold); margin-top: 1.5rem; text-transform: uppercase;
   }
-  .testimonial::before {
-    content: '"'; position: absolute; top: -1rem; right: 1rem;
-    font-family: var(--serif); font-size: 10rem; color: rgba(201,168,118,0.08);
-    line-height: 1;
-  }
-  .testimonial:hover { transform: translateY(-4px); border-color: rgba(201,168,118,0.2); }
-  .testimonial-stars {
-    display: flex; gap: 0.25rem; margin-bottom: 1.5rem;
-  }
-  .testimonial-stars svg { width: 16px; height: 16px; fill: var(--gold); }
-  .testimonial-quote {
-    font-family: var(--serif); font-size: 1.2rem; font-weight: 300;
-    line-height: 1.55; letter-spacing: -0.01em; margin-bottom: 2rem;
-    color: var(--ink); position: relative; z-index: 1;
-  }
-  .testimonial-author {
-    display: flex; align-items: center; gap: 1rem;
-    padding-top: 1.5rem; border-top: 1px solid var(--glass-border);
-  }
-  .testimonial-avatar {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--gold), var(--violet));
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 1.1rem; color: var(--bg); font-weight: 500;
-  }
-  .testimonial-name { font-size: 0.95rem; font-weight: 500; }
-  .testimonial-role { font-size: 0.8rem; color: var(--ink-mute); margin-top: 0.15rem; }
-
-  .testimonials-nav {
-    display: flex; gap: 0.75rem; margin-top: 1rem; justify-content: flex-end;
-  }
-  .test-nav-btn {
-    width: 48px; height: 48px; border-radius: 50%;
-    border: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.4s var(--ease);
-  }
-  .test-nav-btn:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .test-nav-btn svg { width: 16px; height: 16px; }
 
   /* ============================================
      CONTACT
@@ -821,7 +730,7 @@
   .contact-direct a:hover { color: var(--gold); }
   .contact-direct-label {
     font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink-mute); min-width: 80px;
+    text-transform: uppercase; color: var(--ink-mute); min-width: 90px;
   }
 
   .contact-form {
@@ -840,7 +749,7 @@
     cursor: none;
   }
   @media (max-width: 900px) { .form-field input, .form-field textarea { cursor: text; } }
-  .form-field textarea { resize: vertical; min-height: 100px; font-family: var(--sans); }
+  .form-field textarea { resize: vertical; min-height: 100px; }
   .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--gold); }
   .form-field label {
     position: absolute; top: 1rem; left: 0;
@@ -916,10 +825,6 @@
   .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
   .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
   .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
-  .reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.33s; }
-  .reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.40s; }
-  .reveal-stagger.visible > *:nth-child(7) { transition-delay: 0.47s; }
-  .reveal-stagger.visible > *:nth-child(8) { transition-delay: 0.54s; }
 
   /* ============================================
      SPOTLIGHT
@@ -947,7 +852,7 @@
 
 <!-- LOADER -->
 <div class="loader" id="loader">
-  <div class="loader-mark"><span>É</span><span>t</span><span>ienne</span></div>
+  <div class="loader-mark"><span>A</span><span>r</span><span>sen</span></div>
   <div class="loader-bar"></div>
   <div class="loader-count" id="loaderCount">000</div>
 </div>
@@ -957,18 +862,19 @@
 
 <!-- NAVIGATION -->
 <nav class="nav" id="nav">
-  <a href="#top" class="nav-logo" data-hover>Étienne Laurent</a>
+  <a href="#top" class="nav-logo" data-hover>Arsen S.</a>
   <ul class="nav-links">
-    <li><a href="#about" data-hover>About</a></li>
-    <li><a href="#skills" data-hover>Skills</a></li>
-    <li><a href="#work" data-hover>Work</a></li>
-    <li><a href="#journey" data-hover>Journey</a></li>
-    <li><a href="#services" data-hover>Services</a></li>
+    <li><a href="#about" data-hover data-i18n="nav_about">About</a></li>
+    <li><a href="#skills" data-hover data-i18n="nav_skills">Skills</a></li>
+    <li><a href="#work" data-hover data-i18n="nav_work">Work</a></li>
+    <li><a href="#journey" data-hover data-i18n="nav_journey">Journey</a></li>
+    <li><a href="#services" data-hover data-i18n="nav_services">Services</a></li>
   </ul>
-  <a href="#contact" class="nav-cta" data-hover>Let's talk →</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">
-    <span></span><span></span>
-  </button>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="en" data-hover>EN</button>
+    <button class="lang-btn" data-lang="ru" data-hover>RU</button>
+    <button class="lang-btn" data-lang="hy" data-hover>HY</button>
+  </
 </nav>
 
 <!-- HERO -->
@@ -976,33 +882,33 @@
   <div class="wrap">
     <div class="hero-meta">
       <div class="hero-meta-left">
-        <div class="hero-location">Paris · Remote Worldwide</div>
-        <div class="hero-time" id="heroTime">Friday · 14:32 CET</div>
+        <div class="hero-location" data-i18n="hero_location">Yerevan, Armenia · GMT +4</div>
+        <div class="hero-time" id="heroTime">Friday · 14:32</div>
       </div>
-      <div class="eyebrow">Portfolio / 2026 — Edition N°07</div>
+      <div class="eyebrow" data-i18n="hero_eyebrow">Portfolio / 2026 — Edition N°01</div>
     </div>
 
     <h1 class="hero-headline" id="heroHeadline">
-      <span class="line"><span>Crafting</span></span>
-      <span class="line"><span><em>digital</em> artifacts</span></span>
-      <span class="line"><span>for the bold.</span></span>
+      <span class="line"><span data-i18n="hero_line1">Crafting</span></span>
+      <span class="line"><span><em data-i18n="hero_line2">unique</em> digital</span></span>
+      <span class="line"><span data-i18n="hero_line3">experiences.</span></span>
     </h1>
 
     <div class="hero-bottom">
-      <p class="hero-desc">
-        Independent creative technologist designing and engineering premium digital experiences — from editorial storefronts to kinetic brand platforms — for founders, studios and cultural institutions who refuse the ordinary.
+      <p class="hero-desc" data-i18n="hero_desc">
+        Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.
       </p>
       <div class="hero-cta">
         <a href="#work" class="btn btn-primary" data-hover data-magnetic>
-          View selected work
+          <span data-i18n="hero_cta1">View my work</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
         </a>
         <a href="#contact" class="btn btn-ghost" data-hover data-magnetic>
-          Start a project
+          <span data-i18n="hero_cta2">Let's talk</span>
         </a>
       </div>
       <div class="hero-scroll">
-        <span>Scroll</span>
+        <span data-i18n="hero_scroll">Scroll</span>
         <div class="hero-scroll-line"></div>
       </div>
     </div>
@@ -1023,18 +929,14 @@
 <!-- MARQUEE -->
 <div class="marquee">
   <div class="marquee-track">
-    <span>Design <em>Systems</em></span>
-    <span>Shopify <em>Plus</em></span>
-    <span>WebGL & <em>Motion</em></span>
-    <span>Brand <em>Identity</em></span>
-    <span>Performance <em>Engineering</em></span>
-    <span>Editorial <em>Interfaces</em></span>
-    <span>Design <em>Systems</em></span>
-    <span>Shopify <em>Plus</em></span>
-    <span>WebGL & <em>Motion</em></span>
-    <span>Brand <em>Identity</em></span>
-    <span>Performance <em>Engineering</em></span>
-    <span>Editorial <em>Interfaces</em></span>
+    <span>Shopify <em>Development</em></span>
+    <span>Frontend <em>Engineering</em></span>
+    <span>UI / UX <em>Design</em></span>
+    <span>E-commerce <em>Strategy</em></span>
+    <span>Shopify <em>Development</em></span>
+    <span>Frontend <em>Engineering</em></span>
+    <span>UI / UX <em>Design</em></span>
+    <span>E-commerce <em>Strategy</em></span>
   </div>
 </div>
 
@@ -1042,58 +944,39 @@
 <section id="about">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">01 — About</div>
-      <h2 class="section-title">A decade of building <em>quietly ambitious</em> things.</h2>
+      <div class="eyebrow" data-i18n="about_eyebrow">01 — About</div>
+      <h2 class="section-title" data-i18n="about_title">Driven by hard work, <em>fueled by passion</em>.</h2>
     </div>
 
     <div class="about-grid">
       <div class="about-portrait reveal">
-        <div class="about-portrait-label">Portrait · Studio</div>
-        <div class="about-portrait-figure">ÉL</div>
-        <div class="about-portrait-year">EST. 2016</div>
+        <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
+        <div class="about-portrait-figure">AS</div>
+        <div class="about-portrait-year">EST. 2022</div>
       </div>
 
       <div class="about-content reveal">
-        <h3>I'm Étienne — a designer, developer and creative director based between <em>Paris and the internet</em>.</h3>
-        <p>For the past ten years I've partnered with founders, fashion houses and cultural institutions to build digital products that feel considered, considered, considered. My work sits at the intersection of editorial design, interaction engineering and brand strategy.</p>
-        <p>I believe the best interfaces are the ones you barely notice — they just feel right. My practice is rooted in typography, motion and an obsession with the last 5% of detail that separates good from unforgettable.</p>
-        <div class="about-signature">— Étienne</div>
+        <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
+        <p data-i18n="about_p1">
+          My journey began in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.
+        </p>
+        <p data-i18n="about_p2">
+          Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.
+        </p>
+        <div class="about-signature">— Arsen Sukiasyan</div>
 
         <div class="about-stats reveal-stagger">
           <div class="stat">
-            <div class="stat-num"><span data-count="120">0</span><span class="plus">+</span></div>
-            <div class="stat-label">Projects shipped</div>
+            <div class="stat-num"><span data-count="100">0</span><span class="plus">%</span></div>
+            <div class="stat-label" data-i18n="stat_1">Dedication</div>
           </div>
           <div class="stat">
-            <div class="stat-num"><span data-count="40">0</span><span class="plus">+</span></div>
-            <div class="stat-label">Global clients</div>
+            <div class="stat-num"><span data-count="24">0</span><span class="plus">/7</span></div>
+            <div class="stat-label" data-i18n="stat_2">Support</div>
           </div>
           <div class="stat">
-            <div class="stat-num"><span data-count="10">0</span></div>
-            <div class="stat-label">Years of craft</div>
-          </div>
-        </div>
-
-        <div class="about-cards reveal-stagger">
-          <div class="exp-card" data-tilt>
-            <div class="exp-card-year">2023 — NOW</div>
-            <div class="exp-card-role">Independent Practice</div>
-            <div class="exp-card-co">Studio Laurent · Paris</div>
-          </div>
-          <div class="exp-card" data-tilt>
-            <div class="exp-card-year">2020 — 2023</div>
-            <div class="exp-card-role">Lead Product Designer</div>
-            <div class="exp-card-co">Maison Numérique</div>
-          </div>
-          <div class="exp-card" data-tilt>
-            <div class="exp-card-year">2018 — 2020</div>
-            <div class="exp-card-role">Senior Developer</div>
-            <div class="exp-card-co">Atelier Héritage</div>
-          </div>
-          <div class="exp-card" data-tilt>
-            <div class="exp-card-year">2016 — 2018</div>
-            <div class="exp-card-role">Design Engineer</div>
-            <div class="exp-card-co">Collectif Noir</div>
+            <div class="stat-num"><span data-count="1">0</span></div>
+            <div class="stat-label" data-i18n="stat_3">Unique Approach</div>
           </div>
         </div>
       </div>
@@ -1105,81 +988,45 @@
 <section id="skills">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">02 — Capabilities</div>
-      <h2 class="section-title">A toolkit shaped by <em>obsession</em>.</h2>
+      <div class="eyebrow" data-i18n="skills_eyebrow">02 — Capabilities</div>
+      <h2 class="section-title" data-i18n="skills_title">A toolkit shaped by <em>practice</em>.</h2>
     </div>
 
     <div class="skills-grid reveal-stagger">
       <div class="skill-card" data-tilt>
         <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
-        <h3 class="skill-title">Frontend</h3>
-        <p class="skill-desc">Semantic, accessible interfaces engineered for performance and delight.</p>
-        <div class="skill-tools"><span>HTML</span><span>CSS</span><span>JS</span><span>TS</span><span>React</span></div>
+        <h3 class="skill-title" data-i18n="skill_1_title">Shopify Specialist</h3>
+        <p class="skill-desc" data-i18n="skill_1_desc">End-to-end store creation, theme customization, app integration, and optimization.</p>
+        <div class="skill-tools"><span>Liquid</span><span>JSON</span><span>Apps</span><span>Functions</span></div>
       </div>
 
       <div class="skill-card" data-tilt>
         <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
         </div>
-        <h3 class="skill-title">Shopify</h3>
-        <p class="skill-desc">Bespoke storefronts on Shopify Plus — Liquid, Hydrogen, checkout ext.</p>
-        <div class="skill-tools"><span>Liquid</span><span>Hydrogen</span><span>Plus</span><span>Functions</span></div>
+        <h3 class="skill-title" data-i18n="skill_2_title">Frontend Coding</h3>
+        <p class="skill-desc" data-i18n="skill_2_desc">Clean, semantic, and responsive websites built from scratch with modern standards.</p>
+        <div class="skill-tools"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
       </div>
 
       <div class="skill-card" data-tilt>
         <div class="skill-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
         </div>
-        <h3 class="skill-title">UI / UX</h3>
-        <p class="skill-desc">Systems thinking, interaction design and editorial-grade product craft.</p>
-        <div class="skill-tools"><span>Figma</span><span>Prototyping</span><span>Systems</span></div>
-      </div>
-
-      <div class="skill-card" data-tilt>
-        <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <h3 class="skill-title">Performance</h3>
-        <p class="skill-desc">Core Web Vitals, edge rendering, and sub-second first paints, by default.</p>
-        <div class="skill-tools"><span>Lighthouse</span><span>Edge</span><span>Bundle</span></div>
-      </div>
-
-      <div class="skill-card" data-tilt>
-        <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        </div>
-        <h3 class="skill-title">SEO</h3>
-        <p class="skill-desc">Technical SEO, structured data and content architecture that compounds.</p>
-        <div class="skill-tools"><span>Schema</span><span>Core Web</span><span>IA</span></div>
-      </div>
-
-      <div class="skill-card" data-tilt>
-        <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-        </div>
-        <h3 class="skill-title">Creative Design</h3>
-        <p class="skill-desc">Art direction, typography and brand systems with editorial sensibility.</p>
-        <div class="skill-tools"><span>Direction</span><span>Type</span><span>Brand</span></div>
+        <h3 class="skill-title" data-i18n="skill_3_title">UI / UX Design</h3>
+        <p class="skill-desc" data-i18n="skill_3_desc">Creating intuitive, beautiful, and high-converting user experiences for e-commerce.</p>
+        <div class="skill-tools"><span>Figma</span><span>Prototyping</span><span>Wireframing</span></div>
       </div>
 
       <div class="skill-card" data-tilt>
         <div class="skill-icon">
           <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         </div>
-        <h3 class="skill-title">GitHub</h3>
-        <p class="skill-desc">Clean repos, thoughtful commits, CI/CD and collaborative workflows.</p>
-        <div class="skill-tools"><span>Git</span><span>Actions</span><span>Reviews</span></div>
-      </div>
-
-      <div class="skill-card" data-tilt>
-        <div class="skill-icon">
-          <svg viewBox="0 0 24 24"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5zM12 2h3.5a3.5 3.5 0 1 1 0 7H12V2zM5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/><path d="M12 16h3.5a3.5 3.5 0 1 1 0 7H12v-7z"/></svg>
-        </div>
-        <h3 class="skill-title">Figma</h3>
-        <p class="skill-desc">Component libraries, design tokens and developer-ready handoffs.</p>
-        <div class="skill-tools"><span>Variables</span><span>Auto Layout</span><span>Dev Mode</span></div>
+        <h3 class="skill-title" data-i18n="skill_4_title">GitHub & Workflow</h3>
+        <p class="skill-desc" data-i18n="skill_4_desc">Version control, clean repository management, and structured development workflows.</p>
+        <div class="skill-tools"><span>Git</span><span>GitHub</span><span>Deployment</span></div>
       </div>
     </div>
   </div>
@@ -1189,136 +1036,71 @@
 <section id="work">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">03 — Selected Work</div>
-      <h2 class="section-title">Projects I'm <em>proud</em> of.</h2>
+      <div class="eyebrow" data-i18n="work_eyebrow">03 — Selected Work</div>
+      <h2 class="section-title" data-i18n="work_title">Projects I'm <em>proud</em> of.</h2>
     </div>
 
-    <div class="projects-filter reveal">
-      <button class="filter-btn active" data-filter="all" data-hover>All</button>
-      <button class="filter-btn" data-filter="shopify" data-hover>Shopify</button>
-      <button class="filter-btn" data-filter="brand" data-hover>Brand</button>
-      <button class="filter-btn" data-filter="product" data-hover>Product</button>
-      <button class="filter-btn" data-filter="editorial" data-hover>Editorial</button>
-    </div>
-
-    <div class="projects-grid reveal-stagger" id="projectsGrid">
-      <article class="project span-7" data-cat="shopify" data-tilt>
+    <div class="projects-grid reveal-stagger">
+      <article class="project span-12" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(201,168,118,0.25), rgba(139,127,212,0.2));">
-          <div class="project-visual-inner">MAISON</div>
+          <div class="project-visual-inner">FLAGSHIP</div>
           <div class="project-visual-glass"></div>
         </div>
         <div class="project-info">
           <div class="project-meta">
             <span class="project-year">2025</span>
-            <span class="project-category">Shopify Plus</span>
+            <span class="project-category" data-i18n="proj_1_cat">End-to-End E-commerce</span>
           </div>
-          <h3 class="project-title">Maison Aurèle — Flagship Rebuild</h3>
-          <p class="project-desc">A complete re-imagination of a Parisian fashion house's digital flagship, built on Hydrogen with editorial-grade storytelling.</p>
-          <div class="project-chips"><span>Hydrogen</span><span>Liquid</span><span>GSAP</span><span>Sanity</span></div>
+          <h3 class="project-title" data-i18n="proj_1_title">Personal Shopify Flagship Store</h3>
+          <p class="project-desc" data-i18n="proj_1_desc">
+            A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.
+          </p>
+          <div class="project-chips"><span>Shopify</span><span>Liquid</span><span>UI/UX</span><span>Branding</span><span>SEO</span></div>
           <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-            <a href="#" class="project-link" data-hover>Case Study</a>
+            <a href="#" class="project-link primary" data-hover>
+              <span data-i18n="proj_link_demo">Live Demo</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
+            </a>
+            <a href="#" class="project-link" data-hover>
+              <span data-i18n="proj_link_case">Case Study</span>
+            </a>
           </div>
         </div>
       </article>
 
-      <article class="project span-5" data-cat="brand" data-tilt>
+      <article class="project span-7" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.25), rgba(201,168,118,0.2));">
-          <div class="project-visual-inner">NOIR</div>
+          <div class="project-visual-inner">THEME</div>
           <div class="project-visual-glass"></div>
         </div>
         <div class="project-info">
           <div class="project-meta">
             <span class="project-year">2025</span>
-            <span class="project-category">Brand Identity</span>
+            <span class="project-category" data-i18n="proj_2_cat">Theme Development</span>
           </div>
-          <h3 class="project-title">Collectif Noir</h3>
-          <p class="project-desc">Identity and digital platform for a contemporary art collective spanning three continents.</p>
-          <div class="project-chips"><span>Identity</span><span>WebGL</span><span>Motion</span></div>
-          <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-            <a href="#" class="project-link" data-hover>GitHub</a>
-          </div>
+          <h3 class="project-title" data-i18n="proj_2_title">Custom Theme Architecture</h3>
+          <p class="project-desc" data-i18n="proj_2_desc">
+            Building modular, reusable JSON templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.
+          </p>
+          <div class="project-chips"><span>JSON</span><span>Sections</span><span>Blocks</span></div>
         </div>
       </article>
 
-      <article class="project span-5" data-cat="editorial" data-tilt>
+      <article class="project span-5" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(139,127,212,0.25), rgba(212,127,139,0.2));">
-          <div class="project-visual-inner">REVUE</div>
+          <div class="project-visual-inner">CODE</div>
           <div class="project-visual-glass"></div>
         </div>
         <div class="project-info">
           <div class="project-meta">
             <span class="project-year">2024</span>
-            <span class="project-category">Editorial</span>
+            <span class="project-category" data-i18n="proj_3_cat">Frontend</span>
           </div>
-          <h3 class="project-title">Revue Héritage</h3>
-          <p class="project-desc">A digital magazine for a heritage watchmaker — kinetic typography, long-form, archive.</p>
-          <div class="project-chips"><span>Next.js</span><span>Typography</span><span>CMS</span></div>
-          <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-            <a href="#" class="project-link" data-hover>Case Study</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project span-7" data-cat="product" data-tilt>
-        <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(212,127,139,0.25), rgba(95,184,168,0.2));">
-          <div class="project-visual-inner">ATELIER</div>
-          <div class="project-visual-glass"></div>
-        </div>
-        <div class="project-info">
-          <div class="project-meta">
-            <span class="project-year">2024</span>
-            <span class="project-category">Product Design</span>
-          </div>
-          <h3 class="project-title">Atelier — Design System Platform</h3>
-          <p class="project-desc">An internal design system platform serving 14 product teams, with tokens, components and documentation.</p>
-          <div class="project-chips"><span>Design System</span><span>React</span><span>Tokens</span><span>Figma</span></div>
-          <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-            <a href="#" class="project-link" data-hover>GitHub</a>
-            <a href="#" class="project-link" data-hover>Case Study</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project span-6" data-cat="shopify" data-tilt>
-        <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(201,168,118,0.25), rgba(95,184,168,0.2));">
-          <div class="project-visual-inner">SOLAIRE</div>
-          <div class="project-visual-glass"></div>
-        </div>
-        <div class="project-info">
-          <div class="project-meta">
-            <span class="project-year">2024</span>
-            <span class="project-category">Shopify</span>
-          </div>
-          <h3 class="project-title">Solaire — Skincare Commerce</h3>
-          <p class="project-desc">A quiet, considered commerce experience for a clean-beauty brand. Subscriptions, bundles, quiz.</p>
-          <div class="project-chips"><span>Shopify</span><span>Liquid</span><span>Recharge</span></div>
-          <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project span-6" data-cat="brand" data-tilt>
-        <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(139,127,212,0.25), rgba(201,168,118,0.2));">
-          <div class="project-visual-inner">OBSIDIAN</div>
-          <div class="project-visual-glass"></div>
-        </div>
-        <div class="project-info">
-          <div class="project-meta">
-            <span class="project-year">2023</span>
-            <span class="project-category">Brand</span>
-          </div>
-          <h3 class="project-title">Obsidian Capital</h3>
-          <p class="project-desc">Brand and investor portal for a private equity firm — restrained, confident, editorial.</p>
-          <div class="project-chips"><span>Brand</span><span>Webflow</span><span>Motion</span></div>
-          <div class="project-links">
-            <a href="#" class="project-link primary" data-hover>Live Demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg></a>
-            <a href="#" class="project-link" data-hover>Case Study</a>
-          </div>
+          <h3 class="project-title" data-i18n="proj_3_title">Interactive Web Components</h3>
+          <p class="project-desc" data-i18n="proj_3_desc">
+            A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.
+          </p>
+          <div class="project-chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub</span></div>
         </div>
       </article>
     </div>
@@ -1329,46 +1111,28 @@
 <section id="journey">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">04 — Journey</div>
-      <h2 class="section-title">A decade in <em>milestones</em>.</h2>
+      <div class="eyebrow" data-i18n="journey_eyebrow">04 — Journey</div>
+      <h2 class="section-title" data-i18n="journey_title">A path of <em>continuous growth</em>.</h2>
     </div>
 
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-date">2026</div>
-        <h3 class="tl-title">Studio Laurent — independent practice</h3>
-        <div class="tl-sub">Paris · Full-time</div>
-        <p class="tl-desc">Launched my own studio, partnering with a small roster of ambitious clients across fashion, culture and technology. Teaching at Gobelins on the side.</p>
+        <div class="tl-date">2024 — Present</div>
+        <h3 class="tl-title" data-i18n="tl_1_title">Marketing Student</h3>
+        <div class="tl-sub" data-i18n="tl_1_sub">French University in Armenia</div>
+        <p class="tl-desc" data-i18n="tl_1_desc">Expanding my strategic understanding of consumer behavior, digital marketing, and brand positioning to complement my technical skills.</p>
       </div>
       <div class="tl-item">
         <div class="tl-date">2023</div>
-        <h3 class="tl-title">Awwwards Site of the Year — Finalist</h3>
-        <div class="tl-sub">Maison Aurèle</div>
-        <p class="tl-desc">The Maison Aurèle flagship rebuild was recognized as a finalist for Site of the Year, alongside work from studios I deeply admire.</p>
+        <h3 class="tl-title" data-i18n="tl_2_title">Shopify & Web Specialist</h3>
+        <div class="tl-sub" data-i18n="tl_2_sub">Intensive Specialized Training</div>
+        <p class="tl-desc" data-i18n="tl_2_desc">Completed rigorous, specialized courses in Shopify development, frontend coding, and UI/UX design, transitioning from marketplace seller to technical builder.</p>
       </div>
       <div class="tl-item">
-        <div class="tl-date">2020</div>
-        <h3 class="tl-title">Lead Product Designer — Maison Numérique</h3>
-        <div class="tl-sub">Paris · 3 years</div>
-        <p class="tl-desc">Led design for a suite of enterprise products. Built the design system from scratch, grew the team from 3 to 11 designers.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">2018</div>
-        <h3 class="tl-title">First international client</h3>
-        <div class="tl-sub">Tokyo · Remote</div>
-        <p class="tl-desc">Partnered with a Tokyo-based architecture studio on their digital portfolio — the project that taught me how to work across time zones and cultures.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">2016</div>
-        <h3 class="tl-title">Started freelancing out of a small studio</h3>
-        <div class="tl-sub">Paris · 11ème</div>
-        <p class="tl-desc">Left my agency role and began taking on projects I believed in. First client: a small independent bookshop that's still live today.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">2014</div>
-        <h3 class="tl-title">Graduated — École de Design Nantes Atlantique</h3>
-        <div class="tl-sub">Digital design, with honors</div>
-        <p class="tl-desc">Four years of typography, interaction and the slow realization that I wanted to build things, not just talk about them.</p>
+        <div class="tl-date">2022</div>
+        <h3 class="tl-title" data-i18n="tl_3_title">E-commerce Beginnings</h3>
+        <div class="tl-sub" data-i18n="tl_3_sub">Wildberries Marketplace</div>
+        <p class="tl-desc" data-i18n="tl_3_desc">Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores.</p>
       </div>
     </div>
   </div>
@@ -1378,23 +1142,22 @@
 <section id="services">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">05 — Services</div>
-      <h2 class="section-title">How I can <em>help</em>.</h2>
+      <div class="eyebrow" data-i18n="services_eyebrow">05 — Services</div>
+      <h2 class="section-title" data-i18n="services_title">How I can <em>help</em>.</h2>
     </div>
 
     <div class="services-grid reveal-stagger">
       <div class="service-card" data-tilt>
         <div class="service-num">/ 01</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
         </div>
-        <h3 class="service-title">Digital Product Design</h3>
-        <p class="service-desc">End-to-end product design — from discovery to shipped interface. Systems, flows, pixels.</p>
+        <h3 class="service-title" data-i18n="serv_1_title">Shopify Store Setup</h3>
+        <p class="service-desc" data-i18n="serv_1_desc">Complete store creation from scratch, including theme selection, customization, product uploads, and collection architecture.</p>
         <ul class="service-list">
-          <li>Product strategy</li>
-          <li>UX research</li>
-          <li>Interface design</li>
-          <li>Design systems</li>
+          <li data-i18n="serv_1_li1">Theme Customization</li>
+          <li data-i18n="serv_1_li2">App Integration</li>
+          <li data-i18n="serv_1_li3">Payment & Shipping Setup</li>
         </ul>
       </div>
 
@@ -1403,189 +1166,37 @@
         <div class="service-icon">
           <svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
         </div>
-        <h3 class="service-title">Frontend Engineering</h3>
-        <p class="service-desc">Pixel-perfect, accessible, performant interfaces. Built to last, not to trend.</p>
+        <h3 class="service-title" data-i18n="serv_2_title">Frontend Development</h3>
+        <p class="service-desc" data-i18n="serv_2_desc">Custom-coded websites and landing pages using pure HTML, CSS, and JavaScript for maximum performance and unique design.</p>
         <ul class="service-list">
-          <li>React / Next.js</li>
-          <li>Animation & motion</li>
-          <li>Accessibility</li>
-          <li>Performance</li>
+          <li data-i18n="serv_2_li1">Responsive Design</li>
+          <li data-i18n="serv_2_li2">Custom Animations</li>
+          <li data-i18n="serv_2_li3">GitHub Deployment</li>
         </ul>
       </div>
 
       <div class="service-card" data-tilt>
         <div class="service-num">/ 03</div>
         <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
         </div>
-        <h3 class="service-title">Shopify Plus Builds</h3>
-        <p class="service-desc">Custom storefronts on Shopify Plus — Liquid, Hydrogen, checkout ext., functions.</p>
+        <h3 class="service-title" data-i18n="serv_3_title">UI/UX & Optimization</h3>
+        <p class="service-desc" data-i18n="serv_3_desc">Improving the look, feel, and conversion rate of your existing store with professional design principles.</p>
         <ul class="service-list">
-          <li>Hydrogen / Remix</li>
-          <li>Custom themes</li>
-          <li>Checkout ext.</li>
-          <li>Integrations</li>
-        </ul>
-      </div>
-
-      <div class="service-card" data-tilt>
-        <div class="service-num">/ 04</div>
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
-        </div>
-        <h3 class="service-title">Brand & Identity</h3>
-        <p class="service-desc">Visual identity systems that feel considered — logo, type, color, voice, guidelines.</p>
-        <ul class="service-list">
-          <li>Logo & marks</li>
-          <li>Typography</li>
-          <li>Guidelines</li>
-          <li>Art direction</li>
-        </ul>
-      </div>
-
-      <div class="service-card" data-tilt>
-        <div class="service-num">/ 05</div>
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/></svg>
-        </div>
-        <h3 class="service-title">Creative Direction</h3>
-        <p class="service-desc">Strategic creative leadership for launches, campaigns and platform experiences.</p>
-        <ul class="service-list">
-          <li>Campaigns</li>
-          <li>Launches</li>
-          <li>Team mentoring</li>
-          <li>Workshops</li>
-        </ul>
-      </div>
-
-      <div class="service-card" data-tilt>
-        <div class="service-num">/ 06</div>
-        <div class="service-icon">
-          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <h3 class="service-title">Performance Audits</h3>
-        <p class="service-desc">Deep technical audits of Core Web Vitals, bundle, rendering and SEO foundations.</p>
-        <ul class="service-list">
-          <li>Core Web Vitals</li>
-          <li>Bundle analysis</li>
-          <li>Rendering strategy</li>
-          <li>Technical SEO</li>
+          <li data-i18n="serv_3_li1">Header & Footer Design</li>
+          <li data-i18n="serv_3_li2">Product Page Optimization</li>
+          <li data-i18n="serv_3_li3">Brand Identity Alignment</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section id="testimonials">
+<!-- QUOTE -->
+<section class="quote-section reveal">
   <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">06 — Kind Words</div>
-      <h2 class="section-title">From people I've <em>built with</em>.</h2>
-    </div>
-
-    <div class="testimonials-wrap reveal">
-      <div class="testimonials-track" id="testimonialsTrack">
-        <div class="testimonial">
-          <div class="testimonial-stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <p class="testimonial-quote">Étienne has the rare ability to see both the forest and the trees. Our flagship launch felt effortless because of his craft — and the numbers proved it.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">CM</div>
-            <div>
-              <div class="testimonial-name">Camille Moreau</div>
-              <div class="testimonial-role">CEO · Maison Aurèle</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <p class="testimonial-quote">Working with Étienne changed how our team thinks about design systems. He doesn't just deliver — he elevates everyone around him.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">JT</div>
-            <div>
-              <div class="testimonial-name">Julien Tanaka</div>
-              <div class="testimonial-role">Head of Product · Atelier</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <p class="testimonial-quote">The most thoughtful designer I've worked with in fifteen years. Every decision is intentional, every detail considered. A true craftsman.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">SB</div>
-            <div>
-              <div class="testimonial-name">Sofia Bellini</div>
-              <div class="testimonial-role">Creative Director · Revue Héritage</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <p class="testimonial-quote">Our conversion rate doubled within three months of launch. But more than that — the site finally feels like us. That's the real win.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">AK</div>
-            <div>
-              <div class="testimonial-name">Amélie Kovač</div>
-              <div class="testimonial-role">Founder · Solaire</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial">
-          <div class="testimonial-stars">
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
-          </div>
-          <p class="testimonial-quote">Étienne understood our brand before we could fully articulate it. The identity he delivered is quiet, confident, and unmistakably ours.</p>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">DR</div>
-            <div>
-              <div class="testimonial-name">David Renard</div>
-              <div class="testimonial-role">Managing Partner · Obsidian Capital</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonials-nav">
-        <button class="test-nav-btn" id="testPrev" data-hover aria-label="Previous">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 18l-6-6 6-6"/></svg>
-        </button>
-        <button class="test-nav-btn" id="testNext" data-hover aria-label="Next">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 18l6-6-6-6"/></svg>
-        </button>
-      </div>
-    </div>
+    <p class="quote-text" data-i18n="quote_text">"The best way to predict the future is to create it."</p>
+    <div class="quote-author">— Winston Churchill</div>
   </div>
 </section>
 
@@ -1593,27 +1204,27 @@
 <section id="contact">
   <div class="wrap">
     <div class="reveal">
-      <div class="eyebrow">07 — Contact</div>
-      <h2 class="section-title">Let's build something <em>unforgettable</em>.</h2>
+      <div class="eyebrow" data-i18n="contact_eyebrow">06 — Contact</div>
+      <h2 class="section-title" data-i18n="contact_title">Let's build something <em>unforgettable</em>.</h2>
     </div>
 
     <div class="contact-grid">
       <div class="contact-info reveal">
-        <h3>I'm currently accepting <em>two new projects</em> for Q3 2026.</h3>
-        <p>If you're building something ambitious — a flagship, a product, a brand — and you want a partner who cares about the last 5% of detail, let's talk.</p>
+        <h3 data-i18n="contact_h3">I'm currently <em>available</em> for new projects.</h3>
+        <p data-i18n="contact_desc">Whether you need a brand new Shopify store, a custom-coded website, or an upgrade to your existing setup, I'm here to help. I treat every project with a unique, unrepeatable approach.</p>
 
         <div class="contact-direct">
-          <a href="mailto:hello@etienne-laurent.studio" data-hover>
+          <a href="mailto:ars.sukiasyan@gmail.com" data-hover>
             <span class="contact-direct-label">Email</span>
-            <span>hello@etienne-laurent.studio</span>
+            <span>ars.sukiasyan@gmail.com</span>
+          </a>
+          <a href="https://wa.me/37494989184" target="_blank" data-hover>
+            <span class="contact-direct-label">WhatsApp</span>
+            <span>+374 94 989 184</span>
           </a>
           <a href="#" data-hover>
-            <span class="contact-direct-label">Calendar</span>
-            <span>Book a 30-min intro call →</span>
-          </a>
-          <a href="#" data-hover>
-            <span class="contact-direct-label">Studio</span>
-            <span>12 Rue Oberkampf, 75011 Paris</span>
+            <span class="contact-direct-label" data-i18n="contact_location">Location</span>
+            <span data-i18n="contact_city">Yerevan, Armenia (GMT +4)</span>
           </a>
         </div>
       </div>
@@ -1621,26 +1232,22 @@
       <form class="contact-form reveal" id="contactForm">
         <div class="form-field">
           <input type="text" id="name" placeholder=" " required>
-          <label for="name">Your name</label>
+          <label for="name" data-i18n="form_name">Your name</label>
         </div>
         <div class="form-field">
           <input type="email" id="email" placeholder=" " required>
-          <label for="email">Email address</label>
+          <label for="email" data-i18n="form_email">Email address</label>
         </div>
         <div class="form-field">
-          <input type="text" id="company" placeholder=" ">
-          <label for="company">Company (optional)</label>
-        </div>
-        <div class="form-field">
-          <input type="text" id="budget" placeholder=" ">
-          <label for="budget">Project budget</label>
+          <input type="text" id="subject" placeholder=" ">
+          <label for="subject" data-i18n="form_subject">Project type</label>
         </div>
         <div class="form-field">
           <textarea id="message" placeholder=" " required></textarea>
-          <label for="message">Tell me about your project</label>
+          <label for="message" data-i18n="form_message">Tell me about your project</label>
         </div>
         <button type="submit" class="form-submit" data-hover data-magnetic>
-          Send message
+          <span data-i18n="form_submit">Send message</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H8M17 7V16"/></svg>
         </button>
       </form>
@@ -1652,35 +1259,203 @@
 <footer>
   <div class="wrap">
     <div class="footer-top">
-      <h3 class="footer-cta">Have an idea?<br><em>Let's make it real.</em></h3>
+      <h3 class="footer-cta">
+        <span data-i18n="footer_cta1">Dream big.</span><br>
+        <em data-i18n="footer_cta2">Work hard. Stay humble.</em>
+      </h3>
       <div class="footer-socials">
-        <a href="#" class="social-link" data-hover aria-label="Twitter">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="#" class="social-link" data-hover aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></svg>
-        </a>
-        <a href="#" class="social-link" data-hover aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="#" class="social-link" data-hover aria-label="GitHub">
+        <a href="https://github.com" target="_blank" class="social-link" data-hover aria-label="GitHub">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
         </a>
-        <a href="#" class="social-link" data-hover aria-label="Dribbble">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm9.885 11.441c-2.575-.422-4.943-.445-7.103-.073-.244-.563-.497-1.125-.767-1.68 2.31-1 4.165-2.358 5.548-4.082a9.863 9.863 0 0 1 2.322 5.835zm-3.842-7.282c-1.205 1.554-2.868 2.783-4.986 3.68-1.016-1.861-2.178-3.676-3.488-5.438.779-.197 1.591-.314 2.431-.314 2.273 0 4.368.779 6.043 2.072zM7.757 3.293c1.313 1.742 2.468 3.54 3.475 5.38-2.616.68-5.572 1.043-8.85 1.09A9.968 9.968 0 0 1 7.757 3.294zM2.12 12.01v-.25c3.632-.03 6.908-.417 9.823-1.164.236.467.462.94.68 1.414-3.33 1.063-6.044 3.21-8.14 6.438A9.92 9.92 0 0 1 2.12 12.01zm3.33 7.74c1.946-2.99 4.42-5.01 7.41-6.04.75 1.96 1.36 3.945 1.83 5.95a9.866 9.866 0 0 1-9.24.09zm11.14-1.15c-.49-2.055-1.115-4.085-1.87-6.08 1.91-.28 4.01-.203 6.29.24a9.88 9.88 0 0 1-4.42 5.84z"/></svg>
+        <a href="https://linkedin.com" target="_blank" class="social-link" data-hover aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.063 2.063 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>© 2026 Étienne Laurent — Studio Laurent</div>
-      <div>Crafted in Paris · <a href="#top" data-hover>Back to top ↑</a></div>
-      <div>v 7.0 — Edition N°07</div>
+      <div>© 2026 Arsen Sukiasyan</div>
+      <div><a href="#top" data-hover data-i18n="footer_top">Back to top ↑</a></div>
+      <div data-i18n="footer_made">Crafted with passion in Yerevan</div>
     </div>
   </div>
 </footer>
 
 <script>
+/* ============================================
+   TRANSLATIONS
+   ============================================ */
+const translations = {
+  en: {
+    nav_about: "About", nav_skills: "Skills", nav_work: "Work", nav_journey: "Journey", nav_services: "Services",
+    hero_location: "Yerevan, Armenia · GMT +4", hero_eyebrow: "Portfolio / 2026 — Edition N°01",
+    hero_line1: "Crafting", hero_line2: "unique", hero_line3: "experiences.",
+    hero_desc: "Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.",
+    hero_cta1: "View my work", hero_cta2: "Let's talk", hero_scroll: "Scroll",
+    about_eyebrow: "01 — About", about_title: "Driven by hard work, <em>fueled by passion</em>.",
+    about_portrait_label: "Based in Yerevan",
+    about_h3: "I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.",
+    about_p1: "My journey began in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.",
+    about_p2: "Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.",
+    stat_1: "Dedication", stat_2: "Support", stat_3: "Unique Approach",
+    skills_eyebrow: "02 — Capabilities", skills_title: "A toolkit shaped by <em>practice</em>.",
+    skill_1_title: "Shopify Specialist", skill_1_desc: "End-to-end store creation, theme customization, app integration, and optimization.",
+    skill_2_title: "Frontend Coding", skill_2_desc: "Clean, semantic, and responsive websites built from scratch with modern standards.",
+    skill_3_title: "UI / UX Design", skill_3_desc: "Creating intuitive, beautiful, and high-converting user experiences for e-commerce.",
+    skill_4_title: "GitHub & Workflow", skill_4_desc: "Version control, clean repository management, and structured development workflows.",
+    work_eyebrow: "03 — Selected Work", work_title: "Projects I'm <em>proud</em> of.",
+    proj_1_cat: "End-to-End E-commerce", proj_1_title: "Personal Shopify Flagship Store",
+    proj_1_desc: "A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.",
+    proj_link_demo: "Live Demo", proj_link_case: "Case Study",
+    proj_2_cat: "Theme Development", proj_2_title: "Custom Theme Architecture",
+    proj_2_desc: "Building modular, reusable JSON templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.",
+    proj_3_cat: "Frontend", proj_3_title: "Interactive Web Components",
+    proj_3_desc: "A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.",
+    journey_eyebrow: "04 — Journey", journey_title: "A path of <em>continuous growth</em>.",
+    tl_1_title: "Marketing Student", tl_1_sub: "French University in Armenia",
+    tl_1_desc: "Expanding my strategic understanding of consumer behavior, digital marketing, and brand positioning to complement my technical skills.",
+    tl_2_title: "Shopify & Web Specialist", tl_2_sub: "Intensive Specialized Training",
+    tl_2_desc: "Completed rigorous, specialized courses in Shopify development, frontend coding, and UI/UX design, transitioning from marketplace seller to technical builder.",
+    tl_3_title: "E-commerce Beginnings", tl_3_sub: "Wildberries Marketplace",
+    tl_3_desc: "Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores.",
+    services_eyebrow: "05 — Services", services_title: "How I can <em>help</em>.",
+    serv_1_title: "Shopify Store Setup", serv_1_desc: "Complete store creation from scratch, including theme selection, customization, product uploads, and collection architecture.",
+    serv_1_li1: "Theme Customization", serv_1_li2: "App Integration", serv_1_li3: "Payment & Shipping Setup",
+    serv_2_title: "Frontend Development", serv_2_desc: "Custom-coded websites and landing pages using pure HTML, CSS, and JavaScript for maximum performance and unique design.",
+    serv_2_li1: "Responsive Design", serv_2_li2: "Custom Animations", serv_2_li3: "GitHub Deployment",
+    serv_3_title: "UI/UX & Optimization", serv_3_desc: "Improving the look, feel, and conversion rate of your existing store with professional design principles.",
+    serv_3_li1: "Header & Footer Design", serv_3_li2: "Product Page Optimization", serv_3_li3: "Brand Identity Alignment",
+    quote_text: "\"The best way to predict the future is to create it.\"",
+    contact_eyebrow: "06 — Contact", contact_title: "Let's build something <em>unforgettable</em>.",
+    contact_h3: "I'm currently <em>available</em> for new projects.",
+    contact_desc: "Whether you need a brand new Shopify store, a custom-coded website, or an upgrade to your existing setup, I'm here to help. I treat every project with a unique, unrepeatable approach.",
+    contact_location: "Location", contact_city: "Yerevan, Armenia (GMT +4)",
+    form_name: "Your name", form_email: "Email address", form_subject: "Project type", form_message: "Tell me about your project", form_submit: "Send message",
+    footer_cta1: "Dream big.", footer_cta2: "Work hard. Stay humble.",
+    footer_top: "Back to top ↑", footer_made: "Crafted with passion in Yerevan"
+  },
+  ru: {
+    nav_about: "Обо мне", nav_skills: "Навыки", nav_work: "Работы", nav_journey: "Путь", nav_services: "Услуги",
+    hero_location: "Ереван, Армения · GMT +4", hero_eyebrow: "Портфолио / 2026 — Выпуск №01",
+    hero_line1: "Создаю", hero_line2: "уникальный", hero_line3: "цифровой опыт.",
+    hero_desc: "Специалист по Shopify и Frontend-разработчик. Я подхожу к каждому проекту как к своему собственному, привнося уникальный, неповторимый стиль в веб-разработку, UI/UX и электронную коммерцию.",
+    hero_cta1: "Мои работы", hero_cta2: "Связаться", hero_scroll: "Листайте",
+    about_eyebrow: "01 — Обо мне", about_title: "Движимый упорным трудом, <em>вдохновленный страстью</em>.",
+    about_portrait_label: "Базируюсь в Ереване",
+    about_h3: "Я Арсен — <em>специалист по Shopify</em> и разработчик, который любит помогать людям создавать успешный онлайн-бизнес.",
+    about_p1: "Мой путь начался в динамичном мире электронной коммерции с продаж на российском маркетплейсе Wildberries. Этот ранний успех пробудил глубокое любопытство: я хотел понять технологии, стоящие за витринами магазинов. Я погрузился в интенсивные специализированные курсы и нашел свое истинное призвание в разработке на Shopify и фронтенд-инжиниринге.",
+    about_p2: "Сегодня я являюсь преданным специалистом по Shopify и веб-разработке, одновременно расширяя свои стратегические знания, изучая маркетинг во французском университете в Армении. Будь то сложная задача в коде или настоящая борьба на ковре, я верю в дисциплину, упорный труд и отношение к каждому проекту клиента как к своему собственному.",
+    stat_1: "Отдача", stat_2: "Поддержка", stat_3: "Уникальный подход",
+    skills_eyebrow: "02 — Возможности", skills_title: "Инструменты, отточенные <em>практикой</em>.",
+    skill_1_title: "Специалист Shopify", skill_1_desc: "Создание магазинов под ключ, кастомизация тем, интеграция приложений и оптимизация.",
+    skill_2_title: "Frontend-код", skill_2_desc: "Чистые, семантические и адаптивные сайты, созданные с нуля по современным стандартам.",
+    skill_3_title: "UI / UX Дизайн", skill_3_desc: "Создание интуитивного, красивого и высококонверсионного пользовательского опыта.",
+    skill_4_title: "GitHub и процессы", skill_4_desc: "Контроль версий, чистое управление репозиториями и структурированные рабочие процессы.",
+    work_eyebrow: "03 — Избранные работы", work_title: "Проекты, которыми я <em>горжусь</em>.",
+    proj_1_cat: "E-commerce под ключ", proj_1_title: "Личный флагманский магазин Shopify",
+    proj_1_desc: "Комплексная, готовая к работе среда, где я осваиваю все аспекты Shopify. Включает разработку логотипа, универсальные описания товаров, продвинутую архитектуру коллекций, кастомные страницы и полностью оптимизированные секции шапки и подвала.",
+    proj_link_demo: "Демо", proj_link_case: "Кейс",
+    proj_2_cat: "Разработка тем", proj_2_title: "Архитектура кастомных тем",
+    proj_2_desc: "Создание модульных, переиспользуемых JSON-шаблонов и секций с нуля, демонстрирующее глубокое понимание архитектуры Online Store 2.0.",
+    proj_3_cat: "Frontend", proj_3_title: "Интерактивные веб-компоненты",
+    proj_3_desc: "Коллекция кастомных компонентов на HTML, CSS и JavaScript, созданных для производительности, доступности и плавных микро-взаимодействий.",
+    journey_eyebrow: "04 — Путь", journey_title: "Путь <em>непрерывного роста</em>.",
+    tl_1_title: "Студент маркетинга", tl_1_sub: "Французский университет в Армении",
+    tl_1_desc: "Расширяю свое стратегическое понимание поведения потребителей, цифрового маркетинга и позиционирования бренда в дополнение к техническим навыкам.",
+    tl_2_title: "Специалист по Shopify и Вебу", tl_2_sub: "Интенсивное специализированное обучение",
+    tl_2_desc: "Прошел строгие специализированные курсы по разработке на Shopify, фронтенд-кодингу и UI/UX дизайну, совершив переход от продавца на маркетплейсе к техническому создателю.",
+    tl_3_title: "Начало в E-commerce", tl_3_sub: "Маркетплейс Wildberries",
+    tl_3_desc: "Начал свой предпринимательский путь с продаж на российском маркетплейсе Wildberries. Успех этого предприятия пробудил глубокий интерес к технологиям, обеспечивающим работу онлайн-магазинов.",
+    services_eyebrow: "05 — Услуги", services_title: "Чем я могу <em>помочь</em>.",
+    serv_1_title: "Создание магазина Shopify", serv_1_desc: "Полное создание магазина с нуля, включая выбор и настройку темы, загрузку товаров и архитектуру коллекций.",
+    serv_1_li1: "Кастомизация тем", serv_1_li2: "Интеграция приложений", serv_1_li3: "Настройка оплаты и доставки",
+    serv_2_title: "Frontend-разработка", serv_2_desc: "Сайты и лендинги с индивидуальным кодом на чистом HTML, CSS и JavaScript для максимальной производительности.",
+    serv_2_li1: "Адаптивный дизайн", serv_2_li2: "Кастомные анимации", serv_2_li3: "Деплой через GitHub",
+    serv_3_title: "UI/UX и Оптимизация", serv_3_desc: "Улучшение внешнего вида, удобства и конверсии вашего существующего магазина с помощью профессиональных принципов дизайна.",
+    serv_3_li1: "Дизайн шапки и подвала", serv_3_li2: "Оптимизация страниц товаров", serv_3_li3: "Соответствие бренду",
+    quote_text: "\"Лучший способ предсказать будущее — создать его.\"",
+    contact_eyebrow: "06 — Контакты", contact_title: "Давайте создадим что-то <em>незабываемое</em>.",
+    contact_h3: "Я <em>открыт</em> для новых проектов.",
+    contact_desc: "Нужен ли вам совершенно новый магазин Shopify, сайт с индивидуальным кодом или модернизация текущей настройки, я здесь, чтобы помочь. Я подхожу к каждому проекту с уникальным, неповторимым вниманием.",
+    contact_location: "Локация", contact_city: "Ереван, Армения (GMT +4)",
+    form_name: "Ваше имя", form_email: "Email адрес", form_subject: "Тип проекта", form_message: "Расскажите о вашем проекте", form_submit: "Отправить сообщение",
+    footer_cta1: "Мечтайте масштабно.", footer_cta2: "Работайте упорно. Оставайтесь скромными.",
+    footer_top: "Наверх ↑", footer_made: "Создано с страстью в Ереване"
+  },
+  hy: {
+    nav_about: "Իմ մասին", nav_skills: "Հմտություններ", nav_work: "Աշխատանքներ", nav_journey: "Ուղի", nav_services: "Ծառայություններ",
+    hero_location: "Երևան, Հայաստան · GMT +4", hero_eyebrow: "Պորտֆոլիո / 2026 — Համար 01",
+    hero_line1: "Ստեղծում եմ", hero_line2: "յուրահատուկ", hero_line3: "թվային փորձ:",
+    hero_desc: "Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
+    hero_cta1: "Դիտել աշխատանքներս", hero_cta2: "Կապ հաստատել", hero_scroll: "Ուղղորդեք",
+    about_eyebrow: "01 — Իմ մասին", about_title: "Շարժվում եմ ջանասիրաշատ աշխատանքով, <em>ուգևորված կրքով</em>:",
+    about_portrait_label: "Բազավորված է Երևանում",
+    about_h3: "Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
+    about_p1: "Իմ ուղին սկսվեց էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: Ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
+    about_p2: "Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
+    stat_1: "Նվիրվածություն", stat_2: "Աջակցություն", stat_3: "Յուրահատուկ մոտեցում",
+    skills_eyebrow: "02 — Հնարավորություններ", skills_title: "Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
+    skill_1_title: "Shopify Մասնագետ", skill_1_desc: "Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
+    skill_2_title: "Frontend ծածկագրում", skill_2_desc: "Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
+    skill_3_title: "UI / UX Դիզայն", skill_3_desc: "Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի փորձի ստեղծում:",
+    skill_4_title: "GitHub և աշխատանքային պրոցես", skill_4_desc: "Տարբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
+    work_eyebrow: "03 — Ընտրյալ աշխատանքներ", work_title: "Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
+    proj_1_cat: "E-commerce սկզբից մինչև վերջ", proj_1_title: "Անձնական Shopify դրոշակակիր խանութ",
+    proj_1_desc: "Համապարփակ, աշխատանքային պատրաստ միջավայր, որտեղ ես յուրացնում եմ Shopify-ի բոլոր կողմերը: Ներառում է բրենդի լոգոյի դիզայն, ունիվերսալ ապրանքների նկարագրություններ, հավաքածուների առաջադեմ ճարտարապետություն, հարմարեցված էջեր և լիովին օպտիմալացված վերնագիր/ստորագիր բաժիններ:",
+    proj_link_demo: "Կենդանի ցուցադրություն", proj_link_case: "Դեպքի ուսումնասիրություն",
+    proj_2_cat: "Թեմաների մշակում", proj_2_title: "Հարմարեցված թեմաների ճարտարապետություն",
+    proj_2_desc: "Զրոյից մոդուլային, վերաօգտագործվող JSON կաղապարների և բաժինների կառուցում՝ ցուցադրելով Shopify-ի Online Store 2.0 ճարտարապետության խորը ըմբռնում:",
+    proj_3_cat: "Frontend", proj_3_title: "Ինտերակտիվ վեբ բաղադրիչներ",
+    proj_3_desc: "HTML, CSS և JavaScript լեզուներով ստեղծված հարմարեցված բաղադրիչների հավաքածու՝ կառուցված արտադրողականության, հասանելիության և հարթ միկրո-փոխազդեցությունների համար:",
+    journey_eyebrow: "04 — Ուղի", journey_title: "<em>Անընդհատ աճի</em> ուղի:",
+    tl_1_title: "Մարքեթինգի ուսանող", tl_1_sub: "Ֆրանսիական համալսարան Հայաստանում",
+    tl_1_desc: "Ընդլայնում եմ սպառողների վարքագծի, թվային մարքեթինգի և բրենդի դիրքավորման իմ ռազմավարական ըմբռնումը՝ լրացնելու իմ տեխնիկական հմտությունները:",
+    tl_2_title: "Shopify և Վեբ մասնագետ", tl_2_sub: "Ինտենսիվ մասնագիտացված ուսուցում",
+    tl_2_desc: "Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման և UI/UX դիզայնի վերաբերյալ՝ կատարելով անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող:",
+    tl_3_title: "E-commerce-ի սկիզբ", tl_3_sub: "Wildberries մարքեթփլեյս",
+    tl_3_desc: "Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ:",
+    services_eyebrow: "05 — Ծառայություններ", services_title: "Ինչպես կարող եմ <em>օգնել</em>:",
+    serv_1_title: "Shopify խանութի կարգավորում", serv_1_desc: "Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
+    serv_1_li1: "Թեմաների հարմարեցում", serv_1_li2: "Հավելվածների ինտեգրում", serv_1_li3: "Վճարման և առաքման կարգավորում",
+    serv_2_title: "Frontend մշակում", serv_2_desc: "Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
+    serv_2_li1: "Ադապտիվ դիզայն", serv_2_li2: "Հարմարեցված անիմացիաներ", serv_2_li3: "GitHub տեղակայում",
+    serv_3_title: "UI/UX և Օպտիմալացում", serv_3_desc: "Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
+    serv_3_li1: "Վերնագրի և ստորագրի դիզայն", serv_3_li2: "Ապրանքի էջի օպտիմալացում", serv_3_li3: "Բրենդի ինքնության համապատասխանություն",
+    quote_text: "\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
+    contact_eyebrow: "06 — Կապ", contact_title: "Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
+    contact_h3: "Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
+    contact_desc: "Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
+    contact_location: "Տեղակայում", contact_city: "Երևան, Հայաստան (GMT +4)",
+    form_name: "Ձեր անունը", form_email: "Էլ. հասցե", form_subject: "Նախագծի տեսակը", form_message: "Պատմեք ձեր նախագծի մասին", form_submit: "Ուղարկել հաղորդագրություն",
+    footer_cta1: "Երազեք մեծ:", footer_cta2: "Աշխատեք ջանասիրաբար: Մնացեք համեստ:",
+    footer_top: "Դեպի վեր ↑", footer_made: "Ստեղծված է կրքով Երևանում"
+  }
+};
+
+let currentLang = 'en';
+
+function updateLanguage(lang) {
+  currentLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+        // Skip placeholders for now, handled by labels
+      } else {
+        el.innerHTML = translations[lang][key];
+      }
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang === 'hy' ? 'hy' : (lang === 'ru' ? 'ru' : 'en');
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
+});
+
 /* ============================================
    LOADER
    ============================================ */
@@ -1761,23 +1536,28 @@
   window.addEventListener('scroll', update, { passive: true });
   update();
 
-  // Mobile toggle
   const toggle = document.getElementById('navToggle');
-  toggle.addEventListener('click', () => nav.classList.toggle('open'));
-  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  if(toggle) {
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  }
 })();
 
 /* ============================================
-   LIVE TIME
+   LIVE TIME (GMT +4)
    ============================================ */
 (function(){
   const el = document.getElementById('heroTime');
-  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','Երկուշաբթի','Երեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
   const update = () => {
     const d = new Date();
-    const opts = { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Europe/Paris' };
-    const t = new Intl.DateTimeFormat('en-GB', opts).format(d);
-    el.textContent = `${days[d.getDay()]} · ${t} CET`;
+    // Force GMT+4
+    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+    const gmt4 = new Date(utc + (3600000 * 4));
+    const dayName = days[currentLang][gmt4.getDay()];
+    const h = String(gmt4.getHours()).padStart(2, '0');
+    const m = String(gmt4.getMinutes()).padStart(2, '0');
+    el.textContent = `${dayName} · ${h}:${m}`;
   };
   update();
   setInterval(update, 30000);
@@ -1847,11 +1627,10 @@
 })();
 
 /* ============================================
-   TILT / MAGNETIC / GLOW
+   TILT / MAGNETIC
    ============================================ */
 (function(){
   if (window.matchMedia('(max-width: 900px)').matches) return;
-  // Tilt
   document.querySelectorAll('[data-tilt]').forEach(el => {
     el.addEventListener('mousemove', e => {
       const r = el.getBoundingClientRect();
@@ -1861,11 +1640,8 @@
       el.style.setProperty('--my', (e.clientY - r.top) + 'px');
       el.style.transform = `perspective(1000px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) translateY(-4px)`;
     });
-    el.addEventListener('mouseleave', () => {
-      el.style.transform = '';
-    });
+    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
   });
-  // Magnetic
   document.querySelectorAll('[data-magnetic]').forEach(el => {
     el.addEventListener('mousemove', e => {
       const r = el.getBoundingClientRect();
@@ -1878,37 +1654,6 @@
 })();
 
 /* ============================================
-   PROJECT FILTER
-   ============================================ */
-(function(){
-  const btns = document.querySelectorAll('.filter-btn');
-  const items = document.querySelectorAll('.project');
-  btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      items.forEach(it => {
-        const show = f === 'all' || it.dataset.cat === f;
-        it.classList.toggle('hidden', !show);
-      });
-    });
-  });
-})();
-
-/* ============================================
-   TESTIMONIALS NAV
-   ============================================ */
-(function(){
-  const track = document.getElementById('testimonialsTrack');
-  const prev = document.getElementById('testPrev');
-  const next = document.getElementById('testNext');
-  const step = () => track.querySelector('.testimonial').offsetWidth + 24;
-  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
-  next.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
-})();
-
-/* ============================================
    FORM
    ============================================ */
 (function(){
@@ -1917,9 +1662,10 @@
     e.preventDefault();
     const btn = form.querySelector('.form-submit');
     const original = btn.innerHTML;
-    btn.innerHTML = 'Sending<span style="display:inline-block;margin-left:0.5rem;animation:pulse 1s infinite">…</span>';
+    const successMsg = currentLang === 'ru' ? '✓ Հաղորդագրությունն ուղարկված է' : (currentLang === 'hy' ? '✓ Հաղորդագրությունն ուղարկված է' : '✓ Message sent');
+    btn.innerHTML = successMsg + ' <span style="display:inline-block;margin-left:0.5rem;animation:pulse 1s infinite">…</span>';
     setTimeout(() => {
-      btn.innerHTML = '✓ Message sent — I\'ll reply within 24h';
+      btn.innerHTML = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ուղարկված է — կպատասխանեմ 24 ժամվա ընթացքում' : '✓ Sent — I\'ll reply within 24h');
       btn.style.background = 'var(--teal)';
       form.reset();
       setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; }, 3500);
@@ -1942,4 +1688,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 </script>
 </body>
 </html>
-
