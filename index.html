@@ -7,678 +7,265 @@
 <title>Arsen Sukiasyan — Shopify Specialist & Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Armenian:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  /* ============================================
-     RESET & BASE (OPTIMIZED FOR FPS)
-     ============================================ */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  :root {
-    --bg: #0a0908; --bg-2: #141310; --bg-3: #1c1a16;
-    --ink: #f4ede4; --ink-dim: #b9b0a3; --ink-mute: #6b655c;
-    --gold: #c9a876; --gold-soft: #e2c99a; --violet: #8b7fd4; --teal: #5fb8a8;
-    --glass: rgba(244, 237, 228, 0.04); --glass-border: rgba(244, 237, 228, 0.08);
-    --ease: cubic-bezier(0.22, 1, 0.36, 1); --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    --serif: 'Fraunces', 'Times New Roman', serif;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-  body {
-    background: var(--bg); color: var(--ink); font-family: var(--sans);
-    font-weight: 300; line-height: 1.6; overflow-x: hidden; cursor: none;
-  }
-  @media (max-width: 900px) { body { cursor: auto; } }
-  a { color: inherit; text-decoration: none; }
-  button { font: inherit; background: none; border: none; color: inherit; cursor: none; }
-  @media (max-width: 900px) { button { cursor: pointer; } }
-  ::selection { background: var(--gold); color: var(--bg); }
-
-  /* ============================================
-     NOISE & GLOBAL AURORA (GPU OPTIMIZED)
-     ============================================ */
-  .noise {
-    position: fixed; inset: 0; pointer-events: none; z-index: 1000;
-    opacity: 0.035; mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  }
-  .global-aurora {
-    position: fixed; inset: -20%; pointer-events: none; z-index: 0;
-    background:
-      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(139, 127, 212, 0.18), transparent 60%),
-      radial-gradient(ellipse 50% 35% at 80% 70%, rgba(95, 184, 168, 0.14), transparent 60%),
-      radial-gradient(ellipse 40% 30% at 50% 90%, rgba(201, 168, 118, 0.1), transparent 60%);
-    filter: blur(40px);
-    animation: auroraShift 24s ease-in-out infinite alternate;
-    will-change: transform;
-  }
-  @keyframes auroraShift {
-    0%   { transform: translate3d(0,0,0) scale(1); }
-    50%  { transform: translate3d(-3%, 2%, 0) scale(1.05); }
-    100% { transform: translate3d(2%, -2%, 0) scale(1.02); }
-  }
-
-  /* ============================================
-     CUSTOM CURSOR (THROTTLED & GPU ACCELERATED)
-     ============================================ */
-  .cursor-dot, .cursor-ring {
-    position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-    transform: translate(-50%, -50%); mix-blend-mode: difference;
-    will-change: transform, width, height;
-  }
-  .cursor-dot { width: 6px; height: 6px; background: var(--ink); border-radius: 50%; }
-  .cursor-ring {
-    width: 36px; height: 36px; border: 1px solid rgba(244, 237, 228, 0.5);
-    border-radius: 50%; transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s;
-  }
-  .cursor-ring.hover { width: 64px; height: 64px; border-color: var(--gold); }
-  .cursor-ring.click { transform: translate(-50%, -50%) scale(0.8); }
-  @media (max-width: 900px) { .cursor-dot, .cursor-ring { display: none; } }
-
-  /* ============================================
-     LOADER
-     ============================================ */
-  .loader {
-    position: fixed; inset: 0; z-index: 10000; background: var(--bg);
-    display: flex; align-items: center; justify-content: center; flex-direction: column;
-    transition: opacity 0.8s var(--ease), visibility 0.8s;
-  }
-  .loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-  .loader-mark {
-    font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 300; letter-spacing: -0.02em; color: var(--ink);
-    overflow: hidden; display: inline-block;
-  }
-  .loader-mark span { display: inline-block; transform: translateY(100%); animation: riseIn 0.8s var(--ease-out) forwards; }
-  .loader-mark span:nth-child(2) { animation-delay: 0.08s; }
-  .loader-mark span:nth-child(3) { animation-delay: 0.16s; }
-  .loader-bar { width: 200px; height: 1px; background: rgba(244,237,228,0.15); margin-top: 2rem; position: relative; overflow: hidden; }
-  .loader-bar::after {
-    content: ''; position: absolute; inset: 0; background: var(--gold);
-    transform-origin: left; animation: loadBar 1.6s var(--ease) forwards;
-  }
-  .loader-count { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--ink-mute); margin-top: 1rem; }
-  @keyframes riseIn { to { transform: translateY(0); } }
-  @keyframes loadBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-
-  /* ============================================
-     SCROLL PROGRESS
-     ============================================ */
-  .scroll-progress {
-    position: fixed; top: 0; left: 0; height: 2px; width: 0%;
-    background: linear-gradient(90deg, var(--gold), var(--violet), var(--teal));
-    z-index: 1001; transition: width 0.1s linear; will-change: width;
-  }
-
-  /* ============================================
-     NAVIGATION
-     ============================================ */
-  .nav {
-    position: fixed; top: 1.25rem; left: 50%; transform: translateX(-50%);
-    z-index: 999; padding: 0.65rem 1.25rem;
-    background: rgba(20, 19, 16, 0.65);
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
-    border: 1px solid var(--glass-border); border-radius: 100px;
-    display: flex; align-items: center; gap: 1.5rem;
-    transition: all 0.5s var(--ease); width: max-content; max-width: 90vw;
-    will-change: transform, background;
-  }
-  .nav.scrolled { background: rgba(20, 19, 16, 0.85); }
-  .nav-logo {
-    font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
-    letter-spacing: -0.02em; display: flex; align-items: center; gap: 0.5rem;
-  }
-  .nav-logo::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--gold); box-shadow: 0 0 12px var(--gold);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
-  
-  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.82rem; font-weight: 400; letter-spacing: 0.02em;
-    color: var(--ink-dim); position: relative; padding: 0.25rem 0;
-    transition: color 0.3s var(--ease);
-  }
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-    height: 1px; background: var(--gold);
-    transform: scaleX(0); transform-origin: right;
-    transition: transform 0.4s var(--ease);
-  }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
-  
-  .lang-switcher {
-    display: flex; gap: 0.25rem; padding: 0.25rem;
-    background: rgba(244, 237, 228, 0.03); border-radius: 100px;
-    border: 1px solid var(--glass-border);
-  }
-  .lang-btn {
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
-    padding: 0.35rem 0.6rem; border-radius: 100px; color: var(--ink-mute);
-    transition: all 0.3s var(--ease);
-  }
-  .lang-btn.active { background: var(--ink); color: var(--bg); }
-  .lang-btn:hover:not(.active) { color: var(--ink); }
-
-  .nav-cta {
-    font-size: 0.8rem; padding: 0.55rem 1.1rem;
-    border: 1px solid var(--glass-border); border-radius: 100px;
-    color: var(--ink); transition: all 0.4s var(--ease);
-    background: rgba(244, 237, 228, 0.03);
-  }
-  .nav-cta:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .nav-toggle { display: none; }
-  
-  @media (max-width: 900px) {
-    .nav { width: calc(100% - 2rem); justify-content: space-between; padding: 0.75rem 1rem; }
-    .nav-links { 
-      display: none; flex-direction: column; width: 100%; gap: 1rem; 
-      margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border);
-    }
-    .lang-switcher { display: none; }
-    .nav.open .nav-links { display: flex; }
-    .nav.open .lang-switcher { display: flex; width: 100%; justify-content: center; margin-top: 1rem; }
-    .nav-toggle { display: flex; width: 28px; height: 28px; flex-direction: column; justify-content: center; gap: 5px; }
-    .nav-toggle span { width: 100%; height: 1px; background: var(--ink); transition: all 0.3s var(--ease); }
-    .nav.open { flex-direction: column; align-items: flex-start; border-radius: 24px; }
-    .nav.open .nav-toggle span:nth-child(1) { transform: translateY(3px) rotate(45deg); }
-    .nav.open .nav-toggle span:nth-child(2) { transform: translateY(-3px) rotate(-45deg); }
-  }
-
-  /* ============================================
-     LAYOUT
-     ============================================ */
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-  @media (max-width: 600px) { .wrap { padding: 0 1.25rem; } }
-  section { position: relative; padding: 6rem 0; }
-  @media (max-width: 900px) { section { padding: 4rem 0; } }
-
-  .eyebrow {
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.25em;
-    text-transform: uppercase; color: var(--ink-mute);
-  }
-  .eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--gold); }
-
-  .section-title {
-    font-family: var(--serif); font-weight: 300;
-    font-size: clamp(2.2rem, 6vw, 4rem);
-    letter-spacing: -0.03em; line-height: 1.1; margin-top: 1.5rem;
-  }
-  .section-title em { font-style: italic; color: var(--gold); font-weight: 400; }
-
-  /* ============================================
-     HERO
-     ============================================ */
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-    padding: 8rem 0 4rem; position: relative; overflow: hidden;
-  }
-  .hero-meta {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem;
-  }
-  .hero-meta-left { display: flex; flex-direction: column; gap: 0.5rem; }
-  .hero-location { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); }
-  .hero-time {
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em;
-    color: var(--ink-mute); display: flex; align-items: center; gap: 0.5rem;
-  }
-  .hero-time::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--teal); box-shadow: 0 0 10px var(--teal);
-    animation: pulse 2s ease-in-out infinite;
-  }
-  .hero-headline {
-    font-family: var(--serif); font-weight: 300;
-    font-size: clamp(3rem, 10vw, 9rem);
-    line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 2rem;
-  }
-  .hero-headline .line { display: block; overflow: hidden; }
-  .hero-headline .line > span { display: inline-block; transform: translateY(110%); animation: riseIn 1.2s var(--ease-out) forwards; }
-  .hero-headline .line:nth-child(2) > span { animation-delay: 0.15s; }
-  .hero-headline .line:nth-child(3) > span { animation-delay: 0.3s; }
-  .hero-headline em {
-    font-style: italic; font-weight: 400;
-    background: linear-gradient(120deg, var(--gold) 0%, var(--gold-soft) 50%, var(--violet) 100%);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    background-size: 200% 100%; animation: shimmer 8s ease-in-out infinite;
-  }
-  @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-
-  .hero-bottom { display: grid; grid-template-columns: 1fr auto 1fr; gap: 3rem; align-items: end; margin-top: 3rem; }
-  .hero-desc { max-width: 420px; font-size: 1.05rem; color: var(--ink-dim); line-height: 1.65; }
-  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
-  
-  .btn {
-    position: relative; display: inline-flex; align-items: center; gap: 0.75rem;
-    padding: 1rem 1.75rem; border-radius: 100px; font-size: 0.88rem;
-    font-weight: 400; letter-spacing: 0.02em;
-    transition: all 0.4s var(--ease); overflow: hidden; will-change: transform;
-  }
-  .btn-primary { background: var(--ink); color: var(--bg); }
-  .btn-primary:hover { background: var(--gold); color: var(--bg); transform: translateY(-2px); }
-  .btn-ghost { border: 1px solid var(--glass-border); color: var(--ink); }
-  .btn-ghost:hover { border-color: var(--ink); background: rgba(244,237,228,0.05); }
-  .btn svg { width: 14px; height: 14px; transition: transform 0.4s var(--ease); }
-  .btn:hover svg { transform: translate(3px, -3px); }
-
-  .hero-scroll {
-    display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem;
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink-mute);
-  }
-  .hero-scroll-line {
-    width: 1px; height: 60px; background: linear-gradient(to bottom, var(--gold), transparent);
-    position: relative; overflow: hidden;
-  }
-  .hero-scroll-line::after {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 30%;
-    background: var(--ink); animation: scrollLine 2.4s ease-in-out infinite;
-  }
-  @keyframes scrollLine { 0% { transform: translateY(-100%); } 100% { transform: translateY(400%); } }
-
-  .hero-shape {
-    position: absolute; right: -5%; top: 50%; transform: translateY(-50%);
-    width: clamp(320px, 42vw, 640px); height: clamp(320px, 42vw, 640px);
-    pointer-events: none; perspective: 1200px;
-  }
-  .shape-core {
-    position: absolute; inset: 0; transform-style: preserve-3d;
-    animation: shapeRotate 28s linear infinite; will-change: transform;
-  }
-  @keyframes shapeRotate { from { transform: rotateX(0) rotateY(0); } to { transform: rotateX(360deg) rotateY(360deg); } }
-  .shape-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid rgba(201, 168, 118, 0.3); }
-  .shape-ring:nth-child(1) { transform: rotateX(70deg); }
-  .shape-ring:nth-child(2) { transform: rotateY(70deg); border-color: rgba(139, 127, 212, 0.3); }
-  .shape-ring:nth-child(3) { transform: rotateX(45deg) rotateZ(45deg); border-color: rgba(95, 184, 168, 0.3); }
-  .shape-ring:nth-child(4) { inset: 15%; transform: rotateX(30deg) rotateY(60deg); border-color: rgba(201, 168, 118, 0.2); }
-  .shape-ring:nth-child(5) { inset: 25%; transform: rotateY(45deg) rotateZ(30deg); border-color: rgba(139, 127, 212, 0.2); }
-  .shape-core::before {
-    content: ''; position: absolute; inset: 35%; border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, var(--gold-soft), var(--gold) 40%, transparent 70%);
-    filter: blur(20px); opacity: 0.7; animation: corePulse 4s ease-in-out infinite;
-  }
-  @keyframes corePulse { 0%,100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.15); opacity: 0.9; } }
-  .shape-glow {
-    position: absolute; inset: -20%; border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,118,0.15), transparent 60%);
-    filter: blur(40px);
-  }
-  @media (max-width: 1100px) { .hero-shape { opacity: 0.3; right: -10%; width: 400px; height: 400px; } }
-  @media (max-width: 700px) { 
-    .hero-shape { display: none; } 
-    .hero-bottom { grid-template-columns: 1fr; gap: 2rem; } 
-    .hero-scroll { display: none; } 
-  }
-
-  /* ============================================
-     MARQUEE
-     ============================================ */
-  .marquee {
-    padding: 2.5rem 0; border-top: 1px solid var(--glass-border);
-    border-bottom: 1px solid var(--glass-border); overflow: hidden;
-  }
-  .marquee-track {
-    display: flex; gap: 4rem; white-space: nowrap;
-    animation: marquee 40s linear infinite;
-    font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 3.5rem);
-    font-weight: 300; letter-spacing: -0.02em; will-change: transform;
-  }
-  .marquee-track span { display: inline-flex; align-items: center; gap: 4rem; color: var(--ink-dim); }
-  .marquee-track span::after { content: '✦'; color: var(--gold); font-size: 0.6em; }
-  .marquee-track em { font-style: italic; color: var(--ink); }
-  @keyframes marquee { to { transform: translateX(-50%); } }
-
-  /* ============================================
-     ABOUT
-     ============================================ */
-  .about-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: start; margin-top: 4rem; }
-  @media (min-width: 900px) { .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; } }
-
-  .about-portrait {
-    position: relative; aspect-ratio: 4/5; border-radius: 24px; overflow: hidden;
-    background: linear-gradient(135deg, #2a241c 0%, #141310 100%);
-    border: 1px solid var(--glass-border);
-  }
-  .about-portrait::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at 30% 20%, rgba(201,168,118,0.4), transparent 50%),
-                radial-gradient(circle at 70% 80%, rgba(139,127,212,0.3), transparent 50%);
-    filter: blur(40px);
-  }
-  .about-portrait-figure {
-    position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
-    font-family: var(--serif); font-size: clamp(8rem, 18vw, 14rem);
-    font-weight: 300; color: rgba(244,237,228,0.08); line-height: 0.8;
-    padding-bottom: 1rem; letter-spacing: -0.05em;
-  }
-  .about-portrait-label {
-    position: absolute; top: 1.5rem; left: 1.5rem;
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--ink-mute);
-  }
-  .about-portrait-year {
-    position: absolute; bottom: 1.5rem; right: 1.5rem;
-    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold);
-  }
-
-  .about-content h3 {
-    font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem);
-    font-weight: 300; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 2rem;
-  }
-  .about-content h3 em { font-style: italic; color: var(--gold); }
-  .about-content p { color: var(--ink-dim); font-size: 1rem; line-height: 1.75; margin-bottom: 1.5rem; max-width: 520px; }
-  .about-signature { font-family: var(--serif); font-style: italic; font-size: 1.5rem; color: var(--ink); margin-top: 2rem; letter-spacing: -0.02em; }
-
-  .about-stats {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-    margin-top: 3rem; padding-top: 3rem; border-top: 1px solid var(--glass-border);
-  }
-  .stat { display: flex; flex-direction: column; gap: 0.5rem; }
-  .stat-num {
-    font-family: var(--serif); font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 300; letter-spacing: -0.03em; color: var(--ink); display: flex; align-items: baseline;
-  }
-  .stat-num .plus { color: var(--gold); margin-left: 0.1em; }
-  .stat-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); }
-
-  /* ============================================
-     SKILLS
-     ============================================ */
-  .skills-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 4rem; }
-  @media (min-width: 600px) { .skills-grid { grid-template-columns: repeat(2, 1fr); } }
-
-  .skill-card {
-    padding: 2rem 1.5rem; border-radius: 24px;
-    background: linear-gradient(145deg, rgba(244,237,228,0.03), rgba(244,237,228,0.01));
-    border: 1px solid var(--glass-border); position: relative; overflow: hidden;
-    transition: all 0.5s var(--ease); transform-style: preserve-3d;
-    will-change: transform, border-color;
-  }
-  .skill-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow, rgba(201,168,118,0.15)), transparent 60%);
-    opacity: 0; transition: opacity 0.5s;
-  }
-  .skill-card:hover { transform: translateY(-6px); border-color: rgba(244,237,228,0.15); }
-  .skill-card:hover::before { opacity: 1; }
-  .skill-card:hover .skill-icon { transform: scale(1.1) rotate(-5deg); }
-
-  .skill-icon {
-    width: 48px; height: 48px; border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(244,237,228,0.04); border: 1px solid var(--glass-border);
-    margin-bottom: 1.5rem; transition: all 0.5s var(--ease);
-    position: relative; z-index: 1; will-change: transform;
-  }
-  .skill-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
-  .skill-card:nth-child(2) .skill-icon svg { stroke: var(--violet); }
-  .skill-card:nth-child(3) .skill-icon svg { stroke: var(--teal); }
-  .skill-card:nth-child(4) .skill-icon svg { stroke: var(--rose); }
-
-  .skill-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; margin-bottom: 0.5rem; letter-spacing: -0.01em; position: relative; z-index: 1; }
-  .skill-desc { font-size: 0.85rem; color: var(--ink-mute); line-height: 1.6; position: relative; z-index: 1; }
-  .skill-tools { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1.25rem; position: relative; z-index: 1; }
-  .skill-tools span {
-    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.05em;
-    padding: 0.25rem 0.6rem; border-radius: 100px;
-    background: rgba(244,237,228,0.04); border: 1px solid var(--glass-border); color: var(--ink-dim);
-  }
-
-  /* ============================================
-     PROJECTS (STACKED VERTICALLY)
-     ============================================ */
-  .projects-list { display: flex; flex-direction: column; gap: 3rem; margin-top: 4rem; }
-  .project-card {
-    position: relative; border-radius: 28px; overflow: hidden;
-    background: var(--bg-2); border: 1px solid var(--glass-border);
-    transition: all 0.6s var(--ease); transform-style: preserve-3d;
-    width: 100%; will-change: transform, border-color;
-  }
-  .project-visual {
-    aspect-ratio: 16/9; position: relative; overflow: hidden;
-    background: linear-gradient(135deg, var(--bg-3), var(--bg-2));
-  }
-  .project-visual::before {
-    content: ''; position: absolute; inset: 0;
-    background: var(--proj-bg, linear-gradient(135deg, rgba(201,168,118,0.2), rgba(139,127,212,0.2)));
-    filter: blur(40px); opacity: 0.6;
-  }
-  .project-visual-inner {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 300; color: rgba(244,237,228,0.12); letter-spacing: -0.05em;
-    transition: transform 0.6s var(--ease); will-change: transform;
-  }
-  .project-card:hover .project-visual-inner { transform: scale(1.05); }
-  .project-visual-glass {
-    position: absolute; inset: 10%; border-radius: 20px;
-    background: rgba(244,237,228,0.03); backdrop-filter: blur(20px);
-    border: 1px solid rgba(244,237,228,0.1);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.6s var(--ease); will-change: transform, border-color;
-  }
-  .project-card:hover .project-visual-glass { transform: translateY(-8px); border-color: rgba(201,168,118,0.3); }
-  .project-visual-glass::before {
-    content: ''; position: absolute; inset: 0; border-radius: 20px;
-    background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%);
-  }
-
-  .project-info { padding: 2rem; }
-  .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; }
-  .project-year { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gold); }
-  .project-category { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-mute); }
-  .project-title { font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-  .project-desc { font-size: 0.95rem; color: var(--ink-dim); line-height: 1.6; margin-bottom: 1.25rem; max-width: 700px; }
-  .project-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-  .project-chips span {
-    font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.05em;
-    padding: 0.3rem 0.7rem; border-radius: 100px;
-    background: rgba(244,237,228,0.04); border: 1px solid var(--glass-border); color: var(--ink-dim);
-  }
-  .project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-  .project-link {
-    font-size: 0.8rem; padding: 0.55rem 1rem; border-radius: 100px;
-    border: 1px solid var(--glass-border); color: var(--ink);
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    transition: all 0.4s var(--ease); will-change: transform, background;
-  }
-  .project-link:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .project-link.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .project-link.primary:hover { background: var(--gold); border-color: var(--gold); }
-  .project-link svg { width: 12px; height: 12px; }
-
-  /* ============================================
-     TIMELINE
-     ============================================ */
-  .timeline { position: relative; margin-top: 4rem; padding-left: 2rem; }
-  .timeline::before {
-    content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
-    width: 1px; background: linear-gradient(to bottom, var(--gold), var(--glass-border) 30%, var(--glass-border) 70%, transparent);
-  }
-  .tl-item {
-    position: relative; padding: 0 0 3rem 3rem;
-    opacity: 0; transform: translateX(-20px);
-    transition: all 0.8s var(--ease); will-change: transform, opacity;
-  }
-  .tl-item.visible { opacity: 1; transform: translateX(0); }
-  .tl-item::before {
-    content: ''; position: absolute; left: -1.6rem; top: 0.5rem;
-    width: 17px; height: 17px; border-radius: 50%;
-    background: var(--bg); border: 1px solid var(--gold);
-    box-shadow: 0 0 0 4px rgba(201,168,118,0.1);
-    transition: all 0.4s var(--ease);
-  }
-  .tl-item.visible::before { background: var(--gold); box-shadow: 0 0 0 6px rgba(201,168,118,0.2); }
-  .tl-date { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 0.5rem; }
-  .tl-title { font-family: var(--serif); font-size: clamp(1.3rem, 2.2vw, 1.75rem); font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.5rem; }
-  .tl-sub { font-size: 0.9rem; color: var(--ink-mute); margin-bottom: 0.75rem; font-style: italic; }
-  .tl-desc { font-size: 0.95rem; color: var(--ink-dim); line-height: 1.7; max-width: 620px; }
-
-  /* ============================================
-     SERVICES
-     ============================================ */
-  .services-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 4rem; }
-  @media (min-width: 768px) { .services-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1024px) { .services-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .service-card {
-    padding: 2.5rem 2rem; border-radius: 28px;
-    background: linear-gradient(145deg, rgba(244,237,228,0.03), rgba(244,237,228,0.01));
-    border: 1px solid var(--glass-border); position: relative; overflow: hidden;
-    transition: all 0.5s var(--ease); min-height: 340px; display: flex; flex-direction: column;
-    will-change: transform, border-color;
-  }
-  .service-card::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow, rgba(201,168,118,0.15)), transparent 60%);
-    opacity: 0; transition: opacity 0.5s;
-  }
-  .service-card:hover { transform: translateY(-6px); border-color: rgba(244,237,228,0.15); }
-  .service-card:hover::before { opacity: 1; }
-  .service-card:hover .service-num { color: var(--gold); }
-  .service-card:hover .service-icon { transform: scale(1.1) rotate(-8deg); }
-
-  .service-num {
-    font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.2em;
-    color: var(--ink-mute); margin-bottom: 2rem; transition: color 0.4s var(--ease);
-    position: relative; z-index: 1;
-  }
-  .service-icon {
-    width: 56px; height: 56px; border-radius: 16px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(244,237,228,0.04); border: 1px solid var(--glass-border);
-    margin-bottom: 2rem; transition: all 0.5s var(--ease);
-    position: relative; z-index: 1; will-change: transform;
-  }
-  .service-icon svg { width: 26px; height: 26px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
-  .service-card:nth-child(2) .service-icon svg { stroke: var(--violet); }
-  .service-card:nth-child(3) .service-icon svg { stroke: var(--teal); }
-
-  .service-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; position: relative; z-index: 1; }
-  .service-desc { font-size: 0.9rem; color: var(--ink-dim); line-height: 1.7; position: relative; z-index: 1; flex: 1; }
-  .service-list { list-style: none; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; position: relative; z-index: 1; }
-  .service-list li { font-size: 0.82rem; color: var(--ink-mute); display: flex; align-items: center; gap: 0.5rem; }
-  .service-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
-
-  /* ============================================
-     QUOTE SECTION
-     ============================================ */
-  .quote-section {
-    padding: 6rem 0; text-align: center;
-    border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
-  }
-  .quote-text {
-    font-family: var(--serif); font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 300; font-style: italic; line-height: 1.4;
-    max-width: 800px; margin: 0 auto; color: var(--ink);
-  }
-  .quote-author {
-    font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.2em;
-    color: var(--gold); margin-top: 1.5rem; text-transform: uppercase;
-  }
-
-  /* ============================================
-     CONTACT
-     ============================================ */
-  .contact-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; margin-top: 4rem; align-items: start; }
-  @media (min-width: 900px) { .contact-grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
-
-  .contact-info h3 { font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 300; line-height: 1.3; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
-  .contact-info h3 em { font-style: italic; color: var(--gold); }
-  .contact-info p { color: var(--ink-dim); line-height: 1.7; margin-bottom: 2rem; max-width: 420px; }
-  .contact-direct { display: flex; flex-direction: column; gap: 1rem; padding-top: 2rem; border-top: 1px solid var(--glass-border); }
-  .contact-direct a { display: flex; align-items: center; gap: 1rem; font-size: 0.95rem; color: var(--ink); transition: color 0.3s; }
-  .contact-direct a:hover { color: var(--gold); }
-  .contact-direct-label { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-mute); min-width: 90px; }
-
-  .contact-form {
-    padding: 2.5rem; border-radius: 28px;
-    background: linear-gradient(145deg, rgba(244,237,228,0.04), rgba(244,237,228,0.01));
-    border: 1px solid var(--glass-border); backdrop-filter: blur(20px);
-  }
-  .form-field { position: relative; margin-bottom: 1.75rem; }
-  .form-field input, .form-field textarea {
-    width: 100%; padding: 1rem 0 0.75rem; background: transparent; border: none;
-    border-bottom: 1px solid var(--glass-border); color: var(--ink);
-    font-family: var(--sans); font-size: 0.95rem; transition: border-color 0.3s; cursor: none;
-  }
-  @media (max-width: 900px) { .form-field input, .form-field textarea { cursor: text; } }
-  .form-field textarea { resize: vertical; min-height: 100px; }
-  .form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--gold); }
-  .form-field label {
-    position: absolute; top: 1rem; left: 0; font-size: 0.9rem; color: var(--ink-mute);
-    pointer-events: none; transition: all 0.3s var(--ease);
-  }
-  .form-field input:focus + label, .form-field input:not(:placeholder-shown) + label,
-  .form-field textarea:focus + label, .form-field textarea:not(:placeholder-shown) + label {
-    top: -0.5rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
-  }
-  .form-submit {
-    width: 100%; padding: 1.1rem; background: var(--ink); color: var(--bg);
-    border-radius: 100px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.05em;
-    transition: all 0.4s var(--ease); display: flex; align-items: center; justify-content: center; gap: 0.75rem;
-    margin-top: 1rem; will-change: transform, background;
-  }
-  .form-submit:hover { background: var(--gold); transform: translateY(-2px); }
-  .form-submit svg { width: 14px; height: 14px; transition: transform 0.4s var(--ease); }
-  .form-submit:hover svg { transform: translate(4px, -4px); }
-  .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
-
-  /* ============================================
-     FOOTER
-     ============================================ */
-  footer { padding: 4rem 0 2rem; border-top: 1px solid var(--glass-border); position: relative; z-index: 1; }
-  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem; }
-  .footer-cta { font-family: var(--serif); font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; letter-spacing: -0.03em; line-height: 1; max-width: 700px; }
-  .footer-cta em { font-style: italic; color: var(--gold); }
-  .footer-socials { display: flex; gap: 0.75rem; }
-  .social-link {
-    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--glass-border);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.4s var(--ease); will-change: transform, background;
-  }
-  .social-link:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); transform: translateY(-3px); }
-  .social-link svg { width: 16px; height: 16px; }
-
-  .footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 2rem; border-top: 1px solid var(--glass-border);
-    flex-wrap: wrap; gap: 1rem;
-    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.15em;
-    color: var(--ink-mute); text-transform: uppercase;
-  }
-  .footer-bottom a { transition: color 0.3s; }
-  .footer-bottom a:hover { color: var(--gold); }
-
-  /* ============================================
-     REVEAL ANIMATIONS (GPU OPTIMIZED)
-     ============================================ */
-  .reveal { opacity: 0; transform: translateY(30px); transition: all 1s var(--ease-out); will-change: transform, opacity; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: all 0.8s var(--ease-out); will-change: transform, opacity; }
-  .reveal-stagger.visible > * { opacity: 1; transform: translateY(0); }
-  .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
-  .reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.12s; }
-  .reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.19s; }
-  .reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.26s; }
-
-  /* ============================================
-     SPOTLIGHT (THROTTLED)
-     ============================================ */
-  .spotlight {
-    position: fixed; pointer-events: none; z-index: 2;
-    width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,118,0.06), transparent 60%);
-    transform: translate(-50%, -50%); transition: opacity 0.3s;
-    mix-blend-mode: screen; will-change: transform;
-  }
-  @media (max-width: 900px) { .spotlight { display: none; } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+:root{--bg:#0a0908;--bg-2:#141310;--bg-3:#1c1a16;--ink:#f4ede4;--ink-dim:#b9b0a3;--ink-mute:#6b655c;--gold:#c9a876;--gold-soft:#e2c99a;--violet:#8b7fd4;--teal:#5fb8a8;--rose:#d47f8b;--glass:rgba(244,237,228,0.04);--glass-border:rgba(244,237,228,0.08);--ease:cubic-bezier(0.22,1,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1);--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;--armenian:'Noto Sans Armenian','Inter',sans-serif}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
+html[lang="hy"] body{font-family:var(--armenian)}
+@media(max-width:900px){body{cursor:auto}}
+a{color:inherit;text-decoration:none}
+button{font:inherit;background:none;border:none;color:inherit;cursor:none}
+@media(max-width:900px){button{cursor:pointer}}
+::selection{background:var(--gold);color:var(--bg)}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.global-aurora{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(139,127,212,0.18),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 70%,rgba(95,184,168,0.14),transparent 60%),radial-gradient(ellipse 40% 30% at 50% 90%,rgba(201,168,118,0.1),transparent 60%);filter:blur(40px);animation:auroraShift 24s ease-in-out infinite alternate;will-change:transform}
+@keyframes auroraShift{0%{transform:translate3d(0,0,0)scale(1)}50%{transform:translate3d(-3%,2%,0)scale(1.05)}100%{transform:translate3d(2%,-2%,0)scale(1.02)}}
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform}
+.cursor-dot{width:6px;height:6px;background:var(--ink);border-radius:50%}
+.cursor-ring{width:36px;height:36px;border:1px solid rgba(244,237,228,0.5);border-radius:50%;transition:width 0.3s var(--ease),height 0.3s var(--ease),border-color 0.3s}
+.cursor-ring.hover{width:64px;height:64px;border-color:var(--gold)}
+.cursor-ring.click{transform:translate(-50%,-50%)scale(0.8)}
+@media(max-width:900px){.cursor-dot,.cursor-ring{display:none}}
+.loader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s var(--ease),visibility 0.8s}
+.loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-mark{font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;letter-spacing:-0.02em;color:var(--ink);overflow:hidden;display:inline-block}
+.loader-mark span{display:inline-block;transform:translateY(100%);animation:riseIn 0.8s var(--ease-out) forwards}
+.loader-mark span:nth-child(2){animation-delay:0.08s}
+.loader-mark span:nth-child(3){animation-delay:0.16s}
+.loader-bar{width:200px;height:1px;background:rgba(244,237,228,0.15);margin-top:2rem;position:relative;overflow:hidden}
+.loader-bar::after{content:'';position:absolute;inset:0;background:var(--gold);transform-origin:left;animation:loadBar 1.6s var(--ease) forwards}
+.loader-count{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--ink-mute);margin-top:1rem}
+@keyframes riseIn{to{transform:translateY(0)}}
+@keyframes loadBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.scroll-progress{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--violet),var(--teal));z-index:1001;transition:width 0.1s linear;will-change:width}
+.nav{position:fixed;top:1.25rem;left:50%;transform:translateX(-50%);z-index:999;padding:0.65rem 1.25rem;background:rgba(20,19,16,0.65);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid var(--glass-border);border-radius:100px;display:flex;align-items:center;gap:1.5rem;transition:all 0.5s var(--ease);width:max-content;max-width:90vw;will-change:transform,background}
+.nav.scrolled{background:rgba(20,19,16,0.85)}
+.nav-logo{font-family:var(--serif);font-size:1.1rem;font-weight:400;letter-spacing:-0.02em;display:flex;align-items:center;gap:0.5rem}
+.nav-logo::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-size:0.82rem;font-weight:400;letter-spacing:0.02em;color:var(--ink-dim);position:relative;padding:0.25rem 0;transition:color 0.3s var(--ease)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform 0.4s var(--ease)}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.lang-switcher{display:flex;gap:0.25rem;padding:0.25rem;background:rgba(244,237,228,0.03);border-radius:100px;border:1px solid var(--glass-border)}
+.lang-btn{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.1em;padding:0.35rem 0.6rem;border-radius:100px;color:var(--ink-mute);transition:all 0.3s var(--ease)}
+.lang-btn.active{background:var(--ink);color:var(--bg)}
+.lang-btn:hover:not(.active){color:var(--ink)}
+.nav-cta{font-size:0.8rem;padding:0.55rem 1.1rem;border:1px solid var(--glass-border);border-radius:100px;color:var(--ink);transition:all 0.4s var(--ease);background:rgba(244,237,228,0.03)}
+.nav-cta:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.nav-toggle{display:none}
+@media(max-width:900px){.nav{width:calc(100% - 2rem);justify-content:space-between;padding:0.75rem 1rem}.nav-links{display:none;flex-direction:column;width:100%;gap:1rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--glass-border)}.lang-switcher{display:none}.nav.open .nav-links{display:flex}.nav.open .lang-switcher{display:flex;width:100%;justify-content:center;margin-top:1rem}.nav-toggle{display:flex;width:28px;height:28px;flex-direction:column;justify-content:center;gap:5px}.nav-toggle span{width:100%;height:1px;background:var(--ink);transition:all 0.3s var(--ease)}.nav.open{flex-direction:column;align-items:flex-start;border-radius:24px}.nav.open .nav-toggle span:nth-child(1){transform:translateY(3px)rotate(45deg)}.nav.open .nav-toggle span:nth-child(2){transform:translateY(-3px)rotate(-45deg)}}
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem;position:relative;z-index:1}
+@media(max-width:600px){.wrap{padding:0 1.25rem}}
+section{position:relative;padding:6rem 0}
+@media(max-width:900px){section{padding:4rem 0}}
+.eyebrow{display:inline-flex;align-items:center;gap:0.75rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ink-mute)}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold)}
+.section-title{font-family:var(--serif);font-weight:300;font-size:clamp(2.2rem,6vw,4rem);letter-spacing:-0.03em;line-height:1.1;margin-top:1.5rem}
+html[lang="hy"] .section-title{font-family:var(--armenian);font-weight:400}
+.section-title em{font-style:italic;color:var(--gold);font-weight:400}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:8rem 0 4rem;position:relative;overflow:hidden}
+.hero-meta{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.hero-meta-left{display:flex;flex-direction:column;gap:0.5rem}
+.hero-location{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
+.hero-time{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.15em;color:var(--ink-mute);display:flex;align-items:center;gap:0.5rem}
+.hero-time::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);animation:pulse 2s ease-in-out infinite}
+.hero-headline{font-family:var(--serif);font-weight:300;font-size:clamp(3rem,10vw,9rem);line-height:0.95;letter-spacing:-0.04em;margin-bottom:2rem}
+html[lang="hy"] .hero-headline{font-family:var(--armenian);font-weight:400;font-size:clamp(2.5rem,8vw,7rem)}
+.hero-headline .line{display:block;overflow:hidden}
+.hero-headline .line>span{display:inline-block;transform:translateY(110%);animation:riseIn 1.2s var(--ease-out) forwards}
+.hero-headline .line:nth-child(2)>span{animation-delay:0.15s}
+.hero-headline .line:nth-child(3)>span{animation-delay:0.3s}
+.hero-headline em{font-style:italic;font-weight:400;background:linear-gradient(120deg,var(--gold)0%,var(--gold-soft)50%,var(--violet)100%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shimmer 8s ease-in-out infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-bottom{display:grid;grid-template-columns:1fr auto 1fr;gap:3rem;align-items:end;margin-top:3rem}
+.hero-desc{max-width:420px;font-size:1.05rem;color:var(--ink-dim);line-height:1.65}
+html[lang="hy"] .hero-desc{font-family:var(--armenian)}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{position:relative;display:inline-flex;align-items:center;gap:0.75rem;padding:1rem 1.75rem;border-radius:100px;font-size:0.88rem;font-weight:400;letter-spacing:0.02em;transition:all 0.4s var(--ease);overflow:hidden;will-change:transform}
+.btn-primary{background:var(--ink);color:var(--bg)}
+.btn-primary:hover{background:var(--gold);color:var(--bg);transform:translateY(-2px)}
+.btn-ghost{border:1px solid var(--glass-border);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:rgba(244,237,228,0.05)}
+.btn svg{width:14px;height:14px;transition:transform 0.4s var(--ease)}
+.btn:hover svg{transform:translate(3px,-3px)}
+.hero-scroll{display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
+.hero-scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);position:relative;overflow:hidden}
+.hero-scroll-line::after{content:'';position:absolute;top:0;left:0;right:0;height:30%;background:var(--ink);animation:scrollLine 2.4s ease-in-out infinite}
+@keyframes scrollLine{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
+.hero-shape{position:absolute;right:-5%;top:50%;transform:translateY(-50%);width:clamp(320px,42vw,640px);height:clamp(320px,42vw,640px);pointer-events:none;perspective:1200px}
+.shape-core{position:absolute;inset:0;transform-style:preserve-3d;animation:shapeRotate 28s linear infinite;will-change:transform}
+@keyframes shapeRotate{from{transform:rotateX(0)rotateY(0)}to{transform:rotateX(360deg)rotateY(360deg)}}
+.shape-ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(201,168,118,0.3)}
+.shape-ring:nth-child(1){transform:rotateX(70deg)}
+.shape-ring:nth-child(2){transform:rotateY(70deg);border-color:rgba(139,127,212,0.3)}
+.shape-ring:nth-child(3){transform:rotateX(45deg)rotateZ(45deg);border-color:rgba(95,184,168,0.3)}
+.shape-ring:nth-child(4){inset:15%;transform:rotateX(30deg)rotateY(60deg);border-color:rgba(201,168,118,0.2)}
+.shape-ring:nth-child(5){inset:25%;transform:rotateY(45deg)rotateZ(30deg);border-color:rgba(139,127,212,0.2)}
+.shape-core::before{content:'';position:absolute;inset:35%;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--gold-soft),var(--gold)40%,transparent 70%);filter:blur(20px);opacity:0.7;animation:corePulse 4s ease-in-out infinite}
+@keyframes corePulse{0%,100%{transform:scale(1);opacity:0.7}50%{transform:scale(1.15);opacity:0.9}}
+.shape-glow{position:absolute;inset:-20%;border-radius:50%;background:radial-gradient(circle,rgba(201,168,118,0.15),transparent 60%);filter:blur(40px)}
+@media(max-width:1100px){.hero-shape{opacity:0.3;right:-10%;width:400px;height:400px}}
+@media(max-width:700px){.hero-shape{display:none}.hero-bottom{grid-template-columns:1fr;gap:2rem}.hero-scroll{display:none}}
+.marquee{padding:2.5rem 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);overflow:hidden}
+.marquee-track{display:flex;gap:4rem;white-space:nowrap;animation:marquee 40s linear infinite;font-family:var(--serif);font-size:clamp(1.8rem,4vw,3.5rem);font-weight:300;letter-spacing:-0.02em;will-change:transform}
+.marquee-track span{display:inline-flex;align-items:center;gap:4rem;color:var(--ink-dim)}
+.marquee-track span::after{content:'✦';color:var(--gold);font-size:0.6em}
+.marquee-track em{font-style:italic;color:var(--ink)}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.about-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:start;margin-top:4rem}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:5rem}}
+.about-portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#2a241c 0%,#141310 100%);border:1px solid var(--glass-border)}
+.about-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,168,118,0.4),transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,127,212,0.3),transparent 50%);filter:blur(40px)}
+.about-portrait-figure{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;font-family:var(--serif);font-size:clamp(8rem,18vw,14rem);font-weight:300;color:rgba(244,237,228,0.08);line-height:0.8;padding-bottom:1rem;letter-spacing:-0.05em}
+.about-portrait-label{position:absolute;top:1.5rem;left:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
+.about-portrait-year{position:absolute;bottom:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--gold)}
+.about-content h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;line-height:1.3;letter-spacing:-0.02em;margin-bottom:2rem}
+html[lang="hy"] .about-content h3{font-family:var(--armenian);font-weight:400}
+.about-content h3 em{font-style:italic;color:var(--gold)}
+.about-content p{color:var(--ink-dim);font-size:1rem;line-height:1.75;margin-bottom:1.5rem;max-width:520px}
+html[lang="hy"] .about-content p{font-family:var(--armenian)}
+.about-signature{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink);margin-top:2rem;letter-spacing:-0.02em}
+.about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:3rem;border-top:1px solid var(--glass-border)}
+.stat{display:flex;flex-direction:column;gap:0.5rem}
+.stat-num{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:300;letter-spacing:-0.03em;color:var(--ink);display:flex;align-items:baseline}
+.stat-num .plus{color:var(--gold);margin-left:0.1em}
+.stat-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
+html[lang="hy"] .stat-label{font-family:var(--armenian)}
+.skills-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:4rem}
+@media(min-width:600px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
+.skill-card{padding:2rem 1.5rem;border-radius:24px;background:linear-gradient(145deg,rgba(244,237,228,0.03),rgba(244,237,228,0.01));border:1px solid var(--glass-border);position:relative;overflow:hidden;transition:all 0.5s var(--ease);transform-style:preserve-3d;will-change:transform,border-color}
+.skill-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%)var(--my,50%),var(--glow,rgba(201,168,118,0.15)),transparent 60%);opacity:0;transition:opacity 0.5s}
+.skill-card:hover{transform:translateY(-6px);border-color:rgba(244,237,228,0.15)}
+.skill-card:hover::before{opacity:1}
+.skill-card:hover .skill-icon{transform:scale(1.1)rotate(-5deg)}
+.skill-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(244,237,228,0.04);border:1px solid var(--glass-border);margin-bottom:1.5rem;transition:all 0.5s var(--ease);position:relative;z-index:1;will-change:transform}
+.skill-icon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.skill-card:nth-child(2) .skill-icon svg{stroke:var(--violet)}
+.skill-card:nth-child(3) .skill-icon svg{stroke:var(--teal)}
+.skill-card:nth-child(4) .skill-icon svg{stroke:var(--rose)}
+.skill-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;margin-bottom:0.5rem;letter-spacing:-0.01em;position:relative;z-index:1}
+html[lang="hy"] .skill-title{font-family:var(--armenian);font-weight:500}
+.skill-desc{font-size:0.85rem;color:var(--ink-mute);line-height:1.6;position:relative;z-index:1}
+html[lang="hy"] .skill-desc{font-family:var(--armenian)}
+.skill-tools{display:flex;flex-wrap:wrap;gap:0.35rem;margin-top:1.25rem;position:relative;z-index:1}
+.skill-tools span{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.05em;padding:0.25rem 0.6rem;border-radius:100px;background:rgba(244,237,228,0.04);border:1px solid var(--glass-border);color:var(--ink-dim)}
+.projects-list{display:flex;flex-direction:column;gap:3rem;margin-top:4rem}
+.project-card{position:relative;border-radius:28px;overflow:hidden;background:var(--bg-2);border:1px solid var(--glass-border);transition:all 0.6s var(--ease);transform-style:preserve-3d;width:100%;will-change:transform,border-color}
+.project-visual{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--bg-3),var(--bg-2))}
+.project-visual::before{content:'';position:absolute;inset:0;background:var(--proj-bg,linear-gradient(135deg,rgba(201,168,118,0.2),rgba(139,127,212,0.2)));filter:blur(40px);opacity:0.6}
+.project-visual-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:clamp(3rem,8vw,7rem);font-weight:300;color:rgba(244,237,228,0.12);letter-spacing:-0.05em;transition:transform 0.6s var(--ease);will-change:transform}
+.project-card:hover .project-visual-inner{transform:scale(1.05)}
+.project-visual-glass{position:absolute;inset:10%;border-radius:20px;background:rgba(244,237,228,0.03);backdrop-filter:blur(20px);border:1px solid rgba(244,237,228,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.6s var(--ease);will-change:transform,border-color}
+.project-card:hover .project-visual-glass{transform:translateY(-8px);border-color:rgba(201,168,118,0.3)}
+.project-visual-glass::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,0.08)50%,transparent 60%)}
+.project-info{padding:2rem}
+.project-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem}
+.project-year{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--gold)}
+.project-category{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-mute)}
+html[lang="hy"] .project-category{font-family:var(--armenian)}
+.project-title{font-family:var(--serif);font-size:clamp(1.5rem,2.5vw,2rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:0.75rem}
+html[lang="hy"] .project-title{font-family:var(--armenian);font-weight:500}
+.project-desc{font-size:0.95rem;color:var(--ink-dim);line-height:1.6;margin-bottom:1.25rem;max-width:700px}
+html[lang="hy"] .project-desc{font-family:var(--armenian)}
+.project-chips{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.5rem}
+.project-chips span{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.05em;padding:0.3rem 0.7rem;border-radius:100px;background:rgba(244,237,228,0.04);border:1px solid var(--glass-border);color:var(--ink-dim)}
+.project-links{display:flex;gap:0.75rem;flex-wrap:wrap}
+.project-link{font-size:0.8rem;padding:0.55rem 1rem;border-radius:100px;border:1px solid var(--glass-border);color:var(--ink);display:inline-flex;align-items:center;gap:0.5rem;transition:all 0.4s var(--ease);will-change:transform,background}
+.project-link:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.project-link.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.project-link.primary:hover{background:var(--gold);border-color:var(--gold)}
+.project-link svg{width:12px;height:12px}
+.timeline{position:relative;margin-top:4rem;padding-left:2rem}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--gold),var(--glass-border)30%,var(--glass-border)70%,transparent)}
+.tl-item{position:relative;padding:0 0 3rem 3rem;opacity:0;transform:translateX(-20px);transition:all 0.8s var(--ease);will-change:transform,opacity}
+.tl-item.visible{opacity:1;transform:translateX(0)}
+.tl-item::before{content:'';position:absolute;left:-1.6rem;top:0.5rem;width:17px;height:17px;border-radius:50%;background:var(--bg);border:1px solid var(--gold);box-shadow:0 0 0 4px rgba(201,168,118,0.1);transition:all 0.4s var(--ease)}
+.tl-item.visible::before{background:var(--gold);box-shadow:0 0 0 6px rgba(201,168,118,0.2)}
+.tl-date{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.5rem}
+.tl-title{font-family:var(--serif);font-size:clamp(1.3rem,2.2vw,1.75rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:0.5rem}
+html[lang="hy"] .tl-title{font-family:var(--armenian);font-weight:500}
+.tl-sub{font-size:0.9rem;color:var(--ink-mute);margin-bottom:0.75rem;font-style:italic}
+html[lang="hy"] .tl-sub{font-family:var(--armenian)}
+.tl-desc{font-size:0.95rem;color:var(--ink-dim);line-height:1.7;max-width:620px}
+html[lang="hy"] .tl-desc{font-family:var(--armenian)}
+.services-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:4rem}
+@media(min-width:768px){.services-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.services-grid{grid-template-columns:repeat(3,1fr)}}
+.service-card{padding:2.5rem 2rem;border-radius:28px;background:linear-gradient(145deg,rgba(244,237,228,0.03),rgba(244,237,228,0.01));border:1px solid var(--glass-border);position:relative;overflow:hidden;transition:all 0.5s var(--ease);min-height:340px;display:flex;flex-direction:column;will-change:transform,border-color}
+.service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%)var(--my,50%),var(--glow,rgba(201,168,118,0.15)),transparent 60%);opacity:0;transition:opacity 0.5s}
+.service-card:hover{transform:translateY(-6px);border-color:rgba(244,237,228,0.15)}
+.service-card:hover::before{opacity:1}
+.service-card:hover .service-num{color:var(--gold)}
+.service-card:hover .service-icon{transform:scale(1.1)rotate(-8deg)}
+.service-num{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--ink-mute);margin-bottom:2rem;transition:color 0.4s var(--ease);position:relative;z-index:1}
+.service-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:rgba(244,237,228,0.04);border:1px solid var(--glass-border);margin-bottom:2rem;transition:all 0.5s var(--ease);position:relative;z-index:1;will-change:transform}
+.service-icon svg{width:26px;height:26px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.service-card:nth-child(2) .service-icon svg{stroke:var(--violet)}
+.service-card:nth-child(3) .service-icon svg{stroke:var(--teal)}
+.service-title{font-family:var(--serif);font-size:1.6rem;font-weight:400;letter-spacing:-0.02em;margin-bottom:0.75rem;position:relative;z-index:1}
+html[lang="hy"] .service-title{font-family:var(--armenian);font-weight:500}
+.service-desc{font-size:0.9rem;color:var(--ink-dim);line-height:1.7;position:relative;z-index:1;flex:1}
+html[lang="hy"] .service-desc{font-family:var(--armenian)}
+.service-list{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:0.5rem;position:relative;z-index:1}
+.service-list li{font-size:0.82rem;color:var(--ink-mute);display:flex;align-items:center;gap:0.5rem}
+html[lang="hy"] .service-list li{font-family:var(--armenian)}
+.service-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.quote-section{padding:6rem 0;text-align:center;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+.quote-text{font-family:var(--serif);font-size:clamp(1.5rem,4vw,2.5rem);font-weight:300;font-style:italic;line-height:1.4;max-width:800px;margin:0 auto;color:var(--ink)}
+html[lang="hy"] .quote-text{font-family:var(--armenian);font-weight:400}
+.quote-author{font-family:var(--mono);font-size:0.8rem;letter-spacing:0.2em;color:var(--gold);margin-top:1.5rem;text-transform:uppercase}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:3rem;margin-top:4rem;align-items:start}
+@media(min-width:900px){.contact-grid{grid-template-columns:1fr 1fr;gap:4rem}}
+.contact-info h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;line-height:1.3;letter-spacing:-0.02em;margin-bottom:1.5rem}
+html[lang="hy"] .contact-info h3{font-family:var(--armenian);font-weight:400}
+.contact-info h3 em{font-style:italic;color:var(--gold)}
+.contact-info p{color:var(--ink-dim);line-height:1.7;margin-bottom:2rem;max-width:420px}
+html[lang="hy"] .contact-info p{font-family:var(--armenian)}
+.contact-direct{display:flex;flex-direction:column;gap:1rem;padding-top:2rem;border-top:1px solid var(--glass-border)}
+.contact-direct a{display:flex;align-items:center;gap:1rem;font-size:0.95rem;color:var(--ink);transition:color 0.3s}
+.contact-direct a:hover{color:var(--gold)}
+.contact-direct-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute);min-width:90px}
+html[lang="hy"] .contact-direct-label{font-family:var(--armenian)}
+.contact-form{padding:2.5rem;border-radius:28px;background:linear-gradient(145deg,rgba(244,237,228,0.04),rgba(244,237,228,0.01));border:1px solid var(--glass-border);backdrop-filter:blur(20px)}
+.form-field{position:relative;margin-bottom:1.75rem}
+.form-field input,.form-field textarea{width:100%;padding:1rem 0 0.75rem;background:transparent;border:none;border-bottom:1px solid var(--glass-border);color:var(--ink);font-family:var(--sans);font-size:0.95rem;transition:border-color 0.3s;cursor:none}
+html[lang="hy"] .form-field input,html[lang="hy"] .form-field textarea{font-family:var(--armenian)}
+@media(max-width:900px){.form-field input,.form-field textarea{cursor:text}}
+.form-field textarea{resize:vertical;min-height:100px}
+.form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--gold)}
+.form-field label{position:absolute;top:1rem;left:0;font-size:0.9rem;color:var(--ink-mute);pointer-events:none;transition:all 0.3s var(--ease)}
+.form-field input:focus+label,.form-field input:not(:placeholder-shown)+label,.form-field textarea:focus+label,.form-field textarea:not(:placeholder-shown)+label{top:-0.5rem;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold)}
+.form-submit{width:100%;padding:1.1rem;background:var(--ink);color:var(--bg);border-radius:100px;font-size:0.9rem;font-weight:500;letter-spacing:0.05em;transition:all 0.4s var(--ease);display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-top:1rem;will-change:transform,background}
+.form-submit:hover{background:var(--gold);transform:translateY(-2px)}
+.form-submit svg{width:14px;height:14px;transition:transform 0.4s var(--ease)}
+.form-submit:hover svg{transform:translate(4px,-4px)}
+.form-submit:disabled{opacity:0.7;cursor:not-allowed}
+footer{padding:4rem 0 2rem;border-top:1px solid var(--glass-border);position:relative;z-index:1}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem;flex-wrap:wrap;gap:2rem}
+.footer-cta{font-family:var(--serif);font-size:clamp(2rem,5vw,4rem);font-weight:300;letter-spacing:-0.03em;line-height:1;max-width:700px}
+html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400}
+.footer-cta em{font-style:italic;color:var(--gold)}
+.footer-socials{display:flex;gap:0.75rem}
+.social-link{width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;transition:all 0.4s var(--ease);will-change:transform,background}
+.social-link:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:translateY(-3px)}
+.social-link svg{width:16px;height:16px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--glass-border);flex-wrap:wrap;gap:1rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase}
+.footer-bottom a{transition:color 0.3s}
+.footer-bottom a:hover{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(30px);transition:all 1s var(--ease-out);will-change:transform,opacity}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-stagger>*{opacity:0;transform:translateY(20px);transition:all 0.8s var(--ease-out);will-change:transform,opacity}
+.reveal-stagger.visible>*{opacity:1;transform:translateY(0)}
+.reveal-stagger.visible>*:nth-child(1){transition-delay:0.05s}
+.reveal-stagger.visible>*:nth-child(2){transition-delay:0.12s}
+.reveal-stagger.visible>*:nth-child(3){transition-delay:0.19s}
+.reveal-stagger.visible>*:nth-child(4){transition-delay:0.26s}
+.spotlight{position:fixed;pointer-events:none;z-index:2;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,118,0.06),transparent 60%);transform:translate(-50%,-50%);transition:opacity 0.3s;mix-blend-mode:screen;will-change:transform}
+@media(max-width:900px){.spotlight{display:none}}
 </style>
 </head>
 <body>
@@ -686,22 +273,17 @@
 <div class="noise"></div>
 <div class="global-aurora"></div>
 <div class="spotlight" id="spotlight"></div>
-
-<!-- CURSOR -->
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="cursor-dot" id="cursorDot"></div>
 
-<!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-mark"><span>A</span><span>r</span><span>sen</span></div>
   <div class="loader-bar"></div>
   <div class="loader-count" id="loaderCount">000</div>
 </div>
 
-<!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
 
-<!-- NAVIGATION -->
 <nav class="nav" id="nav">
   <a href="#top" class="nav-logo" data-hover>Arsen S.</a>
   <ul class="nav-links">
@@ -722,7 +304,6 @@
   </button>
 </nav>
 
-<!-- HERO -->
 <section class="hero" id="top">
   <div class="wrap">
     <div class="hero-meta">
@@ -735,7 +316,7 @@
 
     <h1 class="hero-headline" id="heroHeadline">
       <span class="line"><span data-i18n="hero_line1">Crafting</span></span>
-      <span class="line"><span><em data-i18n="hero_line2">unique</em> digital</span></span>
+      <span class="line"><span data-i18n="hero_line2"><em>unique</em> digital</span></span>
       <span class="line"><span data-i18n="hero_line3">experiences.</span></span>
     </h1>
 
@@ -771,7 +352,6 @@
   </div>
 </section>
 
-<!-- MARQUEE -->
 <div class="marquee">
   <div class="marquee-track">
     <span>Shopify <em>Development</em></span>
@@ -785,7 +365,6 @@
   </div>
 </div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="wrap">
     <div class="reveal">
@@ -797,17 +376,13 @@
       <div class="about-portrait reveal">
         <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
         <div class="about-portrait-figure">AS</div>
-        <div class="about-portrait-year">EST. 2022</div>
+        <div class="about-portrait-year">EST. 2024</div>
       </div>
 
       <div class="about-content reveal">
         <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
-        <p data-i18n="about_p1">
-          My journey began in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.
-        </p>
-        <p data-i18n="about_p2">
-          Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.
-        </p>
+        <p data-i18n="about_p1">My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.</p>
+        <p data-i18n="about_p2">Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.</p>
         <div class="about-signature">— Arsen Sukiasyan</div>
 
         <div class="about-stats reveal-stagger">
@@ -829,7 +404,6 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
   <div class="wrap">
     <div class="reveal">
@@ -877,7 +451,6 @@
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="work">
   <div class="wrap">
     <div class="reveal">
@@ -893,13 +466,11 @@
         </div>
         <div class="project-info">
           <div class="project-meta">
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
             <span class="project-category" data-i18n="proj_1_cat">End-to-End E-commerce</span>
           </div>
           <h3 class="project-title" data-i18n="proj_1_title">Personal Shopify Flagship Store</h3>
-          <p class="project-desc" data-i18n="proj_1_desc">
-            A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.
-          </p>
+          <p class="project-desc" data-i18n="proj_1_desc">A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.</p>
           <div class="project-chips"><span>Shopify</span><span>Liquid</span><span>UI/UX</span><span>Branding</span><span>SEO</span></div>
           <div class="project-links">
             <a href="#" class="project-link primary" data-hover>
@@ -920,13 +491,11 @@
         </div>
         <div class="project-info">
           <div class="project-meta">
-            <span class="project-year">2025</span>
+            <span class="project-year">2026</span>
             <span class="project-category" data-i18n="proj_2_cat">Theme Development</span>
           </div>
           <h3 class="project-title" data-i18n="proj_2_title">Custom Theme Architecture</h3>
-          <p class="project-desc" data-i18n="proj_2_desc">
-            Building modular, reusable theme templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.
-          </p>
+          <p class="project-desc" data-i18n="proj_2_desc">Building modular, reusable theme templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.</p>
           <div class="project-chips"><span>Templates</span><span>Sections</span><span>Blocks</span></div>
           <div class="project-links">
             <a href="#" class="project-link primary" data-hover>
@@ -944,13 +513,11 @@
         </div>
         <div class="project-info">
           <div class="project-meta">
-            <span class="project-year">2024</span>
+            <span class="project-year">2026</span>
             <span class="project-category" data-i18n="proj_3_cat">Frontend</span>
           </div>
           <h3 class="project-title" data-i18n="proj_3_title">Interactive Web Components</h3>
-          <p class="project-desc" data-i18n="proj_3_desc">
-            A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.
-          </p>
+          <p class="project-desc" data-i18n="proj_3_desc">A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.</p>
           <div class="project-chips"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub</span></div>
           <div class="project-links">
             <a href="#" class="project-link primary" data-hover>
@@ -967,7 +534,6 @@
   </div>
 </section>
 
-<!-- TIMELINE -->
 <section id="journey">
   <div class="wrap">
     <div class="reveal">
@@ -977,28 +543,27 @@
 
     <div class="timeline">
       <div class="tl-item">
-        <div class="tl-date">2024 — Present</div>
-        <h3 class="tl-title" data-i18n="tl_1_title">Marketing Student</h3>
-        <div class="tl-sub" data-i18n="tl_1_sub">French University in Armenia</div>
-        <p class="tl-desc" data-i18n="tl_1_desc">Expanding my strategic understanding of consumer behavior, digital marketing, and brand positioning to complement my technical skills.</p>
+        <div class="tl-date">2026 — Present</div>
+        <h3 class="tl-title" data-i18n="tl_1_title">Shopify & Web Specialist</h3>
+        <div class="tl-sub" data-i18n="tl_1_sub">Independent Practice · French University in Armenia</div>
+        <p class="tl-desc" data-i18n="tl_1_desc">Launched my independent practice as a Shopify specialist and frontend developer, while simultaneously studying Marketing at a French university in Armenia to expand my strategic understanding of e-commerce.</p>
       </div>
       <div class="tl-item">
-        <div class="tl-date">2023</div>
-        <h3 class="tl-title" data-i18n="tl_2_title">Shopify & Web Specialist</h3>
+        <div class="tl-date">2024 — 2026</div>
+        <h3 class="tl-title" data-i18n="tl_2_title">The Shopify Transition</h3>
         <div class="tl-sub" data-i18n="tl_2_sub">Intensive Specialized Training</div>
-        <p class="tl-desc" data-i18n="tl_2_desc">Completed rigorous, specialized courses in Shopify development, frontend coding, and UI/UX design, transitioning from marketplace seller to technical builder.</p>
+        <p class="tl-desc" data-i18n="tl_2_desc">Completed rigorous, specialized courses in Shopify development, frontend coding (HTML, CSS, JavaScript), and UI/UX design. Transitioned from marketplace seller to technical builder, mastering Liquid, theme architecture, and modern web standards.</p>
       </div>
       <div class="tl-item">
-        <div class="tl-date">2022</div>
+        <div class="tl-date">2024</div>
         <h3 class="tl-title" data-i18n="tl_3_title">E-commerce Beginnings</h3>
         <div class="tl-sub" data-i18n="tl_3_sub">Wildberries Marketplace</div>
-        <p class="tl-desc" data-i18n="tl_3_desc">Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores.</p>
+        <p class="tl-desc" data-i18n="tl_3_desc">Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores and set me on the path to becoming a Shopify specialist.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="wrap">
     <div class="reveal">
@@ -1052,7 +617,6 @@
   </div>
 </section>
 
-<!-- QUOTE -->
 <section class="quote-section reveal">
   <div class="wrap">
     <p class="quote-text" data-i18n="quote_text">"The best way to predict the future is to create it."</p>
@@ -1060,7 +624,6 @@
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
     <div class="reveal">
@@ -1089,12 +652,6 @@
         </div>
       </div>
 
-      <!-- 
-        IMPORTANT: TO MAKE THIS FORM REALLY SEND EMAILS:
-        1. Go to https://formspree.io/ and create a free account.
-        2. Create a "New Form" and set the destination email to: ars.sukiasyan@gmail.com
-        3. Replace 'YOUR_FORMSPREE_ID' below with your actual Formspree Form ID (e.g., 'xqkvpwza').
-      -->
       <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
         <div class="form-field">
           <input type="text" id="name" name="name" placeholder=" " required>
@@ -1121,7 +678,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="footer-top">
@@ -1148,228 +704,183 @@
 </footer>
 
 <script>
-/* ============================================
-   TRANSLATIONS (100% COMPLETE)
-   ============================================ */
-const translations = {
-  en: {
-    nav_about: "About", nav_skills: "Skills", nav_work: "Work", nav_journey: "Journey", nav_services: "Services", nav_cta: "Let's talk",
-    hero_location: "Yerevan, Armenia · GMT +4", hero_eyebrow: "Portfolio / 2026 — Edition N°01",
-    hero_line1: "Crafting", hero_line2: "unique", hero_line3: "experiences.",
-    hero_desc: "Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.",
-    hero_cta1: "View my work", hero_cta2: "Let's talk", hero_scroll: "Scroll",
-    about_eyebrow: "01 — About", about_title: "Driven by hard work, <em>fueled by passion</em>.",
-    about_portrait_label: "Based in Yerevan",
-    about_h3: "I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.",
-    about_p1: "My journey began in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.",
-    about_p2: "Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.",
-    stat_1: "Dedication", stat_2: "Support", stat_3: "Unique Approach",
-    skills_eyebrow: "02 — Capabilities", skills_title: "A toolkit shaped by <em>practice</em>.",
-    skill_1_title: "Shopify Specialist", skill_1_desc: "End-to-end store creation, theme customization, app integration, and optimization.",
-    skill_2_title: "Frontend Coding", skill_2_desc: "Clean, semantic, and responsive websites built from scratch with modern standards.",
-    skill_3_title: "UI / UX Design", skill_3_desc: "Creating intuitive, beautiful, and high-converting user experiences for e-commerce.",
-    skill_4_title: "GitHub & Workflow", skill_4_desc: "Version control, clean repository management, and structured development workflows.",
-    work_eyebrow: "03 — Selected Work", work_title: "Projects I'm <em>proud</em> of.",
-    proj_1_cat: "End-to-End E-commerce", proj_1_title: "Personal Shopify Flagship Store",
-    proj_1_desc: "A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.",
-    proj_link_demo: "Live Demo", proj_link_case: "Case Study",
-    proj_2_cat: "Theme Development", proj_2_title: "Custom Theme Architecture",
-    proj_2_desc: "Building modular, reusable theme templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.",
-    proj_3_cat: "Frontend", proj_3_title: "Interactive Web Components",
-    proj_3_desc: "A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.",
-    journey_eyebrow: "04 — Journey", journey_title: "A path of <em>continuous growth</em>.",
-    tl_1_title: "Marketing Student", tl_1_sub: "French University in Armenia",
-    tl_1_desc: "Expanding my strategic understanding of consumer behavior, digital marketing, and brand positioning to complement my technical skills.",
-    tl_2_title: "Shopify & Web Specialist", tl_2_sub: "Intensive Specialized Training",
-    tl_2_desc: "Completed rigorous, specialized courses in Shopify development, frontend coding, and UI/UX design, transitioning from marketplace seller to technical builder.",
-    tl_3_title: "E-commerce Beginnings", tl_3_sub: "Wildberries Marketplace",
-    tl_3_desc: "Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores.",
-    services_eyebrow: "05 — Services", services_title: "How I can <em>help</em>.",
-    serv_1_title: "Shopify Store Setup", serv_1_desc: "Complete store creation from scratch, including theme selection, customization, product uploads, and collection architecture.",
-    serv_1_li1: "Theme Customization", serv_1_li2: "App Integration", serv_1_li3: "Payment & Shipping Setup",
-    serv_2_title: "Frontend Development", serv_2_desc: "Custom-coded websites and landing pages using pure HTML, CSS, and JavaScript for maximum performance and unique design.",
-    serv_2_li1: "Responsive Design", serv_2_li2: "Custom Animations", serv_2_li3: "GitHub Deployment",
-    serv_3_title: "UI/UX & Optimization", serv_3_desc: "Improving the look, feel, and conversion rate of your existing store with professional design principles.",
-    serv_3_li1: "Header & Footer Design", serv_3_li2: "Product Page Optimization", serv_3_li3: "Brand Identity Alignment",
-    quote_text: "\"The best way to predict the future is to create it.\"",
-    contact_eyebrow: "06 — Contact", contact_title: "Let's build something <em>unforgettable</em>.",
-    contact_h3: "I'm currently <em>available</em> for new projects.",
-    contact_desc: "Whether you need a brand new Shopify store, a custom-coded website, or an upgrade to your existing setup, I'm here to help. I treat every project with a unique, unrepeatable approach.",
-    contact_location: "Location", contact_city: "Yerevan, Armenia (GMT +4)",
-    form_name: "Your name", form_email: "Email address", form_subject: "Project type", form_message: "Tell me about your project", form_submit: "Send message",
-    footer_cta1: "Dream big.", footer_cta2: "Work hard. Stay humble.",
-    footer_top: "Back to top ↑", footer_made: "Crafted with love in Yerevan"
-  },
-  ru: {
-    nav_about: "Обо мне", nav_skills: "Навыки", nav_work: "Работы", nav_journey: "Путь", nav_services: "Услуги", nav_cta: "Связаться",
-    hero_location: "Ереван, Армения · GMT +4", hero_eyebrow: "Портфолио / 2026 — Выпуск №01",
-    hero_line1: "Создаю", hero_line2: "уникальный", hero_line3: "цифровой опыт.",
-    hero_desc: "Специалист по Shopify и Frontend-разработчик. Я подхожу к каждому проекту как к своему собственному, привнося уникальный, неповторимый стиль в веб-разработку, UI/UX и электронную коммерцию.",
-    hero_cta1: "Мои работы", hero_cta2: "Связаться", hero_scroll: "Листайте",
-    about_eyebrow: "01 — Обо мне", about_title: "Движимый упорным трудом, <em>вдохновленный страстью</em>.",
-    about_portrait_label: "Базируюсь в Ереване",
-    about_h3: "Я Арсен — <em>специалист по Shopify</em> и разработчик, который любит помогать людям создавать успешный онлайн-бизнес.",
-    about_p1: "Мой путь начался в динамичном мире электронной коммерции с продаж на российском маркетплейсе Wildberries. Этот ранний успех пробудил глубокое любопытство: я хотел понять технологии, стоящие за витринами магазинов. Я погрузился в интенсивные специализированные курсы и нашел свое истинное призвание в разработке на Shopify и фронтенд-инжиниринге.",
-    about_p2: "Сегодня я являюсь преданным специалистом по Shopify и веб-разработке, одновременно расширяя свои стратегические знания, изучая маркетинг во французском университете в Армении. Будь то сложная задача в коде или настоящая борьба на ковре, я верю в дисциплину, упорный труд и отношение к каждому проекту клиента как к своему собственному.",
-    stat_1: "Отдача", stat_2: "Поддержка", stat_3: "Уникальный подход",
-    skills_eyebrow: "02 — Возможности", skills_title: "Инструменты, отточенные <em>практикой</em>.",
-    skill_1_title: "Специалист Shopify", skill_1_desc: "Создание магазинов под ключ, кастомизация тем, интеграция приложений и оптимизация.",
-    skill_2_title: "Frontend-код", skill_2_desc: "Чистые, семантические и адаптивные сайты, созданные с нуля по современным стандартам.",
-    skill_3_title: "UI / UX Дизайн", skill_3_desc: "Создание интуитивного, красивого и высококонверсионного пользовательского опыта.",
-    skill_4_title: "GitHub и процессы", skill_4_desc: "Контроль версий, чистое управление репозиториями и структурированные рабочие процессы.",
-    work_eyebrow: "03 — Избранные работы", work_title: "Проекты, которыми я <em>горжусь</em>.",
-    proj_1_cat: "E-commerce под ключ", proj_1_title: "Личный флагманский магазин Shopify",
-    proj_1_desc: "Комплексная, готовая к работе среда, где я осваиваю все аспекты Shopify. Включает разработку логотипа, универсальные описания товаров, продвинутую архитектуру коллекций, кастомные страницы и полностью оптимизированные секции шапки и подвала.",
-    proj_link_demo: "Демо", proj_link_case: "Кейс",
-    proj_2_cat: "Разработка тем", proj_2_title: "Архитектура кастомных тем",
-    proj_2_desc: "Создание модульных, переиспользуемых шаблонов тем и секций с нуля, демонстрирующее глубокое понимание архитектуры Online Store 2.0.",
-    proj_3_cat: "Frontend", proj_3_title: "Интерактивные веб-компоненты",
-    proj_3_desc: "Коллекция кастомных компонентов на HTML, CSS и JavaScript, созданных для производительности, доступности и плавных микро-взаимодействий.",
-    journey_eyebrow: "04 — Путь", journey_title: "Путь <em>непрерывного роста</em>.",
-    tl_1_title: "Студент маркетинга", tl_1_sub: "Французский университет в Армении",
-    tl_1_desc: "Расширяю свое стратегическое понимание поведения потребителей, цифрового маркетинга и позиционирования бренда в дополнение к техническим навыкам.",
-    tl_2_title: "Специалист по Shopify и Вебу", tl_2_sub: "Интенсивное специализированное обучение",
-    tl_2_desc: "Прошел строгие специализированные курсы по разработке на Shopify, фронтенд-кодингу и UI/UX дизайну, совершив переход от продавца на маркетплейсе к техническому создателю.",
-    tl_3_title: "Начало в E-commerce", tl_3_sub: "Маркетплейс Wildberries",
-    tl_3_desc: "Начал свой предпринимательский путь с продаж на российском маркетплейсе Wildberries. Успех этого предприятия пробудил глубокий интерес к технологиям, обеспечивающим работу онлайн-магазинов.",
-    services_eyebrow: "05 — Услуги", services_title: "Чем я могу <em>помочь</em>.",
-    serv_1_title: "Создание магазина Shopify", serv_1_desc: "Полное создание магазина с нуля, включая выбор и настройку темы, загрузку товаров и архитектуру коллекций.",
-    serv_1_li1: "Кастомизация тем", serv_1_li2: "Интеграция приложений", serv_1_li3: "Настройка оплаты и доставки",
-    serv_2_title: "Frontend-разработка", serv_2_desc: "Сайты и лендинги с индивидуальным кодом на чистом HTML, CSS и JavaScript для максимальной производительности.",
-    serv_2_li1: "Адаптивный дизайн", serv_2_li2: "Кастомные анимации", serv_2_li3: "Деплой через GitHub",
-    serv_3_title: "UI/UX и Оптимизация", serv_3_desc: "Улучшение внешнего вида, удобства и конверсии вашего существующего магазина с помощью профессиональных принципов дизайна.",
-    serv_3_li1: "Дизайн шапки и подвала", serv_3_li2: "Оптимизация страниц товаров", serv_3_li3: "Соответствие бренду",
-    quote_text: "\"Лучший способ предсказать будущее — создать его.\"",
-    contact_eyebrow: "06 — Контакты", contact_title: "Давайте создадим что-то <em>незабываемое</em>.",
-    contact_h3: "Я <em>открыт</em> для новых проектов.",
-    contact_desc: "Нужен ли вам совершенно новый магазин Shopify, сайт с индивидуальным кодом или модернизация текущей настройки, я здесь, чтобы помочь. Я подхожу к каждому проекту с уникальным, неповторимым вниманием.",
-    contact_location: "Локация", contact_city: "Ереван, Армения (GMT +4)",
-    form_name: "Ваше имя", form_email: "Email адрес", form_subject: "Тип проекта", form_message: "Расскажите о вашем проекте", form_submit: "Отправить сообщение",
-    footer_cta1: "Мечтайте масштабно.", footer_cta2: "Работайте упорно. Оставайтесь скромными.",
-    footer_top: "Наверх ↑", footer_made: "Создано с любовью в Ереване"
-  },
-  hy: {
-    nav_about: "Իմ մասին", nav_skills: "Հմտություններ", nav_work: "Աշխատանքներ", nav_journey: "Ուղի", nav_services: "Ծառայություններ", nav_cta: "Կապ հաստատել",
-    hero_location: "Երևան, Հայաստան · GMT +4", hero_eyebrow: "Պորտֆոլիո / 2026 — Համար 01",
-    hero_line1: "Ստեղծում եմ", hero_line2: "յուրահատուկ", hero_line3: "թվային փորձ:",
-    hero_desc: "Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
-    hero_cta1: "Դիտել աշխատանքներս", hero_cta2: "Կապ հաստատել", hero_scroll: "Ուղղորդեք",
-    about_eyebrow: "01 — Իմ մասին", about_title: "Շարժվում եմ ջանասիրաբար, <em>ոգեշնչվում նպատակներով</em>:",
-    about_portrait_label: "Բազավորված է Երևանում",
-    about_h3: "Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
-    about_p1: "Իմ ուղին սկսվեց էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: Ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
-    about_p2: "Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
-    stat_1: "Նվիրվածություն", stat_2: "Աջակցություն", stat_3: "Յուրահատուկ մոտեցում",
-    skills_eyebrow: "02 — Հնարավորություններ", skills_title: "Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
-    skill_1_title: "Shopify Մասնագետ", skill_1_desc: "Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
-    skill_2_title: "Frontend ծածկագրում", skill_2_desc: "Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
-    skill_3_title: "UI / UX Դիզայն", skill_3_desc: "Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի փորձի ստեղծում:",
-    skill_4_title: "GitHub և աշխատանքային պրոցես", skill_4_desc: "Տարբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
-    work_eyebrow: "03 — Ընտրյալ աշխատանքներ", work_title: "Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
-    proj_1_cat: "E-commerce սկզբից մինչև վերջ", proj_1_title: "Անձնական Shopify դրոշակակիր խանութ",
-    proj_1_desc: "Համապարփակ, աշխատանքային պատրաստ միջավայր, որտեղ ես յուրացնում եմ Shopify-ի բոլոր կողմերը: Ներառում է բրենդի լոգոյի դիզայն, ունիվերսալ ապրանքների նկարագրություններ, հավաքածուների առաջադեմ ճարտարապետություն, հարմարեցված էջեր և լիովին օպտիմալացված վերնագիր/ստորագիր բաժիններ:",
-    proj_link_demo: "Կենդանի ցուցադրություն", proj_link_case: "Դեպքի ուսումնասիրություն",
-    proj_2_cat: "Թեմաների մշակում", proj_2_title: "Հարմարեցված թեմաների ճարտարապետություն",
-    proj_2_desc: "Զրոյից մոդուլային, վերաօգտագործվող թեմաների կաղապարների և բաժինների կառուցում՝ ցուցադրելով Shopify-ի Online Store 2.0 ճարտարապետության խորը ըմբռնում:",
-    proj_3_cat: "Frontend", proj_3_title: "Ինտերակտիվ վեբ բաղադրիչներ",
-    proj_3_desc: "HTML, CSS և JavaScript լեզուներով ստեղծված հարմարեցված բաղադրիչների հավաքածու՝ կառուցված արտադրողականության, հասանելիության և հարթ միկրո-փոխազդեցությունների համար:",
-    journey_eyebrow: "04 — Ուղի", journey_title: "<em>Անընդհատ աճի</em> ուղի:",
-    tl_1_title: "Մարքեթինգի ուսանող", tl_1_sub: "Ֆրանսիական համալսարան Հայաստանում",
-    tl_1_desc: "Ընդլայնում եմ սպառողների վարքագծի, թվային մարքեթինգի և բրենդի դիրքավորման իմ ռազմավարական ըմբռնումը՝ լրացնելու իմ տեխնիկական հմտությունները:",
-    tl_2_title: "Shopify և Վեբ մասնագետ", tl_2_sub: "Ինտենսիվ մասնագիտացված ուսուցում",
-    tl_2_desc: "Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման և UI/UX դիզայնի վերաբերյալ՝ կատարելով անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող:",
-    tl_3_title: "E-commerce-ի սկիզբ", tl_3_sub: "Wildberries մարքեթփլեյս",
-    tl_3_desc: "Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ:",
-    services_eyebrow: "05 — Ծառայություններ", services_title: "Ինչպես կարող եմ <em>օգնել</em>:",
-    serv_1_title: "Shopify խանութի կարգավորում", serv_1_desc: "Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
-    serv_1_li1: "Թեմաների հարմարեցում", serv_1_li2: "Հավելվածների ինտեգրում", serv_1_li3: "Վճարման և առաքման կարգավորում",
-    serv_2_title: "Frontend մշակում", serv_2_desc: "Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
-    serv_2_li1: "Ադապտիվ դիզայն", serv_2_li2: "Հարմարեցված անիմացիաներ", serv_2_li3: "GitHub տեղակայում",
-    serv_3_title: "UI/UX և Օպտիմալացում", serv_3_desc: "Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
-    serv_3_li1: "Վերնագրի և ստորագրի դիզայն", serv_3_li2: "Ապրանքի էջի օպտիմալացում", serv_3_li3: "Բրենդի ինքնության համապատասխանություն",
-    quote_text: "\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
-    contact_eyebrow: "06 — Կապ", contact_title: "Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
-    contact_h3: "Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
-    contact_desc: "Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
-    contact_location: "Տեղակայում", contact_city: "Երևան, Հայաստան (GMT +4)",
-    form_name: "Ձեր անունը", form_email: "Էլ. հասցե", form_subject: "Նախագծի տեսակը", form_message: "Պատմեք ձեր նախագծի մասին", form_submit: "Ուղարկել հաղորդագրություն",
-    footer_cta1: "Երազեք առանց սահմանների:", footer_cta2: "Աշխատեք քրտնաջան: Մնացեք համեստ:",
-    footer_top: "Դեպի վեր ↑", footer_made: "Ստեղծված է սիրով Երևանում"
-  }
+const translations={
+en:{
+nav_about:"About",nav_skills:"Skills",nav_work:"Work",nav_journey:"Journey",nav_services:"Services",nav_cta:"Let's talk",
+hero_location:"Yerevan, Armenia · GMT +4",hero_eyebrow:"Portfolio / 2026 — Edition N°01",
+hero_line1:"Crafting",hero_line2:"<em>unique</em> digital",hero_line3:"experiences.",
+hero_desc:"Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.",
+hero_cta1:"View my work",hero_cta2:"Let's talk",hero_scroll:"Scroll",
+about_eyebrow:"01 — About",about_title:"Driven by hard work, <em>fueled by passion</em>.",
+about_portrait_label:"Based in Yerevan",
+about_h3:"I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.",
+about_p1:"My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.",
+about_p2:"Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.",
+stat_1:"Dedication",stat_2:"Support",stat_3:"Unique Approach",
+skills_eyebrow:"02 — Capabilities",skills_title:"A toolkit shaped by <em>practice</em>.",
+skill_1_title:"Shopify Specialist",skill_1_desc:"End-to-end store creation, theme customization, app integration, and optimization.",
+skill_2_title:"Frontend Coding",skill_2_desc:"Clean, semantic, and responsive websites built from scratch with modern standards.",
+skill_3_title:"UI / UX Design",skill_3_desc:"Creating intuitive, beautiful, and high-converting user experiences for e-commerce.",
+skill_4_title:"GitHub & Workflow",skill_4_desc:"Version control, clean repository management, and structured development workflows.",
+work_eyebrow:"03 — Selected Work",work_title:"Projects I'm <em>proud</em> of.",
+proj_1_cat:"End-to-End E-commerce",proj_1_title:"Personal Shopify Flagship Store",
+proj_1_desc:"A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.",
+proj_link_demo:"Live Demo",proj_link_case:"Case Study",
+proj_2_cat:"Theme Development",proj_2_title:"Custom Theme Architecture",
+proj_2_desc:"Building modular, reusable theme templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.",
+proj_3_cat:"Frontend",proj_3_title:"Interactive Web Components",
+proj_3_desc:"A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.",
+journey_eyebrow:"04 — Journey",journey_title:"A path of <em>continuous growth</em>.",
+tl_1_title:"Shopify & Web Specialist",tl_1_sub:"Independent Practice · French University in Armenia",
+tl_1_desc:"Launched my independent practice as a Shopify specialist and frontend developer, while simultaneously studying Marketing at a French university in Armenia to expand my strategic understanding of e-commerce.",
+tl_2_title:"The Shopify Transition",tl_2_sub:"Intensive Specialized Training",
+tl_2_desc:"Completed rigorous, specialized courses in Shopify development, frontend coding (HTML, CSS, JavaScript), and UI/UX design. Transitioned from marketplace seller to technical builder, mastering Liquid, theme architecture, and modern web standards.",
+tl_3_title:"E-commerce Beginnings",tl_3_sub:"Wildberries Marketplace",
+tl_3_desc:"Started my entrepreneurial journey selling on the Russian marketplace Wildberries. The success of this venture sparked my deep interest in the technology powering online stores and set me on the path to becoming a Shopify specialist.",
+services_eyebrow:"05 — Services",services_title:"How I can <em>help</em>.",
+serv_1_title:"Shopify Store Setup",serv_1_desc:"Complete store creation from scratch, including theme selection, customization, product uploads, and collection architecture.",
+serv_1_li1:"Theme Customization",serv_1_li2:"App Integration",serv_1_li3:"Payment & Shipping Setup",
+serv_2_title:"Frontend Development",serv_2_desc:"Custom-coded websites and landing pages using pure HTML, CSS, and JavaScript for maximum performance and unique design.",
+serv_2_li1:"Responsive Design",serv_2_li2:"Custom Animations",serv_2_li3:"GitHub Deployment",
+serv_3_title:"UI/UX & Optimization",serv_3_desc:"Improving the look, feel, and conversion rate of your existing store with professional design principles.",
+serv_3_li1:"Header & Footer Design",serv_3_li2:"Product Page Optimization",serv_3_li3:"Brand Identity Alignment",
+quote_text:"\"The best way to predict the future is to create it.\"",
+contact_eyebrow:"06 — Contact",contact_title:"Let's build something <em>unforgettable</em>.",
+contact_h3:"I'm currently <em>available</em> for new projects.",
+contact_desc:"Whether you need a brand new Shopify store, a custom-coded website, or an upgrade to your existing setup, I'm here to help. I treat every project with a unique, unrepeatable approach.",
+contact_location:"Location",contact_city:"Yerevan, Armenia (GMT +4)",
+form_name:"Your name",form_email:"Email address",form_subject:"Project type",form_message:"Tell me about your project",form_submit:"Send message",
+footer_cta1:"Dream big.",footer_cta2:"Work hard. Stay humble.",
+footer_top:"Back to top ↑",footer_made:"Crafted with passion in Yerevan"
+},
+ru:{
+nav_about:"Обо мне",nav_skills:"Навыки",nav_work:"Работы",nav_journey:"Путь",nav_services:"Услуги",nav_cta:"Связаться",
+hero_location:"Ереван, Армения · GMT +4",hero_eyebrow:"Портфолио / 2026 — Выпуск №01",
+hero_line1:"Создаю",hero_line2:"<em>уникальный</em> цифровой",hero_line3:"опыт.",
+hero_desc:"Специалист по Shopify и Frontend-разработчик. Я подхожу к каждому проекту как к своему собственному, привнося уникальный, неповторимый стиль в веб-разработку, UI/UX и электронную коммерцию.",
+hero_cta1:"Мои работы",hero_cta2:"Связаться",hero_scroll:"Листайте",
+about_eyebrow:"01 — Обо мне",about_title:"Движимый упорным трудом, <em>вдохновленный страстью</em>.",
+about_portrait_label:"Базируюсь в Ереване",
+about_h3:"Я Арсен — <em>специалист по Shopify</em> и разработчик, который любит помогать людям создавать успешный онлайн-бизнес.",
+about_p1:"Мой путь начался в 2024 году в динамичном мире электронной коммерции с продаж на российском маркетплейсе Wildberries. Этот ранний успех пробудил глубокое любопытство: я хотел понять технологии, стоящие за витринами магазинов. К 2026 году я погрузился в интенсивные специализированные курсы и нашел свое истинное призвание в разработке на Shopify и фронтенд-инжиниринге.",
+about_p2:"Сегодня я являюсь преданным специалистом по Shopify и веб-разработке, одновременно расширяя свои стратегические знания, изучая маркетинг во французском университете в Армении. Будь то сложная задача в коде или настоящая борьба на ковре, я верю в дисциплину, упорный труд и отношение к каждому проекту клиента как к своему собственному.",
+stat_1:"Отдача",stat_2:"Поддержка",stat_3:"Уникальный подход",
+skills_eyebrow:"02 — Возможности",skills_title:"Инструменты, отточенные <em>практикой</em>.",
+skill_1_title:"Специалист Shopify",skill_1_desc:"Создание магазинов под ключ, кастомизация тем, интеграция приложений и оптимизация.",
+skill_2_title:"Frontend-код",skill_2_desc:"Чистые, семантические и адаптивные сайты, созданные с нуля по современным стандартам.",
+skill_3_title:"UI / UX Дизайн",skill_3_desc:"Создание интуитивного, красивого и высококонверсионного пользовательского опыта.",
+skill_4_title:"GitHub и процессы",skill_4_desc:"Контроль версий, чистое управление репозиториями и структурированные рабочие процессы.",
+work_eyebrow:"03 — Избранные работы",work_title:"Проекты, которыми я <em>горжусь</em>.",
+proj_1_cat:"E-commerce под ключ",proj_1_title:"Личный флагманский магазин Shopify",
+proj_1_desc:"Комплексная, готовая к работе среда, где я осваиваю все аспекты Shopify. Включает разработку логотипа, универсальные описания товаров, продвинутую архитектуру коллекций, кастомные страницы и полностью оптимизированные секции шапки и подвала.",
+proj_link_demo:"Демо",proj_link_case:"Кейс",
+proj_2_cat:"Разработка тем",proj_2_title:"Архитектура кастомных тем",
+proj_2_desc:"Создание модульных, переиспользуемых шаблонов тем и секций с нуля, демонстрирующее глубокое понимание архитектуры Online Store 2.0.",
+proj_3_cat:"Frontend",proj_3_title:"Интерактивные веб-компоненты",
+proj_3_desc:"Коллекция кастомных компонентов на HTML, CSS и JavaScript, созданных для производительности, доступности и плавных микро-взаимодействий.",
+journey_eyebrow:"04 — Путь",journey_title:"Путь <em>непрерывного роста</em>.",
+tl_1_title:"Специалист по Shopify и Вебу",tl_1_sub:"Независимая практика · Французский университет в Армении",
+tl_1_desc:"Запустил свою независимую практику как специалист по Shopify и frontend-разработчик, одновременно изучая маркетинг во французском университете в Армении для расширения своего стратегического понимания электронной коммерции.",
+tl_2_title:"Переход в Shopify",tl_2_sub:"Интенсивное специализированное обучение",
+tl_2_desc:"Прошел строгие специализированные курсы по разработке на Shopify, фронтенд-кодингу (HTML, CSS, JavaScript) и UI/UX дизайну. Совершил переход от продавца на маркетплейсе к техническому создателю, освоив Liquid, архитектуру тем и современные веб-стандарты.",
+tl_3_title:"Начало в E-commerce",tl_3_sub:"Маркетплейс Wildberries",
+tl_3_desc:"Начал свой предпринимательский путь с продаж на российском маркетплейсе Wildberries. Успех этого предприятия пробудил глубокий интерес к технологиям, обеспечивающим работу онлайн-магазинов, и направил меня на путь становления специалистом по Shopify.",
+services_eyebrow:"05 — Услуги",services_title:"Чем я могу <em>помочь</em>.",
+serv_1_title:"Создание магазина Shopify",serv_1_desc:"Полное создание магазина с нуля, включая выбор и настройку темы, загрузку товаров и архитектуру коллекций.",
+serv_1_li1:"Кастомизация тем",serv_1_li2:"Интеграция приложений",serv_1_li3:"Настройка оплаты и доставки",
+serv_2_title:"Frontend-разработка",serv_2_desc:"Сайты и лендинги с индивидуальным кодом на чистом HTML, CSS и JavaScript для максимальной производительности.",
+serv_2_li1:"Адаптивный дизайн",serv_2_li2:"Кастомные анимации",serv_2_li3:"Деплой через GitHub",
+serv_3_title:"UI/UX и Оптимизация",serv_3_desc:"Улучшение внешнего вида, удобства и конверсии вашего существующего магазина с помощью профессиональных принципов дизайна.",
+serv_3_li1:"Дизайн шапки и подвала",serv_3_li2:"Оптимизация страниц товаров",serv_3_li3:"Соответствие бренду",
+quote_text:"\"Лучший способ предсказать будущее — создать его.\"",
+contact_eyebrow:"06 — Контакты",contact_title:"Давайте создадим что-то <em>незабываемое</em>.",
+contact_h3:"Я <em>открыт</em> для новых проектов.",
+contact_desc:"Нужен ли вам совершенно новый магазин Shopify, сайт с индивидуальным кодом или модернизация текущей настройки, я здесь, чтобы помочь. Я подхожу к каждому проекту с уникальным, неповторимым вниманием.",
+contact_location:"Локация",contact_city:"Ереван, Армения (GMT +4)",
+form_name:"Ваше имя",form_email:"Email адрес",form_subject:"Тип проекта",form_message:"Расскажите о вашем проекте",form_submit:"Отправить сообщение",
+footer_cta1:"Мечтайте масштабно.",footer_cta2:"Работайте упорно. Оставайтесь скромными.",
+footer_top:"Наверх ↑",footer_made:"Создано со страстью в Ереване"
+},
+hy:{
+nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
+hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտֆոլիո / 2026 — Համար 01",
+hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"փորձ:",
+hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
+hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
+about_eyebrow:"01 — Իմ մասին",about_title:"Շարժվում եմ ջանասիրաշատ աշխատանքով, <em>ուգևորված կրքով</em>:",
+about_portrait_label:"Բազավորված է Երևանում",
+about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
+about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
+about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
+stat_1:"Նվիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
+skills_eyebrow:"02 — Հնարավորություններ",skills_title:"Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
+skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
+skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
+skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի փորձի ստեղծում:",
+skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"Տարբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
+work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
+proj_1_cat:"E-commerce սկզբից մինչև վերջ",proj_1_title:"Անձնական Shopify դրոշակակիր խանութ",
+proj_1_desc:"Համապարփակ, աշխատանքային պատրաստ միջավայր, որտեղ ես յուրացնում եմ Shopify-ի բոլոր կողմերը: Ներառում է բրենդի լոգոյի դիզայն, ունիվերսալ ապրանքների նկարագրություններ, հավաքածուների առաջադեմ ճարտարապետություն, հարմարեցված էջեր և լիովին օպտիմալացված վերնագիր/ստորագիր բաժիններ:",
+proj_link_demo:"Կենդանի ցուցադրություն",proj_link_case:"Դեպքի ուսումնասիրություն",
+proj_2_cat:"Թեմաների մշակում",proj_2_title:"Հարմարեցված թեմաների ճարտարապետություն",
+proj_2_desc:"Զրոյից մոդուլային, վերաօգտագործվող թեմաների կաղապարների և բաժինների կառուցում՝ ցուցադրելով Shopify-ի Online Store 2.0 ճարտարապետության խորը ըմբռնում:",
+proj_3_cat:"Frontend",proj_3_title:"Ինտերակտիվ վեբ բաղադրիչներ",
+proj_3_desc:"HTML, CSS և JavaScript լեզուներով ստեղծված հարմարեցված բաղադրիչների հավաքածու՝ կառուցված արտադրողականության, հասանելիության և հարթ միկրո-փոխազդեցությունների համար:",
+journey_eyebrow:"04 — Ուղի",journey_title:"<em>Անընդհատ աճի</em> ուղի:",
+tl_1_title:"Shopify և Վեբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
+tl_1_desc:"Սկսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում՝ ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
+tl_2_title:"Անցում դեպի Shopify",tl_2_sub:"Ինտենսիվ մասնագիտացված ուսուցում",
+tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ յուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ժամանակակից վեբ ստանդարտները:",
+tl_3_title:"E-commerce-ի սկիզբ",tl_3_sub:"Wildberries մարքեթփլեյս",
+tl_3_desc:"Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
+services_eyebrow:"05 — Ծառայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
+serv_1_title:"Shopify խանութի կարգավորում",serv_1_desc:"Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
+serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների ինտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
+serv_2_title:"Frontend մշակում",serv_2_desc:"Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
+serv_2_li1:"Ադապտիվ դիզայն",serv_2_li2:"Հարմարեցված անիմացիաներ",serv_2_li3:"GitHub տեղակայում",
+serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
+serv_3_li1:"Վերնագրի և ստորագրի դիզայն",serv_3_li2:"Ապրանքի էջի օպտիմալացում",serv_3_li3:"Բրենդի ինքնության համապատասխանություն",
+quote_text:"\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
+contact_eyebrow:"06 — Կապ",contact_title:"Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
+contact_h3:"Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
+contact_desc:"Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
+contact_location:"Տեղակայում",contact_city:"Երևան, Հայաստան (GMT +4)",
+form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"Պատմեք ձեր նախագծի մասին",form_submit:"Ուղարկել հաղորդագրություն",
+footer_cta1:"Երազեք մեծ:",footer_cta2:"Աշխատեք ջանասիրաբար: Մնացեք համեստ:",
+footer_top:"Դեպի վեր ↑",footer_made:"Ստեղծված է կրքով Երևանում"
+}
 };
 
 let currentLang = 'en';
-
 function updateLanguage(lang) {
   currentLang = lang;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang] && translations[lang][key]) {
-      el.innerHTML = translations[lang][key];
-    }
+    if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key];
   });
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === lang);
-  });
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
   document.documentElement.lang = lang === 'hy' ? 'hy' : (lang === 'ru' ? 'ru' : 'en');
 }
+document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('click', () => updateLanguage(btn.dataset.lang)));
 
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => updateLanguage(btn.dataset.lang));
-});
-
-/* ============================================
-   LOADER (BULLETPROOF)
-   ============================================ */
 (function(){
-  const loader = document.getElementById('loader');
-  const count = document.getElementById('loaderCount');
+  const loader = document.getElementById('loader'), count = document.getElementById('loaderCount');
   let n = 0;
-  
   const tick = setInterval(() => {
     n += Math.floor(Math.random() * 15) + 5;
-    if (n >= 100) { 
-      n = 100; 
-      clearInterval(tick); 
-      count.textContent = '100';
-      setTimeout(() => {
-        loader.classList.add('done');
-        document.body.style.overflow = 'auto';
-      }, 500);
-    } else {
-      count.textContent = String(n).padStart(3, '0');
-    }
+    if (n >= 100) { n = 100; clearInterval(tick); count.textContent = '100'; setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 500); }
+    else count.textContent = String(n).padStart(3, '0');
   }, 60);
-  
-  setTimeout(() => {
-    loader.classList.add('done');
-    document.body.style.overflow = 'auto';
-  }, 2500);
+  setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 2500);
 })();
 
-/* ============================================
-   CUSTOM CURSOR (THROTTLED FOR MAX FPS)
-   ============================================ */
 (function(){
   if (window.matchMedia('(max-width: 900px)').matches) return;
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
+  const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
   let mx = 0, my = 0, rx = 0, ry = 0;
-  
-  window.addEventListener('mousemove', (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-  }, { passive: true });
-
-  const loop = () => {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-    requestAnimationFrame(loop);
-  };
+  window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`; }, { passive: true });
+  const loop = () => { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`; requestAnimationFrame(loop); };
   loop();
-  
   document.querySelectorAll('[data-hover], a, button').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
@@ -1378,43 +889,24 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   window.addEventListener('mouseup', () => ring.classList.remove('click'));
 })();
 
-/* ============================================
-   SPOTLIGHT (THROTTLED FOR MAX FPS)
-   ============================================ */
 (function(){
   if (window.matchMedia('(max-width: 900px)').matches) return;
   const sp = document.getElementById('spotlight');
   let tx = 0, ty = 0, cx = 0, cy = 0;
-  
-  window.addEventListener('mousemove', (e) => {
-    tx = e.clientX;
-    ty = e.clientY;
-  }, { passive: true });
-
-  const loop = () => {
-    cx += (tx - cx) * 0.08;
-    cy += (ty - cy) * 0.08;
-    sp.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-    requestAnimationFrame(loop);
-  };
+  window.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+  const loop = () => { cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08; sp.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`; requestAnimationFrame(loop); };
   loop();
 })();
 
-/* ============================================
-   NAV SCROLL
-   ============================================ */
 (function(){
-  const nav = document.getElementById('nav');
-  const progress = document.getElementById('scrollProgress');
+  const nav = document.getElementById('nav'), progress = document.getElementById('scrollProgress');
   const update = () => {
     const y = window.scrollY;
     nav.classList.toggle('scrolled', y > 60);
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.width = (y / h * 100) + '%';
+    progress.style.width = (y / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
   };
   window.addEventListener('scroll', update, { passive: true });
   update();
-
   const toggle = document.getElementById('navToggle');
   if(toggle) {
     toggle.addEventListener('click', () => nav.classList.toggle('open'));
@@ -1422,82 +914,42 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   }
 })();
 
-/* ============================================
-   LIVE TIME (GMT +4)
-   ============================================ */
 (function(){
   const el = document.getElementById('heroTime');
   const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','Երկուշաբթի','Երեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
   const update = () => {
-    const d = new Date();
-    const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-    const gmt4 = new Date(utc + (3600000 * 4));
-    const dayName = days[currentLang][gmt4.getDay()];
-    const h = String(gmt4.getHours()).padStart(2, '0');
-    const m = String(gmt4.getMinutes()).padStart(2, '0');
-    el.textContent = `${dayName} · ${h}:${m}`;
+    const d = new Date(), utc = d.getTime() + (d.getTimezoneOffset() * 60000), gmt4 = new Date(utc + (3600000 * 4));
+    el.textContent = `${days[currentLang][gmt4.getDay()]} · ${String(gmt4.getHours()).padStart(2,'0')}:${String(gmt4.getMinutes()).padStart(2,'0')}`;
   };
   update();
   setInterval(update, 30000);
 })();
 
-/* ============================================
-   HERO PARALLAX (THROTTLED)
-   ============================================ */
 (function(){
-  const shape = document.getElementById('heroShape');
-  const headline = document.getElementById('heroHeadline');
+  const shape = document.getElementById('heroShape'), headline = document.getElementById('heroHeadline');
   if (!shape) return;
   let tx = 0, ty = 0, cx = 0, cy = 0;
-  
-  window.addEventListener('mousemove', (e) => {
-    tx = (e.clientX / window.innerWidth - 0.5) * 2;
-    ty = (e.clientY / window.innerHeight - 0.5) * 2;
-  }, { passive: true });
-
-  const loop = () => {
-    cx += (tx - cx) * 0.06;
-    cy += (ty - cy) * 0.06;
-    shape.style.transform = `translateY(-50%) translate(${cx * 30}px, ${cy * 20}px)`;
-    if (headline) headline.style.transform = `translate(${cx * -8}px, ${cy * -6}px)`;
-    requestAnimationFrame(loop);
-  };
+  window.addEventListener('mousemove', (e) => { tx = (e.clientX / window.innerWidth - 0.5) * 2; ty = (e.clientY / window.innerHeight - 0.5) * 2; }, { passive: true });
+  const loop = () => { cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06; shape.style.transform = `translateY(-50%) translate(${cx * 30}px, ${cy * 20}px)`; if (headline) headline.style.transform = `translate(${cx * -8}px, ${cy * -6}px)`; requestAnimationFrame(loop); };
   loop();
 })();
 
-/* ============================================
-   REVEAL ON SCROLL
-   ============================================ */
 (function(){
   const io = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal, .reveal-stagger, .tl-item').forEach(el => io.observe(el));
 })();
 
-/* ============================================
-   STAT COUNTER
-   ============================================ */
 (function(){
   const counters = document.querySelectorAll('[data-count]');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const el = e.target;
-        const target = parseInt(el.dataset.count);
+        const el = e.target, target = parseInt(el.dataset.count);
         let n = 0;
         const step = Math.max(1, Math.floor(target / 40));
-        const tick = () => {
-          n += step;
-          if (n >= target) { el.textContent = target; return; }
-          el.textContent = n;
-          requestAnimationFrame(tick);
-        };
+        const tick = () => { n += step; if (n >= target) { el.textContent = target; return; } el.textContent = n; requestAnimationFrame(tick); };
         tick();
         io.unobserve(el);
       }
@@ -1506,92 +958,56 @@ document.querySelectorAll('.lang-btn').forEach(btn => {
   counters.forEach(c => io.observe(c));
 })();
 
-/* ============================================
-   TILT / MAGNETIC (THROTTLED)
-   ============================================ */
 (function(){
   if (window.matchMedia('(max-width: 900px)').matches) return;
-  
   document.querySelectorAll('[data-tilt]').forEach(el => {
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
       el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
       el.style.setProperty('--my', (e.clientY - r.top) + 'px');
-      el.style.transform = `perspective(1000px) rotateX(${y * -4}deg) rotateY(${x * 4}deg) translateY(-4px)`;
+      el.style.transform = `perspective(1000px) rotateX(${((e.clientY - r.top) / r.height - 0.5) * -4}deg) rotateY(${((e.clientX - r.left) / r.width - 0.5) * 4}deg) translateY(-4px)`;
     }, { passive: true });
     el.addEventListener('mouseleave', () => { el.style.transform = ''; });
   });
-  
   document.querySelectorAll('[data-magnetic]').forEach(el => {
     el.addEventListener('mousemove', (e) => {
       const r = el.getBoundingClientRect();
-      const x = e.clientX - r.left - r.width / 2;
-      const y = e.clientY - r.top - r.height / 2;
-      el.style.transform = `translate(${x * 0.2}px, ${y * 0.3}px)`;
+      el.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.2}px, ${(e.clientY - r.top - r.height / 2) * 0.3}px)`;
     }, { passive: true });
     el.addEventListener('mouseleave', () => { el.style.transform = ''; });
   });
 })();
 
-/* ============================================
-   FORM SUBMISSION (REAL EMAIL SENDING VIA FORMSPREE)
-   ============================================ */
 (function(){
-  const form = document.getElementById('contactForm');
-  const submitBtn = document.getElementById('submitBtn');
-  
+  const form = document.getElementById('contactForm'), submitBtn = document.getElementById('submitBtn');
   form.addEventListener('submit', async (e) => {
-    // If the user hasn't replaced YOUR_FORMSPREE_ID, show a helpful alert
     if (form.action.includes('YOUR_FORMSPREE_ID')) {
       e.preventDefault();
       alert('⚠️ Please set up Formspree to send real emails!\n\n1. Go to https://formspree.io/\n2. Create a free form\n3. Replace "YOUR_FORMSPREE_ID" in the HTML code with your actual Form ID.');
       return;
     }
-
     e.preventDefault();
     const originalBtnContent = submitBtn.innerHTML;
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span>Sending...</span>';
-
     try {
-      const formData = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
-
+      const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (response.ok) {
         const successMsg = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ուղարկված է — կպատասխանեմ 24 ժամվա ընթացքում' : '✓ Sent — I\'ll reply within 24h');
         submitBtn.innerHTML = successMsg;
         submitBtn.style.background = 'var(--teal)';
         form.reset();
-        setTimeout(() => { 
-          submitBtn.innerHTML = originalBtnContent; 
-          submitBtn.style.background = ''; 
-          submitBtn.disabled = false;
-        }, 4000);
-      } else {
-        throw new Error('Form submission failed');
-      }
+        setTimeout(() => { submitBtn.innerHTML = originalBtnContent; submitBtn.style.background = ''; submitBtn.disabled = false; }, 4000);
+      } else { throw new Error('Form submission failed'); }
     } catch (error) {
       const errorMsg = currentLang === 'ru' ? '✗ Ошибка отправки' : (currentLang === 'hy' ? '✗ Սխալ ուղարկման' : '✗ Error sending');
       submitBtn.innerHTML = errorMsg;
       submitBtn.style.background = 'var(--rose)';
-      setTimeout(() => { 
-        submitBtn.innerHTML = originalBtnContent; 
-        submitBtn.style.background = ''; 
-        submitBtn.disabled = false;
-      }, 3000);
+      setTimeout(() => { submitBtn.innerHTML = originalBtnContent; submitBtn.style.background = ''; submitBtn.disabled = false; }, 3000);
     }
   });
 })();
 
-/* ============================================
-   SMOOTH ANCHOR
-   ============================================ */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href');
