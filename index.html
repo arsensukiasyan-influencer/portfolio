@@ -155,9 +155,11 @@ html[lang="hy"] .skill-desc{font-family:var(--armenian)}
 .project-card{position:relative;border-radius:28px;overflow:hidden;background:var(--bg-2);border:1px solid var(--glass-border);transition:all 0.6s var(--ease);transform-style:preserve-3d;width:100%;will-change:transform,border-color}
 .project-visual{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--bg-3),var(--bg-2))}
 .project-visual::before{content:'';position:absolute;inset:0;background:var(--proj-bg,linear-gradient(135deg,rgba(201,168,118,0.2),rgba(139,127,212,0.2)));filter:blur(40px);opacity:0.6}
-.project-visual-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:clamp(3rem,8vw,7rem);font-weight:300;color:rgba(244,237,228,0.12);letter-spacing:-0.05em;transition:transform 0.6s var(--ease);will-change:transform}
+.project-visual img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;transition:transform 0.6s var(--ease)}
+.project-card:hover .project-visual img{transform:scale(1.05)}
+.project-visual-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:clamp(3rem,8vw,7rem);font-weight:300;color:rgba(244,237,228,0.12);letter-spacing:-0.05em;transition:transform 0.6s var(--ease);will-change:transform;z-index:2}
 .project-card:hover .project-visual-inner{transform:scale(1.05)}
-.project-visual-glass{position:absolute;inset:10%;border-radius:20px;background:rgba(244,237,228,0.03);backdrop-filter:blur(20px);border:1px solid rgba(244,237,228,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.6s var(--ease);will-change:transform,border-color}
+.project-visual-glass{position:absolute;inset:10%;border-radius:20px;background:rgba(244,237,228,0.03);backdrop-filter:blur(20px);border:1px solid rgba(244,237,228,0.1);display:flex;align-items:center;justify-content:center;transition:all 0.6s var(--ease);will-change:transform,border-color;z-index:3}
 .project-card:hover .project-visual-glass{transform:translateY(-8px);border-color:rgba(201,168,118,0.3)}
 .project-visual-glass::before{content:'';position:absolute;inset:0;border-radius:20px;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,0.08)50%,transparent 60%)}
 .project-info{padding:2rem}
@@ -457,9 +459,10 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     </div>
 
     <div class="projects-list reveal-stagger">
-      <!-- Project 1: Main Store -->
+      <!-- Project 1: Main Store with Image -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.3), rgba(139,127,212,0.25));">
+          <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/FC4A606A-7E10-400A-B6B5-6BD049FE73DA.png?v=1784553282" alt="World of Sports Store">
           <div class="project-visual-inner">WORLD OF SPORTS</div>
           <div class="project-visual-glass"></div>
         </div>
@@ -696,13 +699,6 @@ skill_2_title:"Frontend Coding",skill_2_desc:"Clean, semantic, and responsive we
 skill_3_title:"UI / UX Design",skill_3_desc:"Creating intuitive, beautiful, and high-converting user experiences for e-commerce.",
 skill_4_title:"GitHub & Workflow",skill_4_desc:"Version control, clean repository management, and structured development workflows.",
 work_eyebrow:"03 — Selected Work",work_title:"Projects I'm <em>proud</em> of.",
-proj_1_cat:"End-to-End E-commerce",proj_1_title:"Personal Shopify Flagship Store",
-proj_1_desc:"A comprehensive, production-ready sandbox environment where I master every facet of Shopify. Features custom brand logo design, universal product descriptions, advanced collection architecture, custom page builds, and fully optimized header/footer sections.",
-proj_link_demo:"Live Demo",proj_link_case:"Case Study",
-proj_2_cat:"Theme Development",proj_2_title:"Custom Theme Architecture",
-proj_2_desc:"Building modular, reusable theme templates and sections from scratch, demonstrating deep understanding of Shopify's Online Store 2.0 architecture.",
-proj_3_cat:"Frontend",proj_3_title:"Interactive Web Components",
-proj_3_desc:"A collection of custom HTML, CSS, and JavaScript components built for performance, accessibility, and smooth micro-interactions.",
 journey_eyebrow:"04 — Journey",journey_title:"A path of <em>continuous growth</em>.",
 tl_1_title:"Shopify & Web Specialist",tl_1_sub:"Independent Practice · French University in Armenia",
 tl_1_desc:"Launched my independent practice as a Shopify specialist and frontend developer, while simultaneously studying Marketing at a French university in Armenia to expand my strategic understanding of e-commerce.",
@@ -744,13 +740,6 @@ skill_2_title:"Frontend-код",skill_2_desc:"Чистые, семантичес
 skill_3_title:"UI / UX Дизайн",skill_3_desc:"Создание интуитивного, красивого и высококонверсионного пользовательского опыта.",
 skill_4_title:"GitHub и процессы",skill_4_desc:"Контроль версий, чистое управление репозиториями и структурированные рабочие процессы.",
 work_eyebrow:"03 — Избранные работы",work_title:"Проекты, которыми я <em>горжусь</em>.",
-proj_1_cat:"E-commerce под ключ",proj_1_title:"Личный флагманский магазин Shopify",
-proj_1_desc:"Комплексная, готовая к работе среда, где я осваиваю все аспекты Shopify. Включает разработку логотипа, универсальные описания товаров, продвинутую архитектуру коллекций, кастомные страницы и полностью оптимизированные секции шапки и подвала.",
-proj_link_demo:"Демо",proj_link_case:"Кейс",
-proj_2_cat:"Разработка тем",proj_2_title:"Архитектура кастомных тем",
-proj_2_desc:"Создание модульных, переиспользуемых шаблонов тем и секций с нуля, демонстрирующее глубокое понимание архитектуры Online Store 2.0.",
-proj_3_cat:"Frontend",proj_3_title:"Интерактивные веб-компоненты",
-proj_3_desc:"Коллекция кастомных компонентов на HTML, CSS и JavaScript, созданных для производительности, доступности и плавных микро-взаимодействий.",
 journey_eyebrow:"04 — Путь",journey_title:"Путь <em>непрерывного роста</em>.",
 tl_1_title:"Специалист по Shopify и Вебу",tl_1_sub:"Независимая практика · Французский университет в Армении",
 tl_1_desc:"Запустил свою независимую практику как специалист по Shopify и frontend-разработчик, одновременно изучая маркетинг во французском университете в Армении для расширения своего стратегического понимания электронной коммерции.",
@@ -775,50 +764,43 @@ footer_cta1:"Мечтайте масштабно.",footer_cta2:"Работайт
 footer_top:"Наверх ↑",footer_made:"Создано с любовью в Ереване"
 },
 hy:{
-nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"ապ հաստատել",
-hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտֆոլիո / 2026 — Համար 01",
+nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
+hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"որտֆոլիո / 2026 — Համար 01",
 hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"որձ:",
-hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն մ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
-hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"ապ հաստատել",hero_scroll:"Ուղղորդեք",
+hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ ուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
+hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
 about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես զարգանալու ձգտումը։</em>:",
 about_portrait_label:"Բազավորված է Երևանում",
-about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
-about_p1:"մ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
-about_p2:"Այսր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և ուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
+about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է գնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
+about_p1:"Իմ ուղին սկսվեց 2024 վականին էլեկտրոնային առևտրի արագընթաց աշխարհում վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
+about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
 stat_1:"Նվիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
 skills_eyebrow:"02 — Հնարավորություններ",skills_title:"Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
-skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
-skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
-skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար նտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի որձի ստեղծում:",
-skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"Տարբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
-work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
-proj_1_cat:"E-commerce սկզբից մինչև վերջ",proj_1_title:"Անձնական Shopify դրոշակակիր խանութ",
-proj_1_desc:"Համապարփակ, աշխատանքային պատրաստ միջավայր, որտեղ ես յուրացնում եմ Shopify-ի բոլոր կողմերը: Ներառում է բրենդի լոգոյի դիզայն, ունիվերսալ ապրանքների նկարագրություններ, հավաքածուների առաջադեմ ճարտարապետություն, հարմարեցված էջեր և լիովին օպտիմալացված վերնագիր/ստորագիր բաժիններ:",
-proj_link_demo:"ենդանի ցուցադրություն",proj_link_case:"եպքի ուսումնասիրություն",
-proj_2_cat:"եմաների մշակում",proj_2_title:"Հարմարեցված թեմաների ճարտարապետություն",
-proj_2_desc:"Զրոյից մոդուլային, վերագտագործվող եմաների կաղապարների և բաժինների կառուցում՝ ցուցադրելով Shopify-ի Online Store 2.0 ճարտարապետության խորը ըմբռնում:",
-proj_3_cat:"Frontend",proj_3_title:"Ինտերակտիվ վեբ բաղադրիչներ",
-proj_3_desc:"HTML, CSS և JavaScript լեզուներով ստեղծված հարմարեցված բաղադրիչների հավաքածու կառուցված արտադրողականության, հասանելիության և հարթ միկրո-փոխազդեցությունների համար:",
+skill_1_title:"Shopify ասնագետ",skill_1_desc:"անութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
+skill_2_title:"Frontend ծածկագրում",skill_2_desc:"աքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ամանակակից ստանդարտներով:",
+skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի փորձի ստեղծում:",
+skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"արբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
+work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"ախագծեր, որոնցով <em>հպարտ</em> եմ:",
 journey_eyebrow:"04 — Ուղի",journey_title:"<em>Անընդհատ աճի</em> ուղի:",
-tl_1_title:"Shopify և Վեբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
+tl_1_title:"Shopify և Վեբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · րանսիական համալսարան Հայաստանում",
 tl_1_desc:"Սկսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում՝ ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
 tl_2_title:"Անցում դեպի Shopify",tl_2_sub:"Ինտենսիվ մասնագիտացված ուսուցում",
-tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ ուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ժամանակակից վեբ ստանդարտները:",
+tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթլեյսի վաառողից դեպի տեխնիկական կառուցող՝ յուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ժամանակակից վեբ ստանդարտները:",
 tl_3_title:"E-commerce-ի սկիզբ",tl_3_sub:"Wildberries մարքեթփլեյս",
-tl_3_desc:"Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ուսական Wildberries մարքեթլեյսում: Այս եռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
+tl_3_desc:"կսեցի իմ եռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
 services_eyebrow:"05 — Ծառայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
-serv_1_title:"Shopify խանութի կարգավորում",serv_1_desc:"Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
-serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների ինտեգրում",serv_1_li3:"ճարման և առաքման կարգավորում",
+serv_1_title:"Shopify անութի կարգավորում",serv_1_desc:"Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
+serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների ինտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
 serv_2_title:"Frontend մշակում",serv_2_desc:"Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
 serv_2_li1:"Ադապտիվ դիզայն",serv_2_li2:"Հարմարեցված անիմացիաներ",serv_2_li3:"GitHub տեղակայում",
-serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
+serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"եր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
 serv_3_li1:"Վերնագրի և ստորագրի դիզայն",serv_3_li2:"Ապրանքի էջի օպտիմալացում",serv_3_li3:"Բրենդի ինքնության համապատասխանություն",
 quote_text:"\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
-contact_eyebrow:"06 — Կապ",contact_title:"Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
+contact_eyebrow:"06 — Կապ",contact_title:"կեք կառուցենք նչ-որ <em>անմոռանալի</em>:",
 contact_h3:"Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
-contact_desc:"Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների արմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
+contact_desc:"Անկախ նրանից, թե եզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի ուրահատուկ, անկրկնելի մոտեցմամբ:",
 contact_location:"Տեղակայում",contact_city:"Երևան, Հայաստան (GMT +4)",
-form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"ախագծի տեսակը",form_message:"Պատմեք ձեր նախագծի մասին",form_submit:"Ուղարկել հաղորդագրություն",
+form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"ատմեք ձեր նախագծի մասին",form_submit:"ւղարկել հաղորդագրություն",
 footer_cta1:"Երազեք առանց սահմանների:",footer_cta2:"Աշխատեք քրտնաջան: Մնացեք համեստ:",
 footer_top:"Դեպի վեր ↑",footer_made:"տեղծված է սիրով Երևանում"
 }
