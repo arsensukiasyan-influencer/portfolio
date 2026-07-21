@@ -12,7 +12,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 :root{--bg:#0a0908;--bg-2:#141310;--bg-3:#1c1a16;--ink:#f4ede4;--ink-dim:#b9b0a3;--ink-mute:#6b655c;--gold:#c9a876;--gold-soft:#e2c99a;--violet:#8b7fd4;--teal:#5fb8a8;--rose:#d47f8b;--glass:rgba(244,237,228,0.04);--glass-border:rgba(244,237,228,0.08);--ease:cubic-bezier(0.22,1,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1);--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;--armenian:'Noto Sans Armenian','Inter',sans-serif}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none} /* Changed to overflow:hidden initially for loader */
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none}
 html[lang="hy"] body{font-family:var(--armenian)}
 @media(max-width:900px){body{cursor:auto;overflow:auto}}
 a{color:inherit;text-decoration:none}
@@ -538,7 +538,7 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     <div class="projects-list reveal-stagger">
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.3), rgba(139,127,212,0.25));">
-          <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/ChatGPT_Image_20_2026_._18_05_23.jpg?v=1784556879" alt="World of Sports Store">
+          <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/FC4A606A-7E10-400A-B6B5-6BD049FE73DA.png?v=1784553282" alt="World of Sports Store">
         </div>
         <div class="project-info">
           <div class="project-meta">
@@ -897,7 +897,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
       count.textContent = '100'; 
       setTimeout(() => { 
         loader.classList.add('done'); 
-        document.body.style.overflow = 'auto'; // Unlocks scrolling after load
+        document.body.style.overflow = 'auto'; 
       }, 500); 
     } else {
       count.textContent = String(n).padStart(3, '0');
@@ -1056,7 +1056,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 // --- VINTAGE MUSIC PLAYER LOGIC ---
 (function(){
   const audio = new Audio();
-  // Using the raw.githubusercontent format for reliable streaming
   audio.src = 'https://raw.githubusercontent.com/arsensukiasyan-influencer/portfolio/main/chance-of-rain-albert-behar-main-version-36831-02-47.mp3';
   audio.loop = true;
   audio.volume = 0.7;
@@ -1075,7 +1074,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   
   let isPlaying = false;
   
-  // Attempt autoplay on page load (browsers may block this until user interaction)
   window.addEventListener('load', async () => {
     try {
       await audio.play();
@@ -1134,7 +1132,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     progressFill.style.width = '0%';
   });
   
-  // Click on progress bar to seek
   progressBar.addEventListener('click', (e) => {
     if (audio.duration) {
       const rect = progressBar.getBoundingClientRect();
