@@ -260,7 +260,7 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
 .spotlight{position:fixed;pointer-events:none;z-index:2;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,118,0.06),transparent 60%);transform:translate(-50%,-50%);transition:opacity 0.3s;mix-blend-mode:screen;will-change:transform}
 @media(max-width:900px){.spotlight{display:none}}
 
-/* --- Retro Vinyl Record Player --- */
+/* --- Retro Vinyl Record Player (FIXED) --- */
 .retro-player {
   position: absolute;
   bottom: 1.75rem;
@@ -380,12 +380,13 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
   opacity: 0.85;
 }
 
+/* FIXED: Tonearm now properly positioned on the record */
 .tonearm {
   position: absolute;
-  top: -10px;
-  right: -15px;
-  width: 120px;
-  height: 120px;
+  top: 5px;
+  right: 5px;
+  width: 100px;
+  height: 100px;
   pointer-events: none;
   transform-origin: top right;
   transition: transform 0.8s var(--ease);
@@ -394,13 +395,13 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
 
 .tonearm-arm {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   width: 4px;
-  height: 90px;
+  height: 75px;
   background: linear-gradient(to bottom, #8b7350, #c9a876, #8b7350);
   border-radius: 2px;
-  transform: rotate(-30deg);
+  transform: rotate(-25deg);
   transform-origin: top center;
   transition: transform 0.8s var(--ease);
   box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
@@ -432,20 +433,17 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
 }
 
 .retro-player.playing .tonearm-arm {
-  transform: rotate(-55deg);
+  transform: rotate(-50deg);
 }
 
+/* FIXED: Background removed - now transparent */
 .player-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.35rem;
-  padding: 0.75rem 1.25rem;
-  background: rgba(20, 19, 16, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border);
-  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  background: transparent;
   min-width: 200px;
 }
 
@@ -500,8 +498,8 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
   .vinyl { width: 160px; height: 160px; }
   .vinyl-label { width: 65px; height: 65px; }
   .vinyl-label-text { font-size: 0.48rem; padding: 14px 6px 6px; }
-  .tonearm { width: 100px; height: 100px; }
-  .tonearm-arm { height: 75px; }
+  .tonearm { width: 85px; height: 85px; }
+  .tonearm-arm { height: 60px; }
 }
 </style>
 </head>
@@ -1202,7 +1200,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
     try {
       const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (response.ok) {
-        const successMsg = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ուdelays — delays 24 delays' : '✓ Sent — I\'ll reply within 24h');
+        const successMsg = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ոdelays — delays 24 delays' : '✓ Sent — I\'ll reply within 24h');
         submitBtn.innerHTML = successMsg;
         submitBtn.style.background = 'var(--teal)';
         form.reset();
