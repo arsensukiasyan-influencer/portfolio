@@ -12,25 +12,24 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 :root{--bg:#0a0908;--bg-2:#141310;--bg-3:#1c1a16;--ink:#f4ede4;--ink-dim:#b9b0a3;--ink-mute:#6b655c;--gold:#c9a876;--gold-soft:#e2c99a;--violet:#8b7fd4;--teal:#5fb8a8;--rose:#d47f8b;--glass:rgba(244,237,228,0.04);--glass-border:rgba(244,237,228,0.08);--ease:cubic-bezier(0.22,1,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1);--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;--armenian:'Noto Sans Armenian','Inter',sans-serif}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none}
-html[lang="hy"] body{font-family:var(--armenian)}
-@media(max-width:900px){body{cursor:auto;overflow:auto}}
-a{color:inherit;text-decoration:none}
-button{font:inherit;background:none;border:none;color:inherit;cursor:none}
-@media(max-width:900px){button{cursor:pointer}}
-::selection{background:var(--gold);color:var(--bg)}
-.noise{position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-.global-aurora{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(139,127,212,0.18),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 70%,rgba(95,184,168,0.14),transparent 60%),radial-gradient(ellipse 40% 30% at 50% 90%,rgba(201,168,118,0.1),transparent 60%);filter:blur(40px);animation:auroraShift 24s ease-in-out infinite alternate;will-change:transform}
-@keyframes auroraShift{0%{transform:translate3d(0,0,0)scale(1)}50%{transform:translate3d(-3%,2%,0)scale(1.05)}100%{transform:translate3d(2%,-2%,0)scale(1.02)}}
 
-/* --- FIXED CURSOR STYLES --- */
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform}
+/* --- LOCKED CUSTOM CURSOR CSS --- */
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none !important}
+html[lang="hy"] body{font-family:var(--armenian)}
+@media(max-width:900px){body{cursor:auto !important;overflow:auto}}
+a,button,input,textarea,select{cursor:none !important}
+@media(max-width:900px){a,button,input,textarea,select{cursor:auto !important}}
+
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform}
 .cursor-dot{width:6px;height:6px;background:var(--ink);border-radius:50%}
 .cursor-ring{width:36px;height:36px;border:1px solid rgba(244,237,228,0.5);border-radius:50%;transition:width 0.3s var(--ease),height 0.3s var(--ease),border-color 0.3s}
 .cursor-ring.hover{width:64px;height:64px;border-color:var(--gold)}
 .cursor-ring.click{transform:translate(-50%,-50%)scale(0.8)}
-@media(max-width:900px){.cursor-dot,.cursor-ring{display:none!important}}
+@media(max-width:900px){.cursor-dot,.cursor-ring{display:none !important}}
 
+.noise{position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.global-aurora{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(139,127,212,0.18),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 70%,rgba(95,184,168,0.14),transparent 60%),radial-gradient(ellipse 40% 30% at 50% 90%,rgba(201,168,118,0.1),transparent 60%);filter:blur(40px);animation:auroraShift 24s ease-in-out infinite alternate;will-change:transform}
+@keyframes auroraShift{0%{transform:translate3d(0,0,0)scale(1)}50%{transform:translate3d(-3%,2%,0)scale(1.05)}100%{transform:translate3d(2%,-2%,0)scale(1.02)}}
 .loader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s var(--ease),visibility 0.8s}
 .loader.done{opacity:0;visibility:hidden;pointer-events:none}
 .loader-mark{font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;letter-spacing:-0.02em;color:var(--ink);overflow:hidden;display:inline-block;line-height:1.2}
@@ -155,17 +154,17 @@ html[lang="hy"] .stat-label{font-family:var(--armenian)}
 .cassette-tape.visible{opacity:1;animation:tapeMove 3s linear infinite}
 @keyframes tapeMove{0%{transform:translate(-50%,-50%) scaleX(1)}50%{transform:translate(-50%,-50%) scaleX(0.95)}100%{transform:translate(-50%,-50%) scaleX(1)}}
 .player-controls{display:flex;justify-content:center;align-items:center;gap:2rem;margin-bottom:1.5rem}
-.control-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#2a2520,#1a1814);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s var(--ease);box-shadow:0 4px 15px rgba(201,168,118,0.2),inset 0 1px 0 rgba(255,255,255,0.1)}
-@media(max-width:900px){.control-btn{cursor:pointer}}
+.control-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#2a2520,#1a1814);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:none !important;transition:all 0.3s var(--ease);box-shadow:0 4px 15px rgba(201,168,118,0.2),inset 0 1px 0 rgba(255,255,255,0.1)}
+@media(max-width:900px){.control-btn{cursor:pointer !important}}
 .control-btn:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(201,168,118,0.3),inset 0 1px 0 rgba(255,255,255,0.15)}
 .control-btn:active{transform:scale(0.98)}
 .control-btn svg{width:24px;height:24px}
 .volume-control{display:flex;align-items:center;gap:0.75rem}
 .vol-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--ink-mute)}
 .volume-slider{width:100px;height:4px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--gold),var(--violet));border-radius:2px;outline:none}
-.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none;box-shadow:0 0 10px rgba(201,168,118,0.5)}
-@media(max-width:900px){.volume-slider::-webkit-slider-thumb{cursor:pointer}}
-.volume-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none;box-shadow:0 0 10px rgba(201,168,118,0.5)}
+.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none !important;box-shadow:0 0 10px rgba(201,168,118,0.5)}
+@media(max-width:900px){.volume-slider::-webkit-slider-thumb{cursor:pointer !important}}
+.volume-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none !important;box-shadow:0 0 10px rgba(201,168,118,0.5)}
 .player-display{background:linear-gradient(145deg,#0a0908,#0f0e0b);border-radius:8px;padding:1.25rem;border:1px solid var(--glass-border);margin-bottom:1rem}
 .track-info{text-align:center;margin-bottom:0.75rem}
 .track-name{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:0.25rem}
@@ -270,9 +269,9 @@ html[lang="hy"] .contact-info p{font-family:var(--armenian)}
 html[lang="hy"] .contact-direct-label{font-family:var(--armenian)}
 .contact-form{padding:2.5rem;border-radius:28px;background:linear-gradient(145deg,rgba(244,237,228,0.04),rgba(244,237,228,0.01));border:1px solid var(--glass-border);backdrop-filter:blur(20px)}
 .form-field{position:relative;margin-bottom:1.75rem}
-.form-field input,.form-field textarea{width:100%;padding:1rem 0 0.75rem;background:transparent;border:none;border-bottom:1px solid var(--glass-border);color:var(--ink);font-family:var(--sans);font-size:0.95rem;transition:border-color 0.3s;cursor:none}
+.form-field input,.form-field textarea{width:100%;padding:1rem 0 0.75rem;background:transparent;border:none;border-bottom:1px solid var(--glass-border);color:var(--ink);font-family:var(--sans);font-size:0.95rem;transition:border-color 0.3s;cursor:none !important}
 html[lang="hy"] .form-field input,html[lang="hy"] .form-field textarea{font-family:var(--armenian)}
-@media(max-width:900px){.form-field input,.form-field textarea{cursor:text}}
+@media(max-width:900px){.form-field input,.form-field textarea{cursor:text !important}}
 .form-field textarea{resize:vertical;min-height:100px}
 .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--gold)}
 .form-field label{position:absolute;top:1rem;left:0;font-size:0.9rem;color:var(--ink-mute);pointer-events:none;transition:all 0.3s var(--ease)}
@@ -281,7 +280,7 @@ html[lang="hy"] .form-field input,html[lang="hy"] .form-field textarea{font-fami
 .form-submit:hover{background:var(--gold);transform:translateY(-2px)}
 .form-submit svg{width:14px;height:14px;transition:transform 0.4s var(--ease)}
 .form-submit:hover svg{transform:translate(4px,-4px)}
-.form-submit:disabled{opacity:0.7;cursor:not-allowed}
+.form-submit:disabled{opacity:0.7;cursor:not-allowed !important}
 footer{padding:4rem 0 2rem;border-top:1px solid var(--glass-border);position:relative;z-index:1}
 .footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem;flex-wrap:wrap;gap:2rem}
 .footer-cta{font-family:var(--serif);font-size:clamp(2rem,5vw,4rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;max-width:700px;word-wrap:break-word;overflow-wrap:break-word}
@@ -836,42 +835,42 @@ footer_cta1:"Мечтайте масштабно.",footer_cta2:"Работайт
 footer_top:"Наверх ↑",footer_made:"Создано с любовью в Ереване"
 },
 hy:{
-nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
+nav_about:"մ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
 hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտֆոլիո / 2026 — Համար 01",
 hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"փորձ:",
-hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
-hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
-about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես զարգանալու ձգտումը։</em>:",
-about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
+hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ ուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով ուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
+hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"ւղղորդեք",
+about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես արգանալու ձգտումը։</em>:",
+about_h3:"ս Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
 about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
-about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
-stat_1:"Նվիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
+about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով մ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
+stat_1:"վիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
 skills_eyebrow:"02 — Հնարավորություններ",skills_title:"Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
-skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
+skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և պտիմալացում:",
 skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
-skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի փորձի ստեղծում:",
-skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"Տարբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
+skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարր կոնվերսիոն օգտագործողի որձի ստեղծում:",
+skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"Տարբերակների վերահսկում, մաքուր եպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
 work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
 journey_eyebrow:"04 — Ուղի",journey_title:"<em>Անընդհատ աճի</em> ուղի:",
 tl_1_title:"Shopify և Վեբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
-tl_1_desc:"Սկսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում՝ ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
+tl_1_desc:"կսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում՝ ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
 tl_2_title:"Անցում դեպի Shopify",tl_2_sub:"Ինտենսիվ մասնագիտացված ուսուցում",
 tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ յուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ժամանակակից վեբ ստանդարտները:",
 tl_3_title:"E-commerce-ի սկիզբ",tl_3_sub:"Wildberries մարքեթփլեյս",
-tl_3_desc:"Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
-services_eyebrow:"05 — Ծառայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
+tl_3_desc:"Սկսեցի մ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
+services_eyebrow:"05 — առայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
 serv_1_title:"Shopify խանութի կարգավորում",serv_1_desc:"Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
-serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների ինտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
-serv_2_title:"Frontend մշակում",serv_2_desc:"Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
+serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների նտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
+serv_2_title:"Frontend մշակում",serv_2_desc:"Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և ուրահատուկ դիզայնի համար:",
 serv_2_li1:"Ադապտիվ դիզայն",serv_2_li2:"Հարմարեցված անիմացիաներ",serv_2_li3:"GitHub տեղակայում",
 serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
 serv_3_li1:"Վերնագրի և ստորագրի դիզայն",serv_3_li2:"Ապրանքի էջի օպտիմալացում",serv_3_li3:"Բրենդի ինքնության համապատասխանություն",
 quote_text:"\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
 contact_eyebrow:"06 — Կապ",contact_title:"Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
 contact_h3:"Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
-contact_desc:"Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
+contact_desc:"Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների արմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
 contact_location:"Տեղակայում",contact_city:"Երևան, Հայաստան (GMT +4)",
-form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"Պատմեք ձեր նախագծի մասին",form_submit:"Ուղարկել հաղորդագրություն",
+form_name:"Ձեր անունը",form_email:"լ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"Պատմեք ձեր նախագծի մասին",form_submit:"Ուղարկել հաղորդագրություն",
 footer_cta1:"Երազեք առանց սահմանների:",footer_cta2:"Աշխատեք քրտնաջան: Մնացեք համեստ:",
 footer_top:"Դեպի վեր ↑",footer_made:"Ստեղծված է սիրով Երևանում"
 }
@@ -912,13 +911,9 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
   }, 2500);
 })();
 
-// --- BULLETPROOF CURSOR LOGIC ---
+// --- BULLETPROOF CUSTOM CURSOR ---
 (function(){
-  const isMobile = window.matchMedia('(max-width: 900px)').matches;
-  if (isMobile) {
-    document.body.style.cursor = 'auto';
-    return;
-  }
+  if (window.matchMedia('(max-width: 900px)').matches) return;
   
   const dot = document.getElementById('cursorDot');
   const ring = document.getElementById('cursorRing');
@@ -941,7 +936,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
   }
   animateRing();
 
-  const interactiveElements = document.querySelectorAll('a, button, [data-hover], input, textarea, .project-link, .social-link, .lang-btn');
+  const interactiveElements = document.querySelectorAll('a, button, input, textarea, [data-hover], .project-link, .social-link, .lang-btn, .control-btn, .volume-slider');
   interactiveElements.forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
@@ -978,7 +973,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
 
 (function(){
   const el = document.getElementById('heroTime');
-  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','Երկուշաբթի','Երեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
+  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','Երկուշաբթի','րեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
   const update = () => {
     const d = new Date(), utc = d.getTime() + (d.getTimezoneOffset() * 60000), gmt4 = new Date(utc + (3600000 * 4));
     el.textContent = `${days[currentLang][gmt4.getDay()]} · ${String(gmt4.getHours()).padStart(2,'0')}:${String(gmt4.getMinutes()).padStart(2,'0')}`;
@@ -1170,4 +1165,3 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 </script>
 </body>
 </html>
-
