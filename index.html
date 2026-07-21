@@ -118,9 +118,7 @@ html[lang="hy"] .hero-desc{font-family:var(--armenian)}
 @media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:5rem}}
 .about-portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#2a241c 0%,#141310 100%);border:1px solid var(--glass-border)}
 .about-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,168,118,0.4),transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,127,212,0.3),transparent 50%);filter:blur(40px)}
-.about-portrait-figure{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;font-family:var(--serif);font-size:clamp(8rem,18vw,14rem);font-weight:300;color:rgba(244,237,228,0.08);line-height:0.85;padding-bottom:1rem;letter-spacing:-0.05em}
 .about-portrait-label{position:absolute;top:1.5rem;left:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
-.about-portrait-year{position:absolute;bottom:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--gold)}
 .about-content h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;line-height:1.3;letter-spacing:-0.02em;margin-bottom:2rem;word-wrap:break-word;overflow-wrap:break-word}
 html[lang="hy"] .about-content h3{font-family:var(--armenian);font-weight:400;line-height:1.4}
 .about-content h3 em{font-style:italic;color:var(--gold)}
@@ -261,6 +259,101 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
 .reveal-stagger.visible>*:nth-child(4){transition-delay:0.26s}
 .spotlight{position:fixed;pointer-events:none;z-index:2;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,118,0.06),transparent 60%);transform:translate(-50%,-50%);transition:opacity 0.3s;mix-blend-mode:screen;will-change:transform}
 @media(max-width:900px){.spotlight{display:none}}
+
+/* --- Music Player Styles --- */
+.music-player {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  right: 1.5rem;
+  padding: 1.25rem;
+  background: rgba(20, 19, 16, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.4s var(--ease);
+  z-index: 2;
+}
+.music-player:hover {
+  border-color: rgba(244, 237, 228, 0.15);
+  background: rgba(20, 19, 16, 0.8);
+}
+.music-toggle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease);
+  flex-shrink: 0;
+}
+.music-toggle:hover {
+  background: var(--gold);
+  transform: scale(1.05);
+}
+.music-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+.music-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow: hidden;
+}
+.music-title {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.music-status {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  transition: color 0.3s;
+}
+.music-player.playing .music-status {
+  color: var(--teal);
+}
+.music-visualizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 20px;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.music-player.playing .music-visualizer {
+  opacity: 1;
+}
+.music-visualizer span {
+  width: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  animation: musicBar 0.8s ease-in-out infinite alternate;
+}
+.music-visualizer span:nth-child(1) { height: 40%; animation-delay: 0s; }
+.music-visualizer span:nth-child(2) { height: 70%; animation-delay: 0.2s; }
+.music-visualizer span:nth-child(3) { height: 50%; animation-delay: 0.4s; }
+.music-visualizer span:nth-child(4) { height: 80%; animation-delay: 0.1s; }
+.music-visualizer span:nth-child(5) { height: 30%; animation-delay: 0.3s; }
+@keyframes musicBar {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
 </style>
 </head>
 <body>
@@ -370,8 +463,25 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     <div class="about-grid">
       <div class="about-portrait reveal">
         <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
-        <div class="about-portrait-figure">AS</div>
-        <div class="about-portrait-year">EST. 2024</div>
+        
+        <!-- NEW MUSIC PLAYER -->
+        <div class="music-player">
+          <audio id="bgAudio" src="https://raw.githubusercontent.com/arsensukiasyan-influencer/portfolio/main/chance-of-rain-albert-behar-main-version-36831-02-47.mp3" loop></audio>
+          
+          <button class="music-toggle" id="musicToggle" data-hover aria-label="Toggle Music">
+            <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+          </button>
+          
+          <div class="music-info">
+            <span class="music-title">Chance of Rain</span>
+            <span class="music-status" id="musicStatus">Tap to play</span>
+          </div>
+          
+          <div class="music-visualizer">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
       </div>
 
       <div class="about-content reveal">
@@ -965,6 +1075,73 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+/* --- Music Player Logic --- */
+(function(){
+  const audio = document.getElementById('bgAudio');
+  const toggleBtn = document.getElementById('musicToggle');
+  const statusText = document.getElementById('musicStatus');
+  const playerWrap = document.querySelector('.music-player');
+  const iconPlay = toggleBtn.querySelector('.icon-play');
+  const iconPause = toggleBtn.querySelector('.icon-pause');
+
+  if (!audio || !toggleBtn) return;
+
+  const getLang = () => document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
+
+  const setPlayingState = (isPlaying) => {
+    const lang = getLang();
+    if (isPlaying) {
+      audio.play().catch(() => {});
+      iconPlay.style.display = 'none';
+      iconPause.style.display = 'block';
+      playerWrap.classList.add('playing');
+      statusText.textContent = lang === 'ru' ? 'Воспроизводится' : (lang === 'hy' ? 'Նվագարկվում է' : 'Now playing');
+    } else {
+      audio.pause();
+      iconPlay.style.display = 'block';
+      iconPause.style.display = 'none';
+      playerWrap.classList.remove('playing');
+      statusText.textContent = lang === 'ru' ? 'Нажмите для воспроизведения' : (lang === 'hy' ? 'Սեղմեք նվագարկելու համար' : 'Tap to play');
+    }
+  };
+
+  toggleBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      setPlayingState(true);
+    } else {
+      setPlayingState(false);
+    }
+  });
+
+  // Try to autoplay on load
+  const tryAutoplay = () => {
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.then(() => {
+        setPlayingState(true);
+      }).catch(() => {
+        // Browsers block autoplay until the first user interaction
+        setPlayingState(false); 
+      });
+    }
+  };
+  
+  tryAutoplay();
+
+  // Update status text when language changes
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setTimeout(() => {
+        if (!audio.paused) {
+          statusText.textContent = getLang() === 'ru' ? 'Воспроизводится' : (getLang() === 'hy' ? 'Նվագարկվում է' : 'Now playing');
+        } else {
+          statusText.textContent = getLang() === 'ru' ? 'Нажмите для воспроизведения' : (getLang() === 'hy' ? 'Սեղմեք նվագարկելու համար' : 'Tap to play');
+        }
+      }, 50);
+    });
+  });
+})();
 </script>
 </body>
 </html>
