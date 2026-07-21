@@ -12,9 +12,9 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 :root{--bg:#0a0908;--bg-2:#141310;--bg-3:#1c1a16;--ink:#f4ede4;--ink-dim:#b9b0a3;--ink-mute:#6b655c;--gold:#c9a876;--gold-soft:#e2c99a;--violet:#8b7fd4;--teal:#5fb8a8;--rose:#d47f8b;--glass:rgba(244,237,228,0.04);--glass-border:rgba(244,237,228,0.08);--ease:cubic-bezier(0.22,1,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1);--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;--armenian:'Noto Sans Armenian','Inter',sans-serif}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none} /* Changed to overflow:hidden initially for loader */
 html[lang="hy"] body{font-family:var(--armenian)}
-@media(max-width:900px){body{cursor:auto}}
+@media(max-width:900px){body{cursor:auto;overflow:auto}}
 a{color:inherit;text-decoration:none}
 button{font:inherit;background:none;border:none;color:inherit;cursor:none}
 @media(max-width:900px){button{cursor:pointer}}
@@ -114,19 +114,13 @@ html[lang="hy"] .hero-desc{font-family:var(--armenian)}
 .marquee-track span::after{content:'✦';color:var(--gold);font-size:0.6em}
 .marquee-track em{font-style:italic;color:var(--ink)}
 @keyframes marquee{to{transform:translateX(-50%)}}
-.about-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:start;margin-top:4rem}
-@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:5rem}}
-.about-portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#2a241c 0%,#141310 100%)}
-.about-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,168,118,0.4),transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,127,212,0.3),transparent 50%);filter:blur(40px)}
-.about-portrait-label{position:absolute;top:1.5rem;left:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
-.about-portrait-year{position:absolute;bottom:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--gold)}
-.about-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
-.about-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);position:relative;overflow:hidden}
-.about-scroll-line::after{content:'';position:absolute;top:0;left:0;right:0;height:30%;background:var(--ink);animation:scrollLine 2.4s ease-in-out infinite}
+
+/* --- ABOUT SECTION & VINTAGE PLAYER --- */
+.about-content{max-width:800px;margin:0 auto;text-align:left}
 .about-content h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;line-height:1.3;letter-spacing:-0.02em;margin-bottom:2rem;word-wrap:break-word;overflow-wrap:break-word}
 html[lang="hy"] .about-content h3{font-family:var(--armenian);font-weight:400;line-height:1.4}
 .about-content h3 em{font-style:italic;color:var(--gold)}
-.about-content p{color:var(--ink-dim);font-size:1rem;line-height:1.75;margin-bottom:1.5rem;max-width:520px;word-wrap:break-word;overflow-wrap:break-word}
+.about-content p{color:var(--ink-dim);font-size:1rem;line-height:1.75;margin-bottom:1.5rem;word-wrap:break-word;overflow-wrap:break-word}
 html[lang="hy"] .about-content p{font-family:var(--armenian)}
 .about-signature{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink);margin-top:2rem;letter-spacing:-0.02em}
 .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:3rem;border-top:1px solid var(--glass-border)}
@@ -135,6 +129,50 @@ html[lang="hy"] .about-content p{font-family:var(--armenian)}
 .stat-num .plus{color:var(--gold);margin-left:0.1em}
 .stat-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
 html[lang="hy"] .stat-label{font-family:var(--armenian)}
+
+/* Vintage Music Player Styles */
+.music-player-container{perspective:1000px;margin:3rem auto;max-width:500px}
+.vintage-player{background:linear-gradient(145deg,#1a1814 0%,#0f0e0b 100%);border-radius:16px;padding:2rem;border:2px solid var(--glass-border);box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden}
+.vintage-player::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.player-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--glass-border)}
+.player-brand{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--gold);text-shadow:0 0 10px rgba(201,168,118,0.5)}
+.player-led{width:12px;height:12px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s}
+.player-led.active{background:#ff3333;box-shadow:0 0 15px #ff3333,0 0 30px #ff3333;animation:ledPulse 1s ease-in-out infinite}
+@keyframes ledPulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.cassette-deck{background:linear-gradient(145deg,#0a0908,#141310);border-radius:12px;padding:2rem;margin-bottom:1.5rem;border:1px solid var(--glass-border);box-shadow:inset 0 2px 10px rgba(0,0,0,0.5)}
+.cassette{width:100%;max-width:320px;height:140px;margin:0 auto;background:linear-gradient(145deg,#2a2520,#1a1814);border-radius:8px;position:relative;border:2px solid #3a3530;box-shadow:0 4px 15px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05)}
+.cassette-reel{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.1),transparent),linear-gradient(145deg,#1a1814,#0a0908);border:3px solid #3a3530;box-shadow:0 0 0 2px #2a2520,inset 0 2px 5px rgba(0,0,0,0.5)}
+.cassette-reel.left{left:35px}
+.cassette-reel.right{right:35px}
+.cassette-reel::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:#0a0908;border:2px solid #3a3530}
+.cassette-reel.playing::after{content:'';position:absolute;inset:8px;border-radius:50%;border:2px dashed var(--gold);animation:reelSpin 2s linear infinite}
+@keyframes reelSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.cassette-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:0.65rem;letter-spacing:0.3em;color:var(--ink-mute);text-transform:uppercase}
+.cassette-tape{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:4px;background:linear-gradient(90deg,transparent,#3a2a1a,transparent);opacity:0;transition:opacity 0.3s}
+.cassette-tape.visible{opacity:1;animation:tapeMove 3s linear infinite}
+@keyframes tapeMove{0%{transform:translate(-50%,-50%) scaleX(1)}50%{transform:translate(-50%,-50%) scaleX(0.95)}100%{transform:translate(-50%,-50%) scaleX(1)}}
+.player-controls{display:flex;justify-content:center;align-items:center;gap:2rem;margin-bottom:1.5rem}
+.control-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#2a2520,#1a1814);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:none;transition:all 0.3s var(--ease);box-shadow:0 4px 15px rgba(201,168,118,0.2),inset 0 1px 0 rgba(255,255,255,0.1)}
+@media(max-width:900px){.control-btn{cursor:pointer}}
+.control-btn:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(201,168,118,0.3),inset 0 1px 0 rgba(255,255,255,0.15)}
+.control-btn:active{transform:scale(0.98)}
+.control-btn svg{width:24px;height:24px}
+.volume-control{display:flex;align-items:center;gap:0.75rem}
+.vol-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--ink-mute)}
+.volume-slider{width:100px;height:4px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--gold),var(--violet));border-radius:2px;outline:none}
+.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none;box-shadow:0 0 10px rgba(201,168,118,0.5)}
+@media(max-width:900px){.volume-slider::-webkit-slider-thumb{cursor:pointer}}
+.volume-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none;box-shadow:0 0 10px rgba(201,168,118,0.5)}
+.player-display{background:linear-gradient(145deg,#0a0908,#0f0e0b);border-radius:8px;padding:1.25rem;border:1px solid var(--glass-border);margin-bottom:1rem}
+.track-info{text-align:center;margin-bottom:0.75rem}
+.track-name{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:0.25rem}
+.track-artist{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase}
+.progress-bar{width:100%;height:3px;background:rgba(244,237,228,0.1);border-radius:2px;overflow:hidden;position:relative;cursor:pointer}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--violet));transition:width 0.1s linear;box-shadow:0 0 10px rgba(201,168,118,0.5)}
+.player-footer{display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--glass-border)}
+.power-text,.stereo-text{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase}
+.power-text.active{color:var(--gold);text-shadow:0 0 10px rgba(201,168,118,0.5)}
+
 .skills-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:4rem}
 @media(min-width:600px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
 .skill-card{padding:2rem 1.5rem;border-radius:24px;background:linear-gradient(145deg,rgba(244,237,228,0.03),rgba(244,237,228,0.01));border:1px solid var(--glass-border);position:relative;overflow:hidden;transition:all 0.5s var(--ease);transform-style:preserve-3d;will-change:transform,border-color}
@@ -369,38 +407,74 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
       <h2 class="section-title" data-i18n="about_title">Driven by hard work, <em>fueled by passion</em>.</h2>
     </div>
 
-    <div class="about-grid">
-      <div class="about-portrait reveal">
-        <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
-        
-        <!-- Small Scroll Indicator -->
-        <div class="about-scroll">
-          <span>Scroll</span>
-          <div class="about-scroll-line"></div>
+    <!-- Vintage Music Player -->
+    <div class="music-player-container reveal">
+      <div class="vintage-player">
+        <div class="player-header">
+          <span class="player-brand"> RETRO PLAYER</span>
+          <div class="player-led" id="playerLed"></div>
         </div>
         
-        <div class="about-portrait-year">EST. 2024</div>
+        <div class="cassette-deck">
+          <div class="cassette">
+            <div class="cassette-reel left" id="reelLeft"></div>
+            <div class="cassette-reel right" id="reelRight"></div>
+            <div class="cassette-label">NOW PLAYING</div>
+            <div class="cassette-tape" id="cassetteTape"></div>
+          </div>
+        </div>
+
+        <div class="player-controls">
+          <button class="control-btn" id="playPauseBtn" aria-label="Play/Pause" data-hover>
+            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+          </button>
+          
+          <div class="volume-control">
+            <span class="vol-label">VOL</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider">
+          </div>
+        </div>
+
+        <div class="player-display">
+          <div class="track-info">
+            <div class="track-name" id="trackName">Chance of Rain</div>
+            <div class="track-artist" id="trackArtist">Albert Behar</div>
+          </div>
+          <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <div class="player-footer">
+          <span class="power-text" id="powerText">POWER: ON</span>
+          <span class="stereo-text">STEREO</span>
+        </div>
       </div>
+    </div>
 
-      <div class="about-content reveal">
-        <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
-        <p data-i18n="about_p1">My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.</p>
-        <p data-i18n="about_p2">Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.</p>
-        <div class="about-signature">— Arsen Sukiasyan</div>
+    <div class="about-content reveal">
+      <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
+      <p data-i18n="about_p1">My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.</p>
+      <p data-i18n="about_p2">Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.</p>
+      <div class="about-signature">— Arsen Sukiasyan</div>
 
-        <div class="about-stats reveal-stagger">
-          <div class="stat">
-            <div class="stat-num"><span data-count="100">0</span><span class="plus">%</span></div>
-            <div class="stat-label" data-i18n="stat_1">Dedication</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num"><span data-count="24">0</span><span class="plus">/7</span></div>
-            <div class="stat-label" data-i18n="stat_2">Support</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num"><span data-count="1">0</span></div>
-            <div class="stat-label" data-i18n="stat_3">Unique Approach</div>
-          </div>
+      <div class="about-stats reveal-stagger">
+        <div class="stat">
+          <div class="stat-num"><span data-count="100">0</span><span class="plus">%</span></div>
+          <div class="stat-label" data-i18n="stat_1">Dedication</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="24">0</span><span class="plus">/7</span></div>
+          <div class="stat-label" data-i18n="stat_2">Support</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num"><span data-count="1">0</span></div>
+          <div class="stat-label" data-i18n="stat_3">Unique Approach</div>
         </div>
       </div>
     </div>
@@ -462,7 +536,6 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     </div>
 
     <div class="projects-list reveal-stagger">
-      <!-- Project 1: Main Store with Image -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.3), rgba(139,127,212,0.25));">
           <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/ChatGPT_Image_20_2026_._18_05_23.jpg?v=1784556879" alt="World of Sports Store">
@@ -484,11 +557,9 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
         </div>
       </article>
 
-      <!-- Project 2: Landing Page -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(201,168,118,0.3), rgba(95,184,168,0.25));">
-          <div class="project-visual-inner">LANDING PAGE</div>
-          <div class="project-visual-glass"></div>
+          <div class="project-visual-inner" style="display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--mono);letter-spacing:0.2em;color:var(--ink-mute);">LANDING PAGE</div>
         </div>
         <div class="project-info">
           <div class="project-meta">
@@ -506,7 +577,6 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
           </div>
         </div>
       </article>
-
     </div>
   </div>
 </section>
@@ -689,7 +759,6 @@ hero_line1:"Crafting",hero_line2:"<em>unique</em> digital",hero_line3:"experienc
 hero_desc:"Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.",
 hero_cta1:"View my work",hero_cta2:"Let's talk",hero_scroll:"Scroll",
 about_eyebrow:"01 — About",about_title:"Driven by hard work, <em>fueled by passion</em>.",
-about_portrait_label:"Based in Yerevan",
 about_h3:"I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.",
 about_p1:"My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.",
 about_p2:"Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.",
@@ -721,7 +790,7 @@ contact_desc:"Whether you need a brand new Shopify store, a custom-coded website
 contact_location:"Location",contact_city:"Yerevan, Armenia (GMT +4)",
 form_name:"Your name",form_email:"Email address",form_subject:"Project type",form_message:"Tell me about your project",form_submit:"Send message",
 footer_cta1:"Dream big.",footer_cta2:"Work hard. Stay humble.",
-footer_top:"Back to top ↑",footer_made:"Crafted with love in Yerevan"
+footer_top:"Back to top ↑",footer_made:"Crafted with passion in Yerevan"
 },
 ru:{
 nav_about:"Обо мне",nav_skills:"Навыки",nav_work:"Работы",nav_journey:"Путь",nav_services:"Услуги",nav_cta:"Связаться",
@@ -730,7 +799,6 @@ hero_line1:"Создаю",hero_line2:"<em>уникальный</em> цифров
 hero_desc:"Специалист по Shopify и Frontend-разработчик. Я подхожу к каждому проекту как к своему собственному, привнося уникальный, неповторимый стиль в веб-разработку, UI/UX и электронную коммерцию.",
 hero_cta1:"Мои работы",hero_cta2:"Связаться",hero_scroll:"Листайте",
 about_eyebrow:"01 — Обо мне",about_title:"Движимый упорным трудом, <em>вдохновленный страстью</em>.",
-about_portrait_label:"Базируюсь в Ереване",
 about_h3:"Я Арсен — <em>специалист по Shopify</em> и разработчик, который любит помогать людям создавать успешный онлайн-бизнес.",
 about_p1:"Мой путь начался в 2024 году в динамичном мире электронной коммерции с продаж на российском маркетплейсе Wildberries. Этот ранний успех пробудил глубокое любопытство: я хотел понять технологии, стоящие за витринами магазинов. К 2026 году я погрузился в интенсивные специализированные курсы и нашел свое истинное призвание в разработке на Shopify и фронтенд-инжиниринге.",
 about_p2:"Сегодня я являюсь преданным специалистом по Shopify и веб-разработке, одновременно расширяя свои стратегические знания, изучая маркетинг во французском университете в Армении. Будь то сложная задача в коде или настоящая борьба на ковре, я верю в дисциплину, упорный труд и отношение к каждому проекту клиента как к своему собственному.",
@@ -771,7 +839,6 @@ hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> �
 hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
 hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
 about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես զարգանալու ձգտումը։</em>:",
-about_portrait_label:"Բազավորված է Երևանում",
 about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
 about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
 about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով իմ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
@@ -824,10 +891,22 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
   let n = 0;
   const tick = setInterval(() => {
     n += Math.floor(Math.random() * 15) + 5;
-    if (n >= 100) { n = 100; clearInterval(tick); count.textContent = '100'; setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 500); }
-    else count.textContent = String(n).padStart(3, '0');
+    if (n >= 100) { 
+      n = 100; 
+      clearInterval(tick); 
+      count.textContent = '100'; 
+      setTimeout(() => { 
+        loader.classList.add('done'); 
+        document.body.style.overflow = 'auto'; // Unlocks scrolling after load
+      }, 500); 
+    } else {
+      count.textContent = String(n).padStart(3, '0');
+    }
   }, 60);
-  setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 2500);
+  setTimeout(() => { 
+    loader.classList.add('done'); 
+    document.body.style.overflow = 'auto'; 
+  }, 2500);
 })();
 
 (function(){
@@ -973,6 +1052,97 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+// --- VINTAGE MUSIC PLAYER LOGIC ---
+(function(){
+  const audio = new Audio();
+  // Using the raw.githubusercontent format for reliable streaming
+  audio.src = 'https://raw.githubusercontent.com/arsensukiasyan-influencer/portfolio/main/chance-of-rain-albert-behar-main-version-36831-02-47.mp3';
+  audio.loop = true;
+  audio.volume = 0.7;
+  
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const playIcon = playPauseBtn.querySelector('.play-icon');
+  const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+  const playerLed = document.getElementById('playerLed');
+  const reelLeft = document.getElementById('reelLeft');
+  const reelRight = document.getElementById('reelRight');
+  const cassetteTape = document.getElementById('cassetteTape');
+  const volumeSlider = document.getElementById('volumeSlider');
+  const progressBar = document.getElementById('progressBar');
+  const progressFill = document.getElementById('progressFill');
+  const powerText = document.getElementById('powerText');
+  
+  let isPlaying = false;
+  
+  // Attempt autoplay on page load (browsers may block this until user interaction)
+  window.addEventListener('load', async () => {
+    try {
+      await audio.play();
+      setPlayingState(true);
+    } catch (err) {
+      console.log('Autoplay blocked by browser - user must click play');
+      setPlayingState(false);
+    }
+  });
+  
+  playPauseBtn.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      setPlayingState(false);
+    } else {
+      audio.play();
+      setPlayingState(true);
+    }
+  });
+  
+  function setPlayingState(playing) {
+    isPlaying = playing;
+    if (playing) {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      playerLed.classList.add('active');
+      reelLeft.classList.add('playing');
+      reelRight.classList.add('playing');
+      cassetteTape.classList.add('visible');
+      powerText.classList.add('active');
+      powerText.textContent = 'POWER: ON';
+    } else {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      playerLed.classList.remove('active');
+      reelLeft.classList.remove('playing');
+      reelRight.classList.remove('playing');
+      cassetteTape.classList.remove('visible');
+      powerText.classList.remove('active');
+      powerText.textContent = 'POWER: OFF';
+    }
+  }
+  
+  volumeSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value / 100;
+  });
+  
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = progress + '%';
+    }
+  });
+  
+  audio.addEventListener('ended', () => {
+    progressFill.style.width = '0%';
+  });
+  
+  // Click on progress bar to seek
+  progressBar.addEventListener('click', (e) => {
+    if (audio.duration) {
+      const rect = progressBar.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pos * audio.duration;
+    }
+  });
+})();
 </script>
 </body>
 </html>
