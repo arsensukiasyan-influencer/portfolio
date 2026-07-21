@@ -12,24 +12,22 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
 :root{--bg:#0a0908;--bg-2:#141310;--bg-3:#1c1a16;--ink:#f4ede4;--ink-dim:#b9b0a3;--ink-mute:#6b655c;--gold:#c9a876;--gold-soft:#e2c99a;--violet:#8b7fd4;--teal:#5fb8a8;--rose:#d47f8b;--glass:rgba(244,237,228,0.04);--glass-border:rgba(244,237,228,0.08);--ease:cubic-bezier(0.22,1,0.36,1);--ease-out:cubic-bezier(0.16,1,0.3,1);--serif:'Fraunces',serif;--sans:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;--armenian:'Noto Sans Armenian','Inter',sans-serif}
-
-/* --- LOCKED CUSTOM CURSOR CSS --- */
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow:hidden;cursor:none !important}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;cursor:none}
 html[lang="hy"] body{font-family:var(--armenian)}
-@media(max-width:900px){body{cursor:auto !important;overflow:auto}}
-a,button,input,textarea,select{cursor:none !important}
-@media(max-width:900px){a,button,input,textarea,select{cursor:auto !important}}
-
-.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:999999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform}
+@media(max-width:900px){body{cursor:auto}}
+a{color:inherit;text-decoration:none}
+button{font:inherit;background:none;border:none;color:inherit;cursor:none}
+@media(max-width:900px){button{cursor:pointer}}
+::selection{background:var(--gold);color:var(--bg)}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.global-aurora{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(139,127,212,0.18),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 70%,rgba(95,184,168,0.14),transparent 60%),radial-gradient(ellipse 40% 30% at 50% 90%,rgba(201,168,118,0.1),transparent 60%);filter:blur(40px);animation:auroraShift 24s ease-in-out infinite alternate;will-change:transform}
+@keyframes auroraShift{0%{transform:translate3d(0,0,0)scale(1)}50%{transform:translate3d(-3%,2%,0)scale(1.05)}100%{transform:translate3d(2%,-2%,0)scale(1.02)}}
+.cursor-dot,.cursor-ring{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;will-change:transform}
 .cursor-dot{width:6px;height:6px;background:var(--ink);border-radius:50%}
 .cursor-ring{width:36px;height:36px;border:1px solid rgba(244,237,228,0.5);border-radius:50%;transition:width 0.3s var(--ease),height 0.3s var(--ease),border-color 0.3s}
 .cursor-ring.hover{width:64px;height:64px;border-color:var(--gold)}
 .cursor-ring.click{transform:translate(-50%,-50%)scale(0.8)}
-@media(max-width:900px){.cursor-dot,.cursor-ring{display:none !important}}
-
-.noise{position:fixed;inset:0;pointer-events:none;z-index:1000;opacity:0.035;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
-.global-aurora{position:fixed;inset:-20%;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 40% at 20% 30%,rgba(139,127,212,0.18),transparent 60%),radial-gradient(ellipse 50% 35% at 80% 70%,rgba(95,184,168,0.14),transparent 60%),radial-gradient(ellipse 40% 30% at 50% 90%,rgba(201,168,118,0.1),transparent 60%);filter:blur(40px);animation:auroraShift 24s ease-in-out infinite alternate;will-change:transform}
-@keyframes auroraShift{0%{transform:translate3d(0,0,0)scale(1)}50%{transform:translate3d(-3%,2%,0)scale(1.05)}100%{transform:translate3d(2%,-2%,0)scale(1.02)}}
+@media(max-width:900px){.cursor-dot,.cursor-ring{display:none}}
 .loader{position:fixed;inset:0;z-index:10000;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s var(--ease),visibility 0.8s}
 .loader.done{opacity:0;visibility:hidden;pointer-events:none}
 .loader-mark{font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;letter-spacing:-0.02em;color:var(--ink);overflow:hidden;display:inline-block;line-height:1.2}
@@ -116,13 +114,17 @@ html[lang="hy"] .hero-desc{font-family:var(--armenian)}
 .marquee-track span::after{content:'✦';color:var(--gold);font-size:0.6em}
 .marquee-track em{font-style:italic;color:var(--ink)}
 @keyframes marquee{to{transform:translateX(-50%)}}
-
-/* --- ABOUT SECTION & VINTAGE PLAYER --- */
-.about-content{max-width:800px;margin:0 auto;text-align:left}
+.about-grid{display:grid;grid-template-columns:1fr;gap:3rem;align-items:start;margin-top:4rem}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:5rem}}
+.about-portrait{position:relative;aspect-ratio:4/5;border-radius:24px;overflow:hidden;background:linear-gradient(135deg,#2a241c 0%,#141310 100%);border:1px solid var(--glass-border)}
+.about-portrait::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 20%,rgba(201,168,118,0.4),transparent 50%),radial-gradient(circle at 70% 80%,rgba(139,127,212,0.3),transparent 50%);filter:blur(40px)}
+.about-portrait-figure{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;font-family:var(--serif);font-size:clamp(8rem,18vw,14rem);font-weight:300;color:rgba(244,237,228,0.08);line-height:0.85;padding-bottom:1rem;letter-spacing:-0.05em}
+.about-portrait-label{position:absolute;top:1.5rem;left:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
+.about-portrait-year{position:absolute;bottom:1.5rem;right:1.5rem;font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;color:var(--gold)}
 .about-content h3{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:300;line-height:1.3;letter-spacing:-0.02em;margin-bottom:2rem;word-wrap:break-word;overflow-wrap:break-word}
 html[lang="hy"] .about-content h3{font-family:var(--armenian);font-weight:400;line-height:1.4}
 .about-content h3 em{font-style:italic;color:var(--gold)}
-.about-content p{color:var(--ink-dim);font-size:1rem;line-height:1.75;margin-bottom:1.5rem;word-wrap:break-word;overflow-wrap:break-word}
+.about-content p{color:var(--ink-dim);font-size:1rem;line-height:1.75;margin-bottom:1.5rem;max-width:520px;word-wrap:break-word;overflow-wrap:break-word}
 html[lang="hy"] .about-content p{font-family:var(--armenian)}
 .about-signature{font-family:var(--serif);font-style:italic;font-size:1.5rem;color:var(--ink);margin-top:2rem;letter-spacing:-0.02em}
 .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:3rem;border-top:1px solid var(--glass-border)}
@@ -131,50 +133,6 @@ html[lang="hy"] .about-content p{font-family:var(--armenian)}
 .stat-num .plus{color:var(--gold);margin-left:0.1em}
 .stat-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-mute)}
 html[lang="hy"] .stat-label{font-family:var(--armenian)}
-
-/* Vintage Music Player Styles */
-.music-player-container{perspective:1000px;margin:3rem auto;max-width:500px}
-.vintage-player{background:linear-gradient(145deg,#1a1814 0%,#0f0e0b 100%);border-radius:16px;padding:2rem;border:2px solid var(--glass-border);box-shadow:0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.1);position:relative;overflow:hidden}
-.vintage-player::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
-.player-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--glass-border)}
-.player-brand{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--gold);text-shadow:0 0 10px rgba(201,168,118,0.5)}
-.player-led{width:12px;height:12px;border-radius:50%;background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);transition:all 0.3s}
-.player-led.active{background:#ff3333;box-shadow:0 0 15px #ff3333,0 0 30px #ff3333;animation:ledPulse 1s ease-in-out infinite}
-@keyframes ledPulse{0%,100%{opacity:1}50%{opacity:0.6}}
-.cassette-deck{background:linear-gradient(145deg,#0a0908,#141310);border-radius:12px;padding:2rem;margin-bottom:1.5rem;border:1px solid var(--glass-border);box-shadow:inset 0 2px 10px rgba(0,0,0,0.5)}
-.cassette{width:100%;max-width:320px;height:140px;margin:0 auto;background:linear-gradient(145deg,#2a2520,#1a1814);border-radius:8px;position:relative;border:2px solid #3a3530;box-shadow:0 4px 15px rgba(0,0,0,0.4),inset 0 1px 0 rgba(255,255,255,0.05)}
-.cassette-reel{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.1),transparent),linear-gradient(145deg,#1a1814,#0a0908);border:3px solid #3a3530;box-shadow:0 0 0 2px #2a2520,inset 0 2px 5px rgba(0,0,0,0.5)}
-.cassette-reel.left{left:35px}
-.cassette-reel.right{right:35px}
-.cassette-reel::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:#0a0908;border:2px solid #3a3530}
-.cassette-reel.playing::after{content:'';position:absolute;inset:8px;border-radius:50%;border:2px dashed var(--gold);animation:reelSpin 2s linear infinite}
-@keyframes reelSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.cassette-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:0.65rem;letter-spacing:0.3em;color:var(--ink-mute);text-transform:uppercase}
-.cassette-tape{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:220px;height:4px;background:linear-gradient(90deg,transparent,#3a2a1a,transparent);opacity:0;transition:opacity 0.3s}
-.cassette-tape.visible{opacity:1;animation:tapeMove 3s linear infinite}
-@keyframes tapeMove{0%{transform:translate(-50%,-50%) scaleX(1)}50%{transform:translate(-50%,-50%) scaleX(0.95)}100%{transform:translate(-50%,-50%) scaleX(1)}}
-.player-controls{display:flex;justify-content:center;align-items:center;gap:2rem;margin-bottom:1.5rem}
-.control-btn{width:64px;height:64px;border-radius:50%;background:linear-gradient(145deg,#2a2520,#1a1814);border:2px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;cursor:none !important;transition:all 0.3s var(--ease);box-shadow:0 4px 15px rgba(201,168,118,0.2),inset 0 1px 0 rgba(255,255,255,0.1)}
-@media(max-width:900px){.control-btn{cursor:pointer !important}}
-.control-btn:hover{transform:scale(1.05);box-shadow:0 6px 20px rgba(201,168,118,0.3),inset 0 1px 0 rgba(255,255,255,0.15)}
-.control-btn:active{transform:scale(0.98)}
-.control-btn svg{width:24px;height:24px}
-.volume-control{display:flex;align-items:center;gap:0.75rem}
-.vol-label{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.15em;color:var(--ink-mute)}
-.volume-slider{width:100px;height:4px;-webkit-appearance:none;appearance:none;background:linear-gradient(90deg,var(--gold),var(--violet));border-radius:2px;outline:none}
-.volume-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none !important;box-shadow:0 0 10px rgba(201,168,118,0.5)}
-@media(max-width:900px){.volume-slider::-webkit-slider-thumb{cursor:pointer !important}}
-.volume-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--ink);border:2px solid var(--gold);cursor:none !important;box-shadow:0 0 10px rgba(201,168,118,0.5)}
-.player-display{background:linear-gradient(145deg,#0a0908,#0f0e0b);border-radius:8px;padding:1.25rem;border:1px solid var(--glass-border);margin-bottom:1rem}
-.track-info{text-align:center;margin-bottom:0.75rem}
-.track-name{font-family:var(--serif);font-size:1.1rem;color:var(--ink);margin-bottom:0.25rem}
-.track-artist{font-family:var(--mono);font-size:0.75rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase}
-.progress-bar{width:100%;height:3px;background:rgba(244,237,228,0.1);border-radius:2px;overflow:hidden;position:relative;cursor:pointer}
-.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--violet));transition:width 0.1s linear;box-shadow:0 0 10px rgba(201,168,118,0.5)}
-.player-footer{display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--glass-border)}
-.power-text,.stereo-text{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.15em;color:var(--ink-mute);text-transform:uppercase}
-.power-text.active{color:var(--gold);text-shadow:0 0 10px rgba(201,168,118,0.5)}
-
 .skills-grid{display:grid;grid-template-columns:1fr;gap:1.25rem;margin-top:4rem}
 @media(min-width:600px){.skills-grid{grid-template-columns:repeat(2,1fr)}}
 .skill-card{padding:2rem 1.5rem;border-radius:24px;background:linear-gradient(145deg,rgba(244,237,228,0.03),rgba(244,237,228,0.01));border:1px solid var(--glass-border);position:relative;overflow:hidden;transition:all 0.5s var(--ease);transform-style:preserve-3d;will-change:transform,border-color}
@@ -269,9 +227,9 @@ html[lang="hy"] .contact-info p{font-family:var(--armenian)}
 html[lang="hy"] .contact-direct-label{font-family:var(--armenian)}
 .contact-form{padding:2.5rem;border-radius:28px;background:linear-gradient(145deg,rgba(244,237,228,0.04),rgba(244,237,228,0.01));border:1px solid var(--glass-border);backdrop-filter:blur(20px)}
 .form-field{position:relative;margin-bottom:1.75rem}
-.form-field input,.form-field textarea{width:100%;padding:1rem 0 0.75rem;background:transparent;border:none;border-bottom:1px solid var(--glass-border);color:var(--ink);font-family:var(--sans);font-size:0.95rem;transition:border-color 0.3s;cursor:none !important}
+.form-field input,.form-field textarea{width:100%;padding:1rem 0 0.75rem;background:transparent;border:none;border-bottom:1px solid var(--glass-border);color:var(--ink);font-family:var(--sans);font-size:0.95rem;transition:border-color 0.3s;cursor:none}
 html[lang="hy"] .form-field input,html[lang="hy"] .form-field textarea{font-family:var(--armenian)}
-@media(max-width:900px){.form-field input,.form-field textarea{cursor:text !important}}
+@media(max-width:900px){.form-field input,.form-field textarea{cursor:text}}
 .form-field textarea{resize:vertical;min-height:100px}
 .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--gold)}
 .form-field label{position:absolute;top:1rem;left:0;font-size:0.9rem;color:var(--ink-mute);pointer-events:none;transition:all 0.3s var(--ease)}
@@ -280,7 +238,7 @@ html[lang="hy"] .form-field input,html[lang="hy"] .form-field textarea{font-fami
 .form-submit:hover{background:var(--gold);transform:translateY(-2px)}
 .form-submit svg{width:14px;height:14px;transition:transform 0.4s var(--ease)}
 .form-submit:hover svg{transform:translate(4px,-4px)}
-.form-submit:disabled{opacity:0.7;cursor:not-allowed !important}
+.form-submit:disabled{opacity:0.7;cursor:not-allowed}
 footer{padding:4rem 0 2rem;border-top:1px solid var(--glass-border);position:relative;z-index:1}
 .footer-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem;flex-wrap:wrap;gap:2rem}
 .footer-cta{font-family:var(--serif);font-size:clamp(2rem,5vw,4rem);font-weight:300;letter-spacing:-0.03em;line-height:1.15;max-width:700px;word-wrap:break-word;overflow-wrap:break-word}
@@ -409,74 +367,32 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
       <h2 class="section-title" data-i18n="about_title">Driven by hard work, <em>fueled by passion</em>.</h2>
     </div>
 
-    <!-- Vintage Music Player -->
-    <div class="music-player-container reveal">
-      <div class="vintage-player">
-        <div class="player-header">
-          <span class="player-brand"> RETRO PLAYER</span>
-          <div class="player-led" id="playerLed"></div>
-        </div>
-        
-        <div class="cassette-deck">
-          <div class="cassette">
-            <div class="cassette-reel left" id="reelLeft"></div>
-            <div class="cassette-reel right" id="reelRight"></div>
-            <div class="cassette-label">NOW PLAYING</div>
-            <div class="cassette-tape" id="cassetteTape"></div>
-          </div>
-        </div>
-
-        <div class="player-controls">
-          <button class="control-btn" id="playPauseBtn" aria-label="Play/Pause" data-hover>
-            <svg class="play-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z"/>
-            </svg>
-            <svg class="pause-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;">
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-            </svg>
-          </button>
-          
-          <div class="volume-control">
-            <span class="vol-label">VOL</span>
-            <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider">
-          </div>
-        </div>
-
-        <div class="player-display">
-          <div class="track-info">
-            <div class="track-name" id="trackName">Chance of Rain</div>
-            <div class="track-artist" id="trackArtist">Albert Behar</div>
-          </div>
-          <div class="progress-bar" id="progressBar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-        </div>
-
-        <div class="player-footer">
-          <span class="power-text" id="powerText">POWER: ON</span>
-          <span class="stereo-text">STEREO</span>
-        </div>
+    <div class="about-grid">
+      <div class="about-portrait reveal">
+        <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
+        <div class="about-portrait-figure">AS</div>
+        <div class="about-portrait-year">EST. 2024</div>
       </div>
-    </div>
 
-    <div class="about-content reveal">
-      <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
-      <p data-i18n="about_p1">My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.</p>
-      <p data-i18n="about_p2">Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.</p>
-      <div class="about-signature">— Arsen Sukiasyan</div>
+      <div class="about-content reveal">
+        <h3 data-i18n="about_h3">I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.</h3>
+        <p data-i18n="about_p1">My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.</p>
+        <p data-i18n="about_p2">Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.</p>
+        <div class="about-signature">— Arsen Sukiasyan</div>
 
-      <div class="about-stats reveal-stagger">
-        <div class="stat">
-          <div class="stat-num"><span data-count="100">0</span><span class="plus">%</span></div>
-          <div class="stat-label" data-i18n="stat_1">Dedication</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="24">0</span><span class="plus">/7</span></div>
-          <div class="stat-label" data-i18n="stat_2">Support</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num"><span data-count="1">0</span></div>
-          <div class="stat-label" data-i18n="stat_3">Unique Approach</div>
+        <div class="about-stats reveal-stagger">
+          <div class="stat">
+            <div class="stat-num"><span data-count="100">0</span><span class="plus">%</span></div>
+            <div class="stat-label" data-i18n="stat_1">Dedication</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num"><span data-count="24">0</span><span class="plus">/7</span></div>
+            <div class="stat-label" data-i18n="stat_2">Support</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num"><span data-count="1">0</span></div>
+            <div class="stat-label" data-i18n="stat_3">Unique Approach</div>
+          </div>
         </div>
       </div>
     </div>
@@ -538,6 +454,7 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     </div>
 
     <div class="projects-list reveal-stagger">
+      <!-- Project 1: Main Store with Image -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.3), rgba(139,127,212,0.25));">
           <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/FC4A606A-7E10-400A-B6B5-6BD049FE73DA.png?v=1784553282" alt="World of Sports Store">
@@ -559,9 +476,11 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
         </div>
       </article>
 
+      <!-- Project 2: Landing Page -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(201,168,118,0.3), rgba(95,184,168,0.25));">
-          <div class="project-visual-inner" style="display:flex;align-items:center;justify-content:center;height:100%;font-family:var(--mono);letter-spacing:0.2em;color:var(--ink-mute);">LANDING PAGE</div>
+          <div class="project-visual-inner">LANDING PAGE</div>
+          <div class="project-visual-glass"></div>
         </div>
         <div class="project-info">
           <div class="project-meta">
@@ -579,6 +498,7 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
           </div>
         </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -761,6 +681,7 @@ hero_line1:"Crafting",hero_line2:"<em>unique</em> digital",hero_line3:"experienc
 hero_desc:"Shopify Specialist & Frontend Developer. I approach every project as if it were my own, bringing a unique, unrepeatable touch to web development, UI/UX, and e-commerce.",
 hero_cta1:"View my work",hero_cta2:"Let's talk",hero_scroll:"Scroll",
 about_eyebrow:"01 — About",about_title:"Driven by hard work, <em>fueled by passion</em>.",
+about_portrait_label:"Based in Yerevan",
 about_h3:"I'm Arsen — a <em>Shopify Specialist</em> and developer who loves helping people build successful online businesses.",
 about_p1:"My journey began in 2024 in the fast-paced world of e-commerce, selling on the Russian marketplace Wildberries. That early success sparked a deep curiosity: I wanted to understand the technology behind the storefronts. By 2026, I dove into intensive, specialized courses and discovered my true calling in Shopify development and frontend engineering.",
 about_p2:"Today, I am a dedicated Shopify and web specialist, simultaneously expanding my strategic knowledge by studying Marketing at a French university in Armenia. Whether I'm wrestling with complex code or literally on the wrestling mat, I believe in discipline, hard work, and treating every client's project as my own.",
@@ -792,7 +713,7 @@ contact_desc:"Whether you need a brand new Shopify store, a custom-coded website
 contact_location:"Location",contact_city:"Yerevan, Armenia (GMT +4)",
 form_name:"Your name",form_email:"Email address",form_subject:"Project type",form_message:"Tell me about your project",form_submit:"Send message",
 footer_cta1:"Dream big.",footer_cta2:"Work hard. Stay humble.",
-footer_top:"Back to top ↑",footer_made:"Crafted with passion in Yerevan"
+footer_top:"Back to top ↑",footer_made:"Crafted with love in Yerevan"
 },
 ru:{
 nav_about:"Обо мне",nav_skills:"Навыки",nav_work:"Работы",nav_journey:"Путь",nav_services:"Услуги",nav_cta:"Связаться",
@@ -801,6 +722,7 @@ hero_line1:"Создаю",hero_line2:"<em>уникальный</em> цифров
 hero_desc:"Специалист по Shopify и Frontend-разработчик. Я подхожу к каждому проекту как к своему собственному, привнося уникальный, неповторимый стиль в веб-разработку, UI/UX и электронную коммерцию.",
 hero_cta1:"Мои работы",hero_cta2:"Связаться",hero_scroll:"Листайте",
 about_eyebrow:"01 — Обо мне",about_title:"Движимый упорным трудом, <em>вдохновленный страстью</em>.",
+about_portrait_label:"Базируюсь в Ереване",
 about_h3:"Я Арсен — <em>специалист по Shopify</em> и разработчик, который любит помогать людям создавать успешный онлайн-бизнес.",
 about_p1:"Мой путь начался в 2024 году в динамичном мире электронной коммерции с продаж на российском маркетплейсе Wildberries. Этот ранний успех пробудил глубокое любопытство: я хотел понять технологии, стоящие за витринами магазинов. К 2026 году я погрузился в интенсивные специализированные курсы и нашел свое истинное призвание в разработке на Shopify и фронтенд-инжиниринге.",
 about_p2:"Сегодня я являюсь преданным специалистом по Shopify и веб-разработке, одновременно расширяя свои стратегические знания, изучая маркетинг во французском университете в Армении. Будь то сложная задача в коде или настоящая борьба на ковре, я верю в дисциплину, упорный труд и отношение к каждому проекту клиента как к своему собственному.",
@@ -835,44 +757,45 @@ footer_cta1:"Мечтайте масштабно.",footer_cta2:"Работайт
 footer_top:"Наверх ↑",footer_made:"Создано с любовью в Ереване"
 },
 hy:{
-nav_about:"մ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
-hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտֆոլիո / 2026 — Համար 01",
-hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"փորձ:",
-hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ ուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով ուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
-hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"ւղղորդեք",
-about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես արգանալու ձգտումը։</em>:",
-about_h3:"ս Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
-about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց խորը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
-about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաժամանակ ընդլայնելով մ ռազմավարական գիտելիքները՝ սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: Լինի դա բարդ կոդի հետ պայքարը, թե բառացիորեն ըմբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
+nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
+hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտոլիո / 2026 — Համար 01",
+hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"փոր:",
+hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
+hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
+about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես զարգանալու ձգտումը։</em>:",
+about_portrait_label:"Բազավորված է Երևանում",
+about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
+about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց որը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
+about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաամանակ ընդլայնելով իմ ռազմավարական գիտելիքները սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: ինի դա բարդ կոդի հետ պայքարը, ե բառացիորեն մբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
 stat_1:"վիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
 skills_eyebrow:"02 — Հնարավորություններ",skills_title:"Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
-skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և պտիմալացում:",
-skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից՝ ժամանակակից ստանդարտներով:",
-skill_3_title:"UI / UX Դիզայն",skill_3_desc:"Էլեկտրոնային առևտրի համար ինտուիտիվ, գեղեցիկ և բարր կոնվերսիոն օգտագործողի որձի ստեղծում:",
-skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"Տարբերակների վերահսկում, մաքուր եպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
-work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"Նախագծեր, որոնցով <em>հպարտ</em> եմ:",
+skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
+skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից ժամանակակից ստանդարտներով:",
+skill_3_title:"UI / UX Դիզայն",skill_3_desc:"լեկտրոնային առևտրի համար նտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի որձի ստեղծում:",
+skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"արբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
+work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"ախագծեր, որոնցով <em>հպարտ</em> եմ:",
 journey_eyebrow:"04 — Ուղի",journey_title:"<em>Անընդհատ աճի</em> ուղի:",
-tl_1_title:"Shopify և Վեբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
-tl_1_desc:"կսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում՝ ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
+tl_1_title:"Shopify և եբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
+tl_1_desc:"կսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
 tl_2_title:"Անցում դեպի Shopify",tl_2_sub:"Ինտենսիվ մասնագիտացված ուսուցում",
-tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ յուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ժամանակակից վեբ ստանդարտները:",
+tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ ուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ամանակակից վեբ ստանդարտները:",
 tl_3_title:"E-commerce-ի սկիզբ",tl_3_sub:"Wildberries մարքեթփլեյս",
-tl_3_desc:"Սկսեցի մ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
-services_eyebrow:"05 — առայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
-serv_1_title:"Shopify խանութի կարգավորում",serv_1_desc:"Խանութի լիարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
+tl_3_desc:"Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
+services_eyebrow:"05 — Ծառայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
+serv_1_title:"Shopify անութի կարգավորում",serv_1_desc:"Խանութի իարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
 serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների նտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
-serv_2_title:"Frontend մշակում",serv_2_desc:"Մաքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և ուրահատուկ դիզայնի համար:",
+serv_2_title:"Frontend մշակում",serv_2_desc:"աքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
 serv_2_li1:"Ադապտիվ դիզայն",serv_2_li2:"Հարմարեցված անիմացիաներ",serv_2_li3:"GitHub տեղակայում",
-serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող խանութի տեսքի, զգացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
+serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող անութի տեսքի, գացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
 serv_3_li1:"Վերնագրի և ստորագրի դիզայն",serv_3_li2:"Ապրանքի էջի օպտիմալացում",serv_3_li3:"Բրենդի ինքնության համապատասխանություն",
 quote_text:"\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
-contact_eyebrow:"06 — Կապ",contact_title:"Եկեք կառուցենք ինչ-որ <em>անմոռանալի</em>:",
+contact_eyebrow:"06 — Կապ",contact_title:"կեք կառուցենք նչ-որ <em>անմոռանալի</em>:",
 contact_h3:"Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
-contact_desc:"Անկախ նրանից, թե ձեզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների արմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի յուրահատուկ, անկրկնելի մոտեցմամբ:",
+contact_desc:"Անկախ նրանից, թե եզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի ուրահատուկ, անկրկնելի մոտեցմամբ:",
 contact_location:"Տեղակայում",contact_city:"Երևան, Հայաստան (GMT +4)",
-form_name:"Ձեր անունը",form_email:"լ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"Պատմեք ձեր նախագծի մասին",form_submit:"Ուղարկել հաղորդագրություն",
+form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"ատմեք ձեր նախագծի մասին",form_submit:"ւղարկել հաղորդագրություն",
 footer_cta1:"Երազեք առանց սահմանների:",footer_cta2:"Աշխատեք քրտնաջան: Մնացեք համեստ:",
-footer_top:"Դեպի վեր ↑",footer_made:"Ստեղծված է սիրով Երևանում"
+footer_top:"եպի վեր ↑",footer_made:"Ստեղծված է սիրով Երևանում"
 }
 };
 
@@ -893,57 +816,25 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
   let n = 0;
   const tick = setInterval(() => {
     n += Math.floor(Math.random() * 15) + 5;
-    if (n >= 100) { 
-      n = 100; 
-      clearInterval(tick); 
-      count.textContent = '100'; 
-      setTimeout(() => { 
-        loader.classList.add('done'); 
-        document.body.style.overflow = 'auto'; 
-      }, 500); 
-    } else {
-      count.textContent = String(n).padStart(3, '0');
-    }
+    if (n >= 100) { n = 100; clearInterval(tick); count.textContent = '100'; setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 500); }
+    else count.textContent = String(n).padStart(3, '0');
   }, 60);
-  setTimeout(() => { 
-    loader.classList.add('done'); 
-    document.body.style.overflow = 'auto'; 
-  }, 2500);
+  setTimeout(() => { loader.classList.add('done'); document.body.style.overflow = 'auto'; }, 2500);
 })();
 
-// --- BULLETPROOF CUSTOM CURSOR ---
 (function(){
   if (window.matchMedia('(max-width: 900px)').matches) return;
-  
-  const dot = document.getElementById('cursorDot');
-  const ring = document.getElementById('cursorRing');
-  if (!dot || !ring) return;
-
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-  }, { passive: true });
-
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  const interactiveElements = document.querySelectorAll('a, button, input, textarea, [data-hover], .project-link, .social-link, .lang-btn, .control-btn, .volume-slider');
-  interactiveElements.forEach(el => {
+  const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`; }, { passive: true });
+  const loop = () => { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`; requestAnimationFrame(loop); };
+  loop();
+  document.querySelectorAll('[data-hover], a, button').forEach(el => {
     el.addEventListener('mouseenter', () => ring.classList.add('hover'));
     el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
   });
-
-  document.addEventListener('mousedown', () => ring.classList.add('click'));
-  document.addEventListener('mouseup', () => ring.classList.remove('click'));
+  window.addEventListener('mousedown', () => ring.classList.add('click'));
+  window.addEventListener('mouseup', () => ring.classList.remove('click'));
 })();
 
 (function(){
@@ -973,7 +864,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
 
 (function(){
   const el = document.getElementById('heroTime');
-  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','Երկուշաբթի','րեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
+  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','րկուշաբթի','Երեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
   const update = () => {
     const d = new Date(), utc = d.getTime() + (d.getTimezoneOffset() * 60000), gmt4 = new Date(utc + (3600000 * 4));
     el.textContent = `${days[currentLang][gmt4.getDay()]} · ${String(gmt4.getHours()).padStart(2,'0')}:${String(gmt4.getMinutes()).padStart(2,'0')}`;
@@ -1040,7 +931,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
   form.addEventListener('submit', async (e) => {
     if (form.action.includes('YOUR_FORMSPREE_ID')) {
       e.preventDefault();
-      alert('⚠️ Please set up Formspree to send real emails!\n\n1. Go to https://formspree.io/\n2. Create a free form\n3. Replace "https://formspree.io/f/xgogabpz" in the HTML code with your actual Form ID.');
+      alert('⚠️ Please set up Formspree to send real emails!\n\n1. Go to https://formspree.io/\n2. Create a free form\n3. Replace "YOUR_FORMSPREE_ID" in the HTML code with your actual Form ID.');
       return;
     }
     e.preventDefault();
@@ -1074,94 +965,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
-
-// --- VINTAGE MUSIC PLAYER LOGIC ---
-(function(){
-  const audio = new Audio();
-  audio.src = 'https://raw.githubusercontent.com/arsensukiasyan-influencer/portfolio/main/chance-of-rain-albert-behar-main-version-36831-02-47.mp3';
-  audio.loop = true;
-  audio.volume = 0.7;
-  
-  const playPauseBtn = document.getElementById('playPauseBtn');
-  const playIcon = playPauseBtn.querySelector('.play-icon');
-  const pauseIcon = playPauseBtn.querySelector('.pause-icon');
-  const playerLed = document.getElementById('playerLed');
-  const reelLeft = document.getElementById('reelLeft');
-  const reelRight = document.getElementById('reelRight');
-  const cassetteTape = document.getElementById('cassetteTape');
-  const volumeSlider = document.getElementById('volumeSlider');
-  const progressBar = document.getElementById('progressBar');
-  const progressFill = document.getElementById('progressFill');
-  const powerText = document.getElementById('powerText');
-  
-  let isPlaying = false;
-  
-  window.addEventListener('load', async () => {
-    try {
-      await audio.play();
-      setPlayingState(true);
-    } catch (err) {
-      console.log('Autoplay blocked by browser - user must click play');
-      setPlayingState(false);
-    }
-  });
-  
-  playPauseBtn.addEventListener('click', () => {
-    if (isPlaying) {
-      audio.pause();
-      setPlayingState(false);
-    } else {
-      audio.play();
-      setPlayingState(true);
-    }
-  });
-  
-  function setPlayingState(playing) {
-    isPlaying = playing;
-    if (playing) {
-      playIcon.style.display = 'none';
-      pauseIcon.style.display = 'block';
-      playerLed.classList.add('active');
-      reelLeft.classList.add('playing');
-      reelRight.classList.add('playing');
-      cassetteTape.classList.add('visible');
-      powerText.classList.add('active');
-      powerText.textContent = 'POWER: ON';
-    } else {
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-      playerLed.classList.remove('active');
-      reelLeft.classList.remove('playing');
-      reelRight.classList.remove('playing');
-      cassetteTape.classList.remove('visible');
-      powerText.classList.remove('active');
-      powerText.textContent = 'POWER: OFF';
-    }
-  }
-  
-  volumeSlider.addEventListener('input', (e) => {
-    audio.volume = e.target.value / 100;
-  });
-  
-  audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      const progress = (audio.currentTime / audio.duration) * 100;
-      progressFill.style.width = progress + '%';
-    }
-  });
-  
-  audio.addEventListener('ended', () => {
-    progressFill.style.width = '0%';
-  });
-  
-  progressBar.addEventListener('click', (e) => {
-    if (audio.duration) {
-      const rect = progressBar.getBoundingClientRect();
-      const pos = (e.clientX - rect.left) / rect.width;
-      audio.currentTime = pos * audio.duration;
-    }
-  });
-})();
 </script>
 </body>
 </html>
