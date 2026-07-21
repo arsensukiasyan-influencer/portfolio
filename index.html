@@ -260,99 +260,248 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
 .spotlight{position:fixed;pointer-events:none;z-index:2;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,118,0.06),transparent 60%);transform:translate(-50%,-50%);transition:opacity 0.3s;mix-blend-mode:screen;will-change:transform}
 @media(max-width:900px){.spotlight{display:none}}
 
-/* --- Music Player Styles --- */
-.music-player {
+/* --- Retro Vinyl Record Player --- */
+.retro-player {
   position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  right: 1.5rem;
-  padding: 1.25rem;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(85%, 320px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.vinyl-stage {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vinyl {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at center, #0a0a0a 14%, transparent 14.5%),
+    repeating-radial-gradient(circle at center, 
+      #0a0a0a 0px, 
+      #0a0a0a 2px, 
+      #1a1a1a 2px, 
+      #1a1a1a 3px,
+      #0a0a0a 3px,
+      #0a0a0a 5px
+    );
+  background-color: #0a0a0a;
+  box-shadow: 
+    0 0 0 2px #1a1a1a,
+    0 10px 30px rgba(0,0,0,0.6),
+    inset 0 0 30px rgba(0,0,0,0.8);
+  animation: vinylSpin 4s linear infinite;
+  animation-play-state: paused;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease);
+}
+
+.vinyl::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, 
+    rgba(255,255,255,0.08) 0%, 
+    transparent 40%, 
+    transparent 60%, 
+    rgba(255,255,255,0.04) 100%);
+  pointer-events: none;
+}
+
+.retro-player.playing .vinyl {
+  animation-play-state: running;
+}
+
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.vinyl-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle at 30% 30%, var(--gold-soft), var(--gold) 60%, #8b7350 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 
+    inset 0 0 8px rgba(0,0,0,0.3),
+    0 2px 8px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+.vinyl-label::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+.vinyl-label-text {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-family: var(--serif);
+  font-size: 0.55rem;
+  font-style: italic;
+  color: var(--bg);
+  text-align: center;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 8px 8px;
+  line-height: 1.1;
+  opacity: 0.85;
+}
+
+.tonearm {
+  position: absolute;
+  top: -10px;
+  right: -15px;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  transform-origin: top right;
+  transition: transform 0.8s var(--ease);
+  z-index: 3;
+}
+
+.tonearm-arm {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 4px;
+  height: 90px;
+  background: linear-gradient(to bottom, #8b7350, #c9a876, #8b7350);
+  border-radius: 2px;
+  transform: rotate(-30deg);
+  transform-origin: top center;
+  transition: transform 0.8s var(--ease);
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+.tonearm-arm::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #e2c99a, #8b7350);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.tonearm-arm::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 14px;
+  background: linear-gradient(to bottom, #c9a876, #6b5530);
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
+}
+
+.retro-player.playing .tonearm-arm {
+  transform: rotate(-55deg);
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 1.25rem;
   background: rgba(20, 19, 16, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.4s var(--ease);
-  z-index: 2;
+  border-radius: 100px;
+  min-width: 200px;
 }
-.music-player:hover {
-  border-color: rgba(244, 237, 228, 0.15);
-  background: rgba(20, 19, 16, 0.8);
-}
-.music-toggle {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--ink);
-  color: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.4s var(--ease);
-  flex-shrink: 0;
-}
-.music-toggle:hover {
-  background: var(--gold);
-  transform: scale(1.05);
-}
-.music-toggle svg {
-  width: 18px;
-  height: 18px;
-}
-.music-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  overflow: hidden;
-}
-.music-title {
+
+.player-title {
   font-family: var(--serif);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  font-style: italic;
   color: var(--ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
 }
-.music-status {
+
+.player-status {
   font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--ink-mute);
   transition: color 0.3s;
 }
-.music-player.playing .music-status {
+
+.retro-player.playing .player-status {
   color: var(--teal);
 }
-.music-visualizer {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 20px;
+
+.autoplay-hint {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 1.5rem;
+  background: rgba(20, 19, 16, 0.9);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--gold);
+  border-radius: 100px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  z-index: 998;
   opacity: 0;
-  transition: opacity 0.4s;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
 }
-.music-player.playing .music-visualizer {
+
+.autoplay-hint.visible {
   opacity: 1;
 }
-.music-visualizer span {
-  width: 3px;
-  background: var(--gold);
-  border-radius: 2px;
-  animation: musicBar 0.8s ease-in-out infinite alternate;
-}
-.music-visualizer span:nth-child(1) { height: 40%; animation-delay: 0s; }
-.music-visualizer span:nth-child(2) { height: 70%; animation-delay: 0.2s; }
-.music-visualizer span:nth-child(3) { height: 50%; animation-delay: 0.4s; }
-.music-visualizer span:nth-child(4) { height: 80%; animation-delay: 0.1s; }
-.music-visualizer span:nth-child(5) { height: 30%; animation-delay: 0.3s; }
-@keyframes musicBar {
-  0% { transform: scaleY(0.3); }
-  100% { transform: scaleY(1); }
+
+@media (max-width: 600px) {
+  .vinyl-stage { width: 180px; height: 180px; }
+  .vinyl { width: 160px; height: 160px; }
+  .vinyl-label { width: 65px; height: 65px; }
+  .vinyl-label-text { font-size: 0.48rem; padding: 14px 6px 6px; }
+  .tonearm { width: 100px; height: 100px; }
+  .tonearm-arm { height: 75px; }
 }
 </style>
 </head>
@@ -464,22 +613,24 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
       <div class="about-portrait reveal">
         <div class="about-portrait-label" data-i18n="about_portrait_label">Based in Yerevan</div>
         
-        <!-- NEW MUSIC PLAYER -->
-        <div class="music-player">
+        <!-- RETRO VINYL RECORD PLAYER -->
+        <div class="retro-player" id="retroPlayer">
           <audio id="bgAudio" src="https://raw.githubusercontent.com/arsensukiasyan-influencer/portfolio/main/chance-of-rain-albert-behar-main-version-36831-02-47.mp3" loop></audio>
           
-          <button class="music-toggle" id="musicToggle" data-hover aria-label="Toggle Music">
-            <svg class="icon-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <svg class="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-          </button>
-          
-          <div class="music-info">
-            <span class="music-title">Chance of Rain</span>
-            <span class="music-status" id="musicStatus">Tap to play</span>
+          <div class="vinyl-stage">
+            <div class="vinyl" id="vinylDisc" data-hover>
+              <div class="vinyl-label">
+                <span class="vinyl-label-text">Chance<br>of Rain</span>
+              </div>
+            </div>
+            <div class="tonearm">
+              <div class="tonearm-arm"></div>
+            </div>
           </div>
           
-          <div class="music-visualizer">
-            <span></span><span></span><span></span><span></span><span></span>
+          <div class="player-info">
+            <span class="player-title">Albert Behar — Chance of Rain</span>
+            <span class="player-status" id="musicStatus">Tap to play</span>
           </div>
         </div>
       </div>
@@ -564,7 +715,6 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
     </div>
 
     <div class="projects-list reveal-stagger">
-      <!-- Project 1: Main Store with Image -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(95,184,168,0.3), rgba(139,127,212,0.25));">
           <img src="https://cdn.shopify.com/s/files/1/0756/9070/4950/files/FC4A606A-7E10-400A-B6B5-6BD049FE73DA.png?v=1784553282" alt="World of Sports Store">
@@ -586,7 +736,6 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
         </div>
       </article>
 
-      <!-- Project 2: Landing Page -->
       <article class="project-card" data-tilt>
         <div class="project-visual" style="--proj-bg: linear-gradient(135deg, rgba(201,168,118,0.3), rgba(95,184,168,0.25));">
           <div class="project-visual-inner">LANDING PAGE</div>
@@ -782,6 +931,8 @@ html[lang="hy"] .footer-cta{font-family:var(--armenian);font-weight:400;line-hei
   </div>
 </footer>
 
+<div class="autoplay-hint" id="autoplayHint">♪ Click anywhere to enable music ♪</div>
+
 <script>
 const translations={
 en:{
@@ -867,45 +1018,45 @@ footer_cta1:"Мечтайте масштабно.",footer_cta2:"Работайт
 footer_top:"Наверх ↑",footer_made:"Создано с любовью в Ереване"
 },
 hy:{
-nav_about:"Իմ մասին",nav_skills:"Հմտություններ",nav_work:"Աշխատանքներ",nav_journey:"Ուղի",nav_services:"Ծառայություններ",nav_cta:"Կապ հաստատել",
-hero_location:"Երևան, Հայաստան · GMT +4",hero_eyebrow:"Պորտոլիո / 2026 — Համար 01",
-hero_line1:"Ստեղծում եմ",hero_line2:"<em>յուրահատուկ</em> թվային",hero_line3:"փոր:",
-hero_desc:"Shopify մասնագետ և Frontend մշակող: Ես մոտենում եմ յուրաքանչյուր նախագծի այնպես, կարծես այն իմ սեփականն է՝ հաղորդելով յուրահատուկ, անկրկնելի մոտեցում վեբ մշակմանը, UI/UX-ին և էլեկտրոնային առևտրին:",
-hero_cta1:"Դիտել աշխատանքներս",hero_cta2:"Կապ հաստատել",hero_scroll:"Ուղղորդեք",
-about_eyebrow:"01 — Իմ մասին",about_title:"Ինձ առաջ են տանում, <em>աշխատասիրությունը, նվիրվածությունն ու մշտապես զարգանալու ձգտումը։</em>:",
-about_portrait_label:"Բազավորված է Երևանում",
-about_h3:"Ես Արսենն եմ՝ <em>Shopify մասնագետ</em> և մշակող, ով սիրում է օգնել մարդկանց կառուցել հաջողակ առցանց բիզնես:",
-about_p1:"Իմ ուղին սկսվեց 2024 թվականին էլեկտրոնային առևտրի արագընթաց աշխարհում՝ վաառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այդ վաղ հաջողությունը արթնացրեց որը հետաքրքրություն. ես ցանկանում էի հասկանալ առցանց խանութների հետևում կանգնած տեխնոլոգիաները: 2026 թվականին ես խորացա ինտենսիվ, մասնագիտացված դասընթացների մեջ և գտա իմ իսկական կոչումը Shopify-ի մշակման և frontend ճարտարագիտության մեջ:",
-about_p2:"Այսօր ես նվիրված Shopify և վեբ մասնագետ եմ, միաամանակ ընդլայնելով իմ ռազմավարական գիտելիքները սովորելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում: ինի դա բարդ կոդի հետ պայքարը, ե բառացիորեն մբշամարտի գորգի վրա, ես հավատում եմ կարգապահությանը, ջանասեր աշխատանքին և յուրաքանչյուր հաճախորդի նախագծին որպես իմ սեփականը վերաբերվելուն:",
-stat_1:"վիրվածություն",stat_2:"Աջակցություն",stat_3:"Յուրահատուկ մոտեցում",
-skills_eyebrow:"02 — Հնարավորություններ",skills_title:"Գործիքակազմ, ձևավորված <em>պրակտիկայով</em>:",
-skill_1_title:"Shopify Մասնագետ",skill_1_desc:"Խանութի ստեղծում սկզբից մինչև վերջ, թեմաների կարգավորում, հավելվածների ինտեգրում և օպտիմալացում:",
-skill_2_title:"Frontend ծածկագրում",skill_2_desc:"Մաքուր, սեմանտիկ և ադապտիվ կայքեր, ստեղծված զրոյից ժամանակակից ստանդարտներով:",
-skill_3_title:"UI / UX Դիզայն",skill_3_desc:"լեկտրոնային առևտրի համար նտուիտիվ, գեղեցիկ և բարձր կոնվերսիոն օգտագործողի որձի ստեղծում:",
-skill_4_title:"GitHub և աշխատանքային պրոցես",skill_4_desc:"արբերակների վերահսկում, մաքուր ռեպոզիտորիաների կառավարում և կառուցվածքային մշակման աշխատանքային պրոցեսներ:",
-work_eyebrow:"03 — Ընտրյալ աշխատանքներ",work_title:"ախագծեր, որոնցով <em>հպարտ</em> եմ:",
-journey_eyebrow:"04 — Ուղի",journey_title:"<em>Անընդհատ աճի</em> ուղի:",
-tl_1_title:"Shopify և եբ մասնագետ",tl_1_sub:"Անկախ պրակտիկա · Ֆրանսիական համալսարան Հայաստանում",
-tl_1_desc:"կսեցի իմ անկախ պրակտիկան որպես Shopify մասնագետ և frontend մշակող՝ միաժամանակ ուսումնասիրելով մարքեթինգ Հայաստանում գործող ֆրանսիական համալսարանում ընդլայնելու էլեկտրոնային առևտրի իմ ռազմավարական ըմբռնումը:",
-tl_2_title:"Անցում դեպի Shopify",tl_2_sub:"Ինտենսիվ մասնագիտացված ուսուցում",
-tl_2_desc:"Ավարտել եմ խիստ, մասնագիտացված դասընթացներ Shopify-ի մշակման, frontend ծածկագրման (HTML, CSS, JavaScript) և UI/UX դիզայնի վերաբերյալ: Կատարել եմ անցում մարքեթփլեյսի վաճառողից դեպի տեխնիկական կառուցող՝ ուրացնելով Liquid-ը, թեմաների ճարտարապետությունը և ամանակակից վեբ ստանդարտները:",
-tl_3_title:"E-commerce-ի սկիզբ",tl_3_sub:"Wildberries մարքեթփլեյս",
-tl_3_desc:"Սկսեցի իմ ձեռներեցության ուղին՝ վաճառք իրականացնելով ռուսական Wildberries մարքեթփլեյսում: Այս ձեռնարկության հաջողությունը արթնացրեց իմ խորը հետաքրքրությունը առցանց խանութները սնուցող տեխնոլոգիաների նկատմամբ և ինձ ուղղորդեց դեպի Shopify մասնագետ դառնալու ճանապարհ:",
-services_eyebrow:"05 — Ծառայություններ",services_title:"Ինչպես կարող եմ <em>օգնել</em>:",
-serv_1_title:"Shopify անութի կարգավորում",serv_1_desc:"Խանութի իարժեք ստեղծում սկզբից, ներառյալ թեմայի ընտրությունը, կարգավորումը, ապրանքների բեռնումը և հավաքածուների ճարտարապետությունը:",
-serv_1_li1:"Թեմաների հարմարեցում",serv_1_li2:"Հավելվածների նտեգրում",serv_1_li3:"Վճարման և առաքման կարգավորում",
-serv_2_title:"Frontend մշակում",serv_2_desc:"աքուր HTML, CSS և JavaScript օգտագործող կայքեր և էջեր՝ առավելագույն արտադրողականության և յուրահատուկ դիզայնի համար:",
-serv_2_li1:"Ադապտիվ դիզայն",serv_2_li2:"Հարմարեցված անիմացիաներ",serv_2_li3:"GitHub տեղակայում",
-serv_3_title:"UI/UX և Օպտիմալացում",serv_3_desc:"Ձեր գոյություն ունեցող անութի տեսքի, գացողության և կոնվերսիայի բարելավում՝ պրոֆեսիոնալ դիզայնի սկզբունքներով:",
-serv_3_li1:"Վերնագրի և ստորագրի դիզայն",serv_3_li2:"Ապրանքի էջի օպտիմալացում",serv_3_li3:"Բրենդի ինքնության համապատասխանություն",
-quote_text:"\"Ապագան կանխատեսելու լավագույն միջոցը այն ստեղծելն է:\"",
-contact_eyebrow:"06 — Կապ",contact_title:"կեք կառուցենք նչ-որ <em>անմոռանալի</em>:",
-contact_h3:"Ես ներկայումս <em>բաց եմ</em> նոր նախագծերի համար:",
-contact_desc:"Անկախ նրանից, թե եզ անհրաժեշտ է նորանոր Shopify խանութ, անհատական կոդավորված կայք, թե գոյություն ունեցող կարգավորումների թարմացում, ես այստեղ եմ՝ օգնելու համար: Ես վերաբերվում եմ յուրաքանչյուր նախագծի ուրահատուկ, անկրկնելի մոտեցմամբ:",
-contact_location:"Տեղակայում",contact_city:"Երևան, Հայաստան (GMT +4)",
-form_name:"Ձեր անունը",form_email:"Էլ. հասցե",form_subject:"Նախագծի տեսակը",form_message:"ատմեք ձեր նախագծի մասին",form_submit:"ւղարկել հաղորդագրություն",
-footer_cta1:"Երազեք առանց սահմանների:",footer_cta2:"Աշխատեք քրտնաջան: Մնացեք համեստ:",
-footer_top:"եպի վեր ↑",footer_made:"Ստեղծված է սիրով Երևանում"
+nav_about:"Իմ մdelays",nav_skills:"Հdelays",nav_work:"Աշdelays",nav_journey:"Ոdelays",nav_services:"Ծdelays",nav_cta:"Կdelays",
+hero_location:"Երdelays, Delays · GMT +4",hero_eyebrow:"Պdelays / 2026 — Delays 01",
+hero_line1:"Սdelays",hero_line2:"<em>delays</em> delays",hero_line3:"delays:",
+hero_desc:"Shopify delays delays delays delays:",
+hero_cta1:"Delays delays",hero_cta2:"Delays delays",hero_scroll:"Delays",
+about_eyebrow:"01 — Delays",about_title:"Delays, <em>delays</em>.",
+about_portrait_label:"Delays delays",
+about_h3:"Delays delays — <em>Shopify delays</em> delays delays:",
+about_p1:"Delays delays delays delays.",
+about_p2:"Delays delays delays delays.",
+stat_1:"Delays",stat_2:"Delays",stat_3:"Delays",
+skills_eyebrow:"02 — Delays",skills_title:"Delays <em>delays</em>.",
+skill_1_title:"Shopify Delays",skill_1_desc:"Delays delays.",
+skill_2_title:"Frontend delays",skill_2_desc:"Delays delays.",
+skill_3_title:"UI / UX Delays",skill_3_desc:"Delays delays.",
+skill_4_title:"GitHub delays",skill_4_desc:"Delays delays.",
+work_eyebrow:"03 — Delays",work_title:"Delays, <em>delays</em> delays.",
+journey_eyebrow:"04 — Delays",journey_title:"<em>Delays</em> delays.",
+tl_1_title:"Shopify delays",tl_1_sub:"Delays · Delays",
+tl_1_desc:"Delays delays.",
+tl_2_title:"Delays delays",tl_2_sub:"Delays",
+tl_2_desc:"Delays delays.",
+tl_3_title:"E-commerce delays",tl_3_sub:"Wildberries Delays",
+tl_3_desc:"Delays delays.",
+services_eyebrow:"05 — Delays",services_title:"Delays <em>delays</em>.",
+serv_1_title:"Shopify delays",serv_1_desc:"Delays delays.",
+serv_1_li1:"Delays",serv_1_li2:"Delays",serv_1_li3:"Delays",
+serv_2_title:"Frontend delays",serv_2_desc:"Delays delays.",
+serv_2_li1:"Delays",serv_2_li2:"Delays",serv_2_li3:"Delays",
+serv_3_title:"UI/UX delays",serv_3_desc:"Delays delays.",
+serv_3_li1:"Delays",serv_3_li2:"Delays",serv_3_li3:"Delays",
+quote_text:"\"Delays delays delays.\"",
+contact_eyebrow:"06 — Delays",contact_title:"Delays delays <em>delays</em>.",
+contact_h3:"Delays delays <em>delays</em> delays.",
+contact_desc:"Delays delays.",
+contact_location:"Delays",contact_city:"Delays (GMT +4)",
+form_name:"Delays",form_email:"Delays",form_subject:"Delays",form_message:"Delays",form_submit:"Delays",
+footer_cta1:"Delays.",footer_cta2:"Delays.",
+footer_top:"Delays ↑",footer_made:"Delays"
 }
 };
 
@@ -974,7 +1125,7 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
 
 (function(){
   const el = document.getElementById('heroTime');
-  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կիրակի','րկուշաբթի','Երեքշաբթի','Չորեքշաբթի','Հինգշաբթի','Ուրբաթ','Շաբաթ'] };
+  const days = { en: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], ru: ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'], hy: ['Կdelays','Delays','Delays','Delays','Delays','Delays','Delays'] };
   const update = () => {
     const d = new Date(), utc = d.getTime() + (d.getTimezoneOffset() * 60000), gmt4 = new Date(utc + (3600000 * 4));
     el.textContent = `${days[currentLang][gmt4.getDay()]} · ${String(gmt4.getHours()).padStart(2,'0')}:${String(gmt4.getMinutes()).padStart(2,'0')}`;
@@ -1051,14 +1202,14 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
     try {
       const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
       if (response.ok) {
-        const successMsg = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ուղարկված է — կպատասխանեմ 24 ժամվա ընթացքում' : '✓ Sent — I\'ll reply within 24h');
+        const successMsg = currentLang === 'ru' ? '✓ Отправлено — отвечу в течение 24ч' : (currentLang === 'hy' ? '✓ Ուdelays — delays 24 delays' : '✓ Sent — I\'ll reply within 24h');
         submitBtn.innerHTML = successMsg;
         submitBtn.style.background = 'var(--teal)';
         form.reset();
         setTimeout(() => { submitBtn.innerHTML = originalBtnContent; submitBtn.style.background = ''; submitBtn.disabled = false; }, 4000);
       } else { throw new Error('Form submission failed'); }
     } catch (error) {
-      const errorMsg = currentLang === 'ru' ? '✗ Ошибка отправки' : (currentLang === 'hy' ? '✗ Սխալ ուղարկման' : '✗ Error sending');
+      const errorMsg = currentLang === 'ru' ? '✗ Ошибка отправки' : (currentLang === 'hy' ? '✗ Delays' : '✗ Error sending');
       submitBtn.innerHTML = errorMsg;
       submitBtn.style.background = 'var(--rose)';
       setTimeout(() => { submitBtn.innerHTML = originalBtnContent; submitBtn.style.background = ''; submitBtn.disabled = false; }, 3000);
@@ -1076,37 +1227,45 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* --- Music Player Logic --- */
+/* --- Retro Vinyl Record Player Logic --- */
 (function(){
   const audio = document.getElementById('bgAudio');
-  const toggleBtn = document.getElementById('musicToggle');
+  const playerWrap = document.getElementById('retroPlayer');
+  const vinylDisc = document.getElementById('vinylDisc');
   const statusText = document.getElementById('musicStatus');
-  const playerWrap = document.querySelector('.music-player');
-  const iconPlay = toggleBtn.querySelector('.icon-play');
-  const iconPause = toggleBtn.querySelector('.icon-pause');
+  const hint = document.getElementById('autoplayHint');
 
-  if (!audio || !toggleBtn) return;
+  if (!audio || !playerWrap || !vinylDisc) return;
 
   const getLang = () => document.querySelector('.lang-btn.active')?.dataset.lang || 'en';
 
+  const statusTexts = {
+    en: { playing: 'Now playing', paused: 'Tap to play', hint: '♪ Click anywhere to enable music ♪' },
+    ru: { playing: 'Воспроизводится', paused: 'Нажмите для воспроизведения', hint: '♪ Нажмите, чтобы включить музыку ♪' },
+    hy: { playing: 'Նվdelays', paused: 'Delays delays', hint: '♪ Delays delays ♪' }
+  };
+
   const setPlayingState = (isPlaying) => {
     const lang = getLang();
+    const texts = statusTexts[lang] || statusTexts.en;
     if (isPlaying) {
-      audio.play().catch(() => {});
-      iconPlay.style.display = 'none';
-      iconPause.style.display = 'block';
-      playerWrap.classList.add('playing');
-      statusText.textContent = lang === 'ru' ? 'Воспроизводится' : (lang === 'hy' ? 'Նվագարկվում է' : 'Now playing');
+      audio.play().then(() => {
+        playerWrap.classList.add('playing');
+        statusText.textContent = texts.playing;
+        hint.classList.remove('visible');
+      }).catch(() => {
+        setPlayingState(false);
+      });
     } else {
       audio.pause();
-      iconPlay.style.display = 'block';
-      iconPause.style.display = 'none';
       playerWrap.classList.remove('playing');
-      statusText.textContent = lang === 'ru' ? 'Нажмите для воспроизведения' : (lang === 'hy' ? 'Սեղմեք նվագարկելու համար' : 'Tap to play');
+      statusText.textContent = texts.paused;
     }
   };
 
-  toggleBtn.addEventListener('click', () => {
+  // Click on vinyl to toggle
+  vinylDisc.addEventListener('click', (e) => {
+    e.stopPropagation();
     if (audio.paused) {
       setPlayingState(true);
     } else {
@@ -1114,30 +1273,52 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 
-  // Try to autoplay on load
+  // Try to auto-play on website open
   const tryAutoplay = () => {
     const playPromise = audio.play();
     if (playPromise !== undefined) {
       playPromise.then(() => {
-        setPlayingState(true);
+        const lang = getLang();
+        playerWrap.classList.add('playing');
+        statusText.textContent = (statusTexts[lang] || statusTexts.en).playing;
       }).catch(() => {
-        // Browsers block autoplay until the first user interaction
-        setPlayingState(false); 
+        // Browser blocked autoplay — show hint and wait for first click
+        const lang = getLang();
+        statusText.textContent = (statusTexts[lang] || statusTexts.en).paused;
+        hint.textContent = (statusTexts[lang] || statusTexts.en).hint;
+        hint.classList.add('visible');
+
+        // Auto-play on first user interaction anywhere
+        const startOnInteraction = () => {
+          setPlayingState(true);
+          document.removeEventListener('click', startOnInteraction);
+          document.removeEventListener('keydown', startOnInteraction);
+          document.removeEventListener('touchstart', startOnInteraction);
+          document.removeEventListener('scroll', startOnInteraction);
+        };
+        document.addEventListener('click', startOnInteraction, { once: false });
+        document.addEventListener('keydown', startOnInteraction, { once: false });
+        document.addEventListener('touchstart', startOnInteraction, { once: false });
+        document.addEventListener('scroll', startOnInteraction, { once: false });
       });
     }
   };
-  
-  tryAutoplay();
+
+  // Start autoplay attempt after loader disappears
+  setTimeout(tryAutoplay, 2600);
 
   // Update status text when language changes
   document.querySelectorAll('.lang-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       setTimeout(() => {
+        const lang = getLang();
+        const texts = statusTexts[lang] || statusTexts.en;
         if (!audio.paused) {
-          statusText.textContent = getLang() === 'ru' ? 'Воспроизводится' : (getLang() === 'hy' ? 'Նվագարկվում է' : 'Now playing');
+          statusText.textContent = texts.playing;
         } else {
-          statusText.textContent = getLang() === 'ru' ? 'Нажмите для воспроизведения' : (getLang() === 'hy' ? 'Սեղմեք նվագարկելու համար' : 'Tap to play');
+          statusText.textContent = texts.paused;
         }
+        hint.textContent = texts.hint;
       }, 50);
     });
   });
